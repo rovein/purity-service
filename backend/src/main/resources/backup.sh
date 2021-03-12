@@ -1,0 +1,2 @@
+mysqldump --user=wksz2ay8324fakib --password=hcjxm5viv3php18k --host=ivgz2rnl5rh7sphb.chr7pe7iynqr.eu-west-1.rds.amazonaws.com --protocol=tcp --port=3306 --default-character-set=utf8 --single-transaction=TRUE --column-statistics=0 --no-create-info=TRUE --skip-triggers "eycib4loy4rimj3k" > "backend/src/main/resources/backup_data.sql"
+#mysqldump --user=backup --password=backup --port=3306 --host=127.0.0.1 --default-character-set=utf8 --single-transaction=TRUE --column-statistics=0 --no-create-info=TRUE --skip-triggers "spa_finder_db" > "src/main/resources/backup_data.sql"
