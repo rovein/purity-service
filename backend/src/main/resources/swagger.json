@@ -1,31 +1,80 @@
 {
   "swagger": "2.0",
   "info": {
-    "description": "Documentation for CleanUP REST API",
+    "description": "Documentation for REST API endpoints",
     "version": "1.0.0",
-    "title": "CleanUp system API"
+    "title": "Backend system API"
   },
   "host": "localhost:8080",
   "basePath": "/",
   "tags": [
     {
+      "name": "Admin",
+      "description": "Admin Controller"
+    },
+    {
       "name": "Authorization",
       "description": "Auth Controller"
     },
     {
-      "name": "Cleaning Company",
-      "description": "Cleaning Company Controller"
+      "name": "Cleaning Provider",
+      "description": "Cleaning Provider Controller"
     },
     {
-      "name": "Customer Company",
-      "description": "Customer Company Controller"
+      "name": "Contract",
+      "description": "Contract Controller"
+    },
+    {
+      "name": "Placement Owner",
+      "description": "Placement Owner Controller"
     },
     {
       "name": "Role",
       "description": "Role Controller"
+    },
+    {
+      "name": "Smart Device",
+      "description": "Smart Device Controller"
     }
   ],
   "paths": {
+    "/admin/backup": {
+      "get": {
+        "tags": [
+          "Admin"
+        ],
+        "summary": "Performs data backup and returns mysql dump file",
+        "operationId": "getBackupData",
+        "produces": [
+          "*/*"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
     "/auth/login": {
       "post": {
         "tags": [
@@ -80,13 +129,13 @@
         "deprecated": false
       }
     },
-    "/auth/register/cleaning-company": {
+    "/auth/register/cleaning-provider": {
       "post": {
         "tags": [
           "Authorization"
         ],
-        "summary": "Registers a new cleaning company",
-        "operationId": "registerCleaningCompany",
+        "summary": "Registers a new cleaning provider",
+        "operationId": "registerCleaningProvider",
         "consumes": [
           "application/json"
         ],
@@ -96,11 +145,11 @@
         "parameters": [
           {
             "in": "body",
-            "name": "cleaningCompanyDto",
-            "description": "cleaningCompanyDto",
+            "name": "cleaningProviderDto",
+            "description": "cleaningProviderDto",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CleaningCompanyDto"
+              "$ref": "#/definitions/CleaningProviderDto"
             }
           }
         ],
@@ -134,13 +183,13 @@
         "deprecated": false
       }
     },
-    "/auth/register/customer-company": {
+    "/auth/register/placement-owner": {
       "post": {
         "tags": [
           "Authorization"
         ],
-        "summary": "Registers a new customer company",
-        "operationId": "registerCustomerCompany",
+        "summary": "Registers a new placement owner",
+        "operationId": "registerPlacementOwner",
         "consumes": [
           "application/json"
         ],
@@ -150,11 +199,11 @@
         "parameters": [
           {
             "in": "body",
-            "name": "customerCompanyDto",
-            "description": "customerCompanyDto",
+            "name": "placementOwnerDto",
+            "description": "placementOwnerDto",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CustomerCompanyDto"
+              "$ref": "#/definitions/PlacementOwnerDto"
             }
           }
         ],
@@ -188,13 +237,13 @@
         "deprecated": false
       }
     },
-    "/cleaning-companies": {
+    "/cleaning-providers": {
       "get": {
         "tags": [
-          "Cleaning Company"
+          "Cleaning Provider"
         ],
-        "summary": "Returns a list of all cleaning companies",
-        "operationId": "getAllCleaningCompanies",
+        "summary": "Returns a list of all cleaning providers",
+        "operationId": "getAllCleaningProviders",
         "produces": [
           "*/*"
         ],
@@ -204,7 +253,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/CleaningCompanyDto"
+                "$ref": "#/definitions/CleaningProviderDto"
               }
             }
           },
@@ -229,10 +278,10 @@
       },
       "post": {
         "tags": [
-          "Cleaning Company"
+          "Cleaning Provider"
         ],
-        "summary": "Adds new cleaning company",
-        "operationId": "addCleaningCompany",
+        "summary": "Adds new cleaning provider",
+        "operationId": "addCleaningProvider",
         "consumes": [
           "application/json"
         ],
@@ -242,11 +291,11 @@
         "parameters": [
           {
             "in": "body",
-            "name": "cleaningCompanyDto",
-            "description": "cleaningCompanyDto",
+            "name": "cleaningProviderDto",
+            "description": "cleaningProviderDto",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CleaningCompanyDto"
+              "$ref": "#/definitions/CleaningProviderDto"
             }
           }
         ],
@@ -281,10 +330,10 @@
       },
       "put": {
         "tags": [
-          "Cleaning Company"
+          "Cleaning Provider"
         ],
-        "summary": "Updates the cleaning company",
-        "operationId": "updateCleaningCompany",
+        "summary": "Updates the cleaning provider",
+        "operationId": "updateCleaningProvider",
         "consumes": [
           "application/json"
         ],
@@ -294,11 +343,11 @@
         "parameters": [
           {
             "in": "body",
-            "name": "cleaningCompanyDto",
-            "description": "cleaningCompanyDto",
+            "name": "cleaningProviderDto",
+            "description": "cleaningProviderDto",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CleaningCompanyDto"
+              "$ref": "#/definitions/CleaningProviderDto"
             }
           }
         ],
@@ -332,13 +381,13 @@
         "deprecated": false
       }
     },
-    "/cleaning-companies/cleaning-services/{id}": {
+    "/cleaning-providers/services/{id}": {
       "get": {
         "tags": [
-          "Cleaning Company"
+          "Cleaning Provider"
         ],
-        "summary": "Finds cleaning service by id",
-        "operationId": "getCleaningServiceById",
+        "summary": "Finds provider service by id",
+        "operationId": "getProviderServiceById",
         "produces": [
           "*/*"
         ],
@@ -380,10 +429,10 @@
       },
       "delete": {
         "tags": [
-          "Cleaning Company"
+          "Cleaning Provider"
         ],
-        "summary": "Deletes cleaning service by ID",
-        "operationId": "deleteCleaningService",
+        "summary": "Deletes provider service by ID",
+        "operationId": "deleteProviderService",
         "produces": [
           "*/*"
         ],
@@ -421,13 +470,13 @@
         "deprecated": false
       }
     },
-    "/cleaning-companies/{email}": {
+    "/cleaning-providers/{email}": {
       "get": {
         "tags": [
-          "Cleaning Company"
+          "Cleaning Provider"
         ],
-        "summary": "Finds cleaning company by email",
-        "operationId": "getCleaningCompanyByEmail",
+        "summary": "Finds cleaning provider by email",
+        "operationId": "getCleaningProviderByEmail",
         "produces": [
           "*/*"
         ],
@@ -468,10 +517,10 @@
       },
       "delete": {
         "tags": [
-          "Cleaning Company"
+          "Cleaning Provider"
         ],
-        "summary": "Deletes cleaning company by email",
-        "operationId": "deleteCleaningCompany",
+        "summary": "Deletes cleaning provider by email",
+        "operationId": "deleteCleaningProvider",
         "produces": [
           "*/*"
         ],
@@ -508,13 +557,13 @@
         "deprecated": false
       }
     },
-    "/cleaning-companies/{email}/cleaning-services": {
+    "/cleaning-providers/{email}/services": {
       "get": {
         "tags": [
-          "Cleaning Company"
+          "Cleaning Provider"
         ],
-        "summary": "Returns all cleaning company services (offers)",
-        "operationId": "getAllCleaningServices",
+        "summary": "Returns all cleaning provider services (offers)",
+        "operationId": "getAllProviderServices",
         "produces": [
           "*/*"
         ],
@@ -555,10 +604,10 @@
       },
       "post": {
         "tags": [
-          "Cleaning Company"
+          "Cleaning Provider"
         ],
-        "summary": "Adds new cleaning service for cleaning company",
-        "operationId": "addCleaningService",
+        "summary": "Adds new service for cleaning provider",
+        "operationId": "addProviderService",
         "consumes": [
           "application/json"
         ],
@@ -567,20 +616,20 @@
         ],
         "parameters": [
           {
-            "in": "body",
-            "name": "cleaningServiceDto",
-            "description": "cleaningServiceDto",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CleaningServiceDto"
-            }
-          },
-          {
             "name": "email",
             "in": "path",
             "description": "email",
             "required": true,
             "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "providerServiceDto",
+            "description": "providerServiceDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProviderServiceDto"
+            }
           }
         ],
         "responses": {
@@ -614,10 +663,10 @@
       },
       "put": {
         "tags": [
-          "Cleaning Company"
+          "Cleaning Provider"
         ],
-        "summary": "Updates cleaning service of cleaning company (service ID must be present!)",
-        "operationId": "updateCleaningService",
+        "summary": "Updates service of cleaning provider (service ID must be present!)",
+        "operationId": "updateProviderService",
         "consumes": [
           "application/json"
         ],
@@ -626,20 +675,20 @@
         ],
         "parameters": [
           {
-            "in": "body",
-            "name": "cleaningServiceDto",
-            "description": "cleaningServiceDto",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/CleaningServiceDto"
-            }
-          },
-          {
             "name": "email",
             "in": "path",
             "description": "email",
             "required": true,
             "type": "string"
+          },
+          {
+            "in": "body",
+            "name": "providerServiceDto",
+            "description": "providerServiceDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ProviderServiceDto"
+            }
           }
         ],
         "responses": {
@@ -672,13 +721,354 @@
         "deprecated": false
       }
     },
-    "/customer-companies": {
+    "/contracts": {
+      "post": {
+        "tags": [
+          "Contract"
+        ],
+        "summary": "Creates new contract",
+        "operationId": "addContract",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "contractRequestDto",
+            "description": "contractRequestDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "put": {
+        "tags": [
+          "Contract"
+        ],
+        "summary": "Updates contract (Contract ID must be present, updates only date)",
+        "operationId": "updateContract",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "contractRequestDto",
+            "description": "contractRequestDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/ContractRequestDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/contracts/cleaning-provider/{email}": {
       "get": {
         "tags": [
-          "Customer Company"
+          "Contract"
         ],
-        "summary": "Returns a list of all customer companies",
-        "operationId": "getAllCustomerCompanies",
+        "summary": "Finds all contracts for cleaning provider",
+        "operationId": "getAllContractsByCleaningProvider",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/contracts/placement-owner/{email}": {
+      "get": {
+        "tags": [
+          "Contract"
+        ],
+        "summary": "Finds all contracts for placement owner",
+        "operationId": "getAllContractsByPlacementOwner",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "email",
+            "in": "path",
+            "description": "email",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/contracts/{id}": {
+      "get": {
+        "tags": [
+          "Contract"
+        ],
+        "summary": "Finds contract by id",
+        "operationId": "getContractById",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [
+          "Contract"
+        ],
+        "summary": "Deletes contract by ID",
+        "operationId": "deleteContract",
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "id",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/device": {
+      "post": {
+        "tags": [
+          "Smart Device"
+        ],
+        "summary": "Update smart device characteristics, endpoint for Arduino",
+        "operationId": "updateSmartDevice",
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "*/*"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "smartDeviceDto",
+            "description": "smartDeviceDto",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/SmartDeviceDto"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "JWT": [
+              "global"
+            ]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/placement-owners": {
+      "get": {
+        "tags": [
+          "Placement Owner"
+        ],
+        "summary": "Returns a list of all placement owners",
+        "operationId": "getAllPlacementOwners",
         "produces": [
           "*/*"
         ],
@@ -688,7 +1078,7 @@
             "schema": {
               "type": "array",
               "items": {
-                "$ref": "#/definitions/CustomerCompanyDto"
+                "$ref": "#/definitions/PlacementOwnerDto"
               }
             }
           },
@@ -713,10 +1103,10 @@
       },
       "post": {
         "tags": [
-          "Customer Company"
+          "Placement Owner"
         ],
-        "summary": "Adds new customer company",
-        "operationId": "addCustomerCompany",
+        "summary": "Adds new placement owner",
+        "operationId": "addPlacementOwner",
         "consumes": [
           "application/json"
         ],
@@ -726,11 +1116,11 @@
         "parameters": [
           {
             "in": "body",
-            "name": "customerCompanyDto",
-            "description": "customerCompanyDto",
+            "name": "placementOwnerDto",
+            "description": "placementOwnerDto",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CustomerCompanyDto"
+              "$ref": "#/definitions/PlacementOwnerDto"
             }
           }
         ],
@@ -765,10 +1155,10 @@
       },
       "put": {
         "tags": [
-          "Customer Company"
+          "Placement Owner"
         ],
-        "summary": "Updates the customer company",
-        "operationId": "updateCustomerCompany",
+        "summary": "Updates the placement owner",
+        "operationId": "updatePlacementOwner",
         "consumes": [
           "application/json"
         ],
@@ -778,11 +1168,11 @@
         "parameters": [
           {
             "in": "body",
-            "name": "customerCompanyDto",
-            "description": "customerCompanyDto",
+            "name": "placementOwnerDto",
+            "description": "placementOwnerDto",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/CustomerCompanyDto"
+              "$ref": "#/definitions/PlacementOwnerDto"
             }
           }
         ],
@@ -816,13 +1206,13 @@
         "deprecated": false
       }
     },
-    "/customer-companies/rooms/{id}": {
+    "/placement-owners/placements/{id}": {
       "get": {
         "tags": [
-          "Customer Company"
+          "Placement Owner"
         ],
-        "summary": "Finds room by id",
-        "operationId": "getRoomById",
+        "summary": "Finds placement by id",
+        "operationId": "getPlacementById",
         "produces": [
           "*/*"
         ],
@@ -864,10 +1254,10 @@
       },
       "delete": {
         "tags": [
-          "Customer Company"
+          "Placement Owner"
         ],
-        "summary": "Deletes room by ID",
-        "operationId": "deleteRoom",
+        "summary": "Deletes placement by ID",
+        "operationId": "deletePlacement",
         "produces": [
           "*/*"
         ],
@@ -905,13 +1295,13 @@
         "deprecated": false
       }
     },
-    "/customer-companies/{email}": {
+    "/placement-owners/{email}": {
       "get": {
         "tags": [
-          "Customer Company"
+          "Placement Owner"
         ],
-        "summary": "Finds customer company by email",
-        "operationId": "getCustomerCompanyByEmail",
+        "summary": "Finds placement owner by email",
+        "operationId": "getPlacementOwnerByEmail",
         "produces": [
           "*/*"
         ],
@@ -952,10 +1342,10 @@
       },
       "delete": {
         "tags": [
-          "Customer Company"
+          "Placement Owner"
         ],
-        "summary": "Deletes customer company by email",
-        "operationId": "deleteCustomerCompany",
+        "summary": "Deletes placement owner by email",
+        "operationId": "deletePlacementOwner",
         "produces": [
           "*/*"
         ],
@@ -992,13 +1382,13 @@
         "deprecated": false
       }
     },
-    "/customer-companies/{email}/rooms": {
+    "/placement-owners/{email}/placements": {
       "get": {
         "tags": [
-          "Customer Company"
+          "Placement Owner"
         ],
-        "summary": "Returns all customer company rooms ",
-        "operationId": "getAllRooms",
+        "summary": "Returns all placements",
+        "operationId": "getAllPlacements",
         "produces": [
           "*/*"
         ],
@@ -1039,10 +1429,10 @@
       },
       "post": {
         "tags": [
-          "Customer Company"
+          "Placement Owner"
         ],
-        "summary": "Adds new room for customer company",
-        "operationId": "addRoom",
+        "summary": "Adds new placement for owner",
+        "operationId": "addPlacement",
         "consumes": [
           "application/json"
         ],
@@ -1059,11 +1449,11 @@
           },
           {
             "in": "body",
-            "name": "roomDto",
-            "description": "roomDto",
+            "name": "placementDto",
+            "description": "placementDto",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/RoomDto"
+              "$ref": "#/definitions/PlacementDto"
             }
           }
         ],
@@ -1098,10 +1488,10 @@
       },
       "put": {
         "tags": [
-          "Customer Company"
+          "Placement Owner"
         ],
-        "summary": "Updates room of customer company (room id must be present)",
-        "operationId": "updateRoom",
+        "summary": "Updates placement owner (placement id must be present)",
+        "operationId": "updatePlacement",
         "consumes": [
           "application/json"
         ],
@@ -1118,11 +1508,11 @@
           },
           {
             "in": "body",
-            "name": "roomDto",
-            "description": "roomDto",
+            "name": "placementDto",
+            "description": "placementDto",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/RoomDto"
+              "$ref": "#/definitions/PlacementDto"
             }
           }
         ],
@@ -1229,7 +1619,7 @@
       },
       "title": "AddressDto"
     },
-    "CleaningCompanyDto": {
+    "CleaningProviderDto": {
       "type": "object",
       "properties": {
         "address": {
@@ -1259,14 +1649,117 @@
           "type": "string",
           "enum": [
             "ADMIN",
-            "CUSTOMER_COMPANY",
-            "CLEANING_COMPANY"
+            "PLACEMENT_OWNER",
+            "CLEANING_PROVIDER"
           ]
         }
       },
-      "title": "CleaningCompanyDto"
+      "title": "CleaningProviderDto"
     },
-    "CleaningServiceDto": {
+    "ContractRequestDto": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "placementId": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "providerServiceId": {
+          "type": "integer",
+          "format": "int64"
+        }
+      },
+      "title": "ContractRequestDto"
+    },
+    "LoginDto": {
+      "type": "object",
+      "properties": {
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "title": "LoginDto"
+    },
+    "PlacementDto": {
+      "type": "object",
+      "properties": {
+        "area": {
+          "type": "number",
+          "format": "double"
+        },
+        "floor": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "lastCleaning": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "placementType": {
+          "type": "string"
+        },
+        "smartDevice": {
+          "$ref": "#/definitions/SmartDeviceDto"
+        },
+        "windowsCount": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "PlacementDto"
+    },
+    "PlacementOwnerDto": {
+      "type": "object",
+      "properties": {
+        "address": {
+          "$ref": "#/definitions/AddressDto"
+        },
+        "creationDate": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "email": {
+          "type": "string"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phoneNumber": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "ADMIN",
+            "PLACEMENT_OWNER",
+            "CLEANING_PROVIDER"
+          ]
+        }
+      },
+      "title": "PlacementOwnerDto"
+    },
+    "ProviderServiceDto": {
       "type": "object",
       "properties": {
         "description": {
@@ -1287,64 +1780,15 @@
         "name": {
           "type": "string"
         },
+        "placementType": {
+          "type": "string"
+        },
         "pricePerMeter": {
           "type": "number",
           "format": "double"
-        },
-        "roomType": {
-          "type": "string"
         }
       },
-      "title": "CleaningServiceDto"
-    },
-    "CustomerCompanyDto": {
-      "type": "object",
-      "properties": {
-        "address": {
-          "$ref": "#/definitions/AddressDto"
-        },
-        "creationDate": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "email": {
-          "type": "string"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "name": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        },
-        "phoneNumber": {
-          "type": "string"
-        },
-        "role": {
-          "type": "string",
-          "enum": [
-            "ADMIN",
-            "CUSTOMER_COMPANY",
-            "CLEANING_COMPANY"
-          ]
-        }
-      },
-      "title": "CustomerCompanyDto"
-    },
-    "LoginDto": {
-      "type": "object",
-      "properties": {
-        "email": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      },
-      "title": "LoginDto"
+      "title": "ProviderServiceDto"
     },
     "Role": {
       "type": "object",
@@ -1357,44 +1801,12 @@
           "type": "string",
           "enum": [
             "ADMIN",
-            "CUSTOMER_COMPANY",
-            "CLEANING_COMPANY"
+            "PLACEMENT_OWNER",
+            "CLEANING_PROVIDER"
           ]
         }
       },
       "title": "Role"
-    },
-    "RoomDto": {
-      "type": "object",
-      "properties": {
-        "area": {
-          "type": "number",
-          "format": "double"
-        },
-        "floor": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "id": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "lastCleaning": {
-          "type": "string",
-          "format": "date-time"
-        },
-        "roomType": {
-          "type": "string"
-        },
-        "smartDevice": {
-          "$ref": "#/definitions/SmartDeviceDto"
-        },
-        "windowsCount": {
-          "type": "integer",
-          "format": "int32"
-        }
-      },
-      "title": "RoomDto"
     },
     "SmartDeviceDto": {
       "type": "object",
@@ -1407,12 +1819,24 @@
           "type": "number",
           "format": "double"
         },
+        "dirtinessFactor": {
+          "type": "number",
+          "format": "double"
+        },
         "humidity": {
           "type": "number",
           "format": "double"
         },
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
         "priority": {
           "type": "string"
+        },
+        "temperature": {
+          "type": "number",
+          "format": "double"
         }
       },
       "title": "SmartDeviceDto"
