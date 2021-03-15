@@ -1,0 +1,1469 @@
+FORMAT: 1A
+HOST: http://localhost:8080/
+
+# Backend system API
+Documentation for REST API endpoints
+
+## Authentication
+This API uses Custom Header for its authentication.
+
+The parameters that are needed to be sent for this type of authentication are as follows:
++ `Loginentication`
+
+# Group Admin
+
+Admin Controller
+
+## Admin Backup [/admin/backup]
+
+### getBackupData [GET]
+Performs data backup and returns mysql dump file
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+
+# Group Provider
+
+Provider Controller
+
+## Cleaning Providers [/cleaning-providers]
+
+### getAllCleaningProviders [GET]
+Returns a list of all Providers
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### addCleaningProvider [POST]
+Adds new Provider
+
++ Request (application/json)
+
+    + Attributes (CleaningProviderDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### updateCleaningProvider [PUT]
+Updates the Provider
+
++ Request (application/json)
+
+    + Attributes (CleaningProviderDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+## Cleaning Providers Services By Id [/cleaning-providers/services/{id}]
+
++ Parameters
+    + id (number, required)
+
+        id
+
+
+### getProviderServiceById [GET]
+Finds provider service by id
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### deleteProviderService [DELETE]
+Deletes provider service by ID
+
++ Response 200 
+
+        OK
+
+
+
+
++ Response 204 
+
+        No Content
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
+
+## Cleaning Providers By Email [/cleaning-providers/{email}]
+
++ Parameters
+    + email (string, required)
+
+        email
+
+
+### getCleaningProviderByEmail [GET]
+Finds Provider by email
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### deleteCleaningProvider [DELETE]
+Deletes Provider by email
+
++ Response 200 
+
+        OK
+
+
+
+
++ Response 204 
+
+        No Content
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
+
+## Cleaning Providers Services By Email [/cleaning-providers/{email}/services]
+
++ Parameters
+    + email (string, required)
+
+        email
+
+
+### getAllProviderServices [GET]
+Returns all Provider services (offers)
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### addProviderService [POST]
+Adds new service for Provider
+
++ Request (application/json)
+
+    + Attributes (ProviderServiceDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### updateProviderService [PUT]
+Updates service of Provider (service ID must be present!)
+
++ Request (application/json)
+
+    + Attributes (ProviderServiceDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+
+# Group Agreement
+
+Agreement Controller
+
+## Agreements [/Agreements]
+
+### addAgreement [POST]
+Creates new Agreement
+
++ Request (application/json)
+
+    + Attributes (AgreementRequestDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### updateAgreement [PUT]
+Updates Agreement (Agreement ID must be present, updates only date)
+
++ Request (application/json)
+
+    + Attributes (AgreementRequestDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+## Agreements Cleaning Provider By Email [/Agreements/cleaning-provider/{email}]
+
++ Parameters
+    + email (string, required)
+
+        email
+
+
+### getAllAgreementsByCleaningProvider [GET]
+Finds all Agreements for Provider
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+## Agreements Placement Owner By Email [/Agreements/placement-owner/{email}]
+
++ Parameters
+    + email (string, required)
+
+        email
+
+
+### getAllAgreementsByPlacementOwner [GET]
+Finds all Agreements for placement owner
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+## Agreements By Id [/Agreements/{id}]
+
++ Parameters
+    + id (number, required)
+
+        id
+
+
+### getAgreementById [GET]
+Finds Agreement by id
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### deleteAgreement [DELETE]
+Deletes Agreement by ID
+
++ Response 200 
+
+        OK
+
+
+
+
++ Response 204 
+
+        No Content
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
+
+
+# Group Placement Owner
+
+Placement Owner Controller
+
+## Placement Owners [/placement-owners]
+
+### getAllPlacementOwners [GET]
+Returns a list of all placement owners
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### addPlacementOwner [POST]
+Adds new placement owner
+
++ Request (application/json)
+
+    + Attributes (PlacementOwnerDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### updatePlacementOwner [PUT]
+Updates the placement owner
+
++ Request (application/json)
+
+    + Attributes (PlacementOwnerDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+## Placement Owners Placements By Id [/placement-owners/placements/{id}]
+
++ Parameters
+    + id (number, required)
+
+        id
+
+
+### getPlacementById [GET]
+Finds placement by id
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### deletePlacement [DELETE]
+Deletes placement by ID
+
++ Response 200 
+
+        OK
+
+
+
+
++ Response 204 
+
+        No Content
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
+
+## Placement Owners By Email [/placement-owners/{email}]
+
++ Parameters
+    + email (string, required)
+
+        email
+
+
+### getPlacementOwnerByEmail [GET]
+Finds placement owner by email
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### deletePlacementOwner [DELETE]
+Deletes placement owner by email
+
++ Response 200 
+
+        OK
+
+
+
+
++ Response 204 
+
+        No Content
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
+
+## Placement Owners Placements By Email [/placement-owners/{email}/placements]
+
++ Parameters
+    + email (string, required)
+
+        email
+
+
+### getAllPlacements [GET]
+Returns all placements
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### addPlacement [POST]
+Adds new placement for owner
+
++ Request (application/json)
+
+    + Attributes (PlacementDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+### updatePlacement [PUT]
+Updates placement owner (placement id must be present)
+
++ Request (application/json)
+
+    + Attributes (PlacementDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+
+# Group Role
+
+Role Controller
+
+## Roles [/roles]
+
+### getAllRoles [GET]
+Returns a list of all roles
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+
+# Group IoT
+
+IoT Controller
+
+## Device [/device]
+
+### updateSmartDevice [POST]
+Update IoT characteristics, endpoint for Arduino
+
++ Request (application/json)
+
+    + Attributes (SmartDeviceDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+
+# Group Loginentication
+
+## Login Login [/Login/login]
+
+### loginUser [POST]
+Performs user login to the system
+
++ Request (application/json)
+
+    + Attributes (LoginDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+## Login Register Cleaning Provider [/Login/register/cleaning-provider]
+
+### registerCleaningProvider [POST]
+Registers a new Provider
+
++ Request (application/json)
+
+    + Attributes (CleaningProviderDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+## Login Register Placement Owner [/Login/register/placement-owner]
+
+### registerPlacementOwner [POST]
+Registers a new placement owner
+
++ Request (application/json)
+
+    + Attributes (PlacementOwnerDto)
+
+
+
++ Response 200 (text/plain)
+
+        OK
+
+    + Attributes (object)
+
+
+
++ Response 201 
+
+        Created
+
+
+
+
++ Response 401 
+
+        Unauthorized
+
+
+
+
++ Response 403 
+
+        Forbidden
+
+
+
+
++ Response 404 
+
+        Not Found
+
+
+
+
+
+
+# Data Structures
+
+## AddressDto (object)
+
+
+### Properties
++ `city` (string, optional) 
++ `country` (string, optional) 
++ `houseNumber` (string, optional) 
++ `latitude` (string, optional) 
++ `longitude` (string, optional) 
++ `street` (string, optional) 
+
+
+## CleaningProviderDto (object)
+
+
+### Properties
++ `address` (AddressDto, optional) 
++ `creationDate` (string, optional) 
++ `email` (string, optional) 
++ `id` (number, optional) 
++ `name` (string, optional) 
++ `password` (string, optional) 
++ `phoneNumber` (string, optional) 
++ `role` (enum[string], optional) 
+    + `ADMIN`
+    + `PLACEMENT_OWNER`
+    + `CLEANING_PROVIDER`
+
+
+## AgreementRequestDto (object)
+
+
+### Properties
++ `date` (string, optional) 
++ `id` (number, optional) 
++ `placementId` (number, optional) 
++ `providerServiceId` (number, optional) 
+
+
+## LoginDto (object)
+
+
+### Properties
++ `email` (string, optional) 
++ `password` (string, optional) 
+
+
+## PlacementDto (object)
+
+
+### Properties
++ `area` (number, optional) 
++ `floor` (number, optional) 
++ `id` (number, optional) 
++ `lastCleaning` (string, optional) 
++ `placementType` (string, optional) 
++ `smartDevice` (SmartDeviceDto, optional) 
++ `windowsCount` (number, optional) 
+
+
+## PlacementOwnerDto (object)
+
+
+### Properties
++ `address` (AddressDto, optional) 
++ `creationDate` (string, optional) 
++ `email` (string, optional) 
++ `id` (number, optional) 
++ `name` (string, optional) 
++ `password` (string, optional) 
++ `phoneNumber` (string, optional) 
++ `role` (enum[string], optional) 
+    + `ADMIN`
+    + `PLACEMENT_OWNER`
+    + `CLEANING_PROVIDER`
+
+
+## ProviderServiceDto (object)
+
+
+### Properties
++ `description` (string, optional) 
++ `id` (number, optional) 
++ `maxArea` (number, optional) 
++ `minArea` (number, optional) 
++ `name` (string, optional) 
++ `placementType` (string, optional) 
++ `pricePerMeter` (number, optional) 
+
+
+## Role (object)
+
+
+### Properties
++ `id` (number, optional) 
++ `name` (enum[string], optional) 
+    + `ADMIN`
+    + `PLACEMENT_OWNER`
+    + `CLEANING_PROVIDER`
+
+
+## SmartDeviceDto (object)
+
+
+### Properties
++ `adjustmentFactor` (number, optional) 
++ `airQuality` (number, optional) 
++ `dirtinessFactor` (number, optional) 
++ `humidity` (number, optional) 
++ `id` (number, optional) 
++ `priority` (string, optional) 
++ `temperature` (number, optional) 
+
