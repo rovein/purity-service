@@ -1,4 +1,4 @@
-# CleanUp
+# PurityService
 
 My personal project for "Software Architecture" course in NURE.
 

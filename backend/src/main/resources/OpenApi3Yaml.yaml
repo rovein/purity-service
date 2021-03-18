@@ -1,0 +1,1487 @@
+openapi: 3.0.0
+info:
+  title: Backend system API
+  description: Documentation for REST API endpoints
+  contact: {}
+  version: '1.0.0'
+servers:
+- url: http://localhost:8080/
+  variables: {}
+paths:
+  /admin/backup:
+    get:
+      tags:
+      - Admin
+      summary: getBackupData
+      description: Performs data backup and returns mysql dump file
+      operationId: getBackupData
+      parameters: []
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /cleaning-providers:
+    get:
+      tags:
+      - Provider
+      summary: getAllCleaningProviders
+      description: Returns a list of all Providers
+      operationId: getAllCleaningProviders
+      parameters: []
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    post:
+      tags:
+      - Provider
+      summary: addCleaningProvider
+      description: Adds new Provider
+      operationId: addCleaningProvider
+      parameters: []
+      requestBody:
+        description: cleaningProviderDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CleaningProviderDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    put:
+      tags:
+      - Provider
+      summary: updateCleaningProvider
+      description: Updates the Provider
+      operationId: updateCleaningProvider
+      parameters: []
+      requestBody:
+        description: cleaningProviderDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CleaningProviderDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /cleaning-providers/services/{id}:
+    get:
+      tags:
+      - Provider
+      summary: getProviderServiceById
+      description: Finds provider service by id
+      operationId: getProviderServiceById
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    delete:
+      tags:
+      - Provider
+      summary: deleteProviderService
+      description: Deletes provider service by ID
+      operationId: deleteProviderService
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content: {}
+        204:
+          description: No Content
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /cleaning-providers/{email}:
+    get:
+      tags:
+      - Provider
+      summary: getCleaningProviderByEmail
+      description: Finds Provider by email
+      operationId: getCleaningProviderByEmail
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    delete:
+      tags:
+      - Provider
+      summary: deleteCleaningProvider
+      description: Deletes Provider by email
+      operationId: deleteCleaningProvider
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content: {}
+        204:
+          description: No Content
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /cleaning-providers/{email}/services:
+    get:
+      tags:
+      - Provider
+      summary: getAllProviderServices
+      description: Returns all Provider services (offers)
+      operationId: getAllProviderServices
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    post:
+      tags:
+      - Provider
+      summary: addProviderService
+      description: Adds new service for Provider
+      operationId: addProviderService
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      requestBody:
+        description: providerServiceDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderServiceDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    put:
+      tags:
+      - Provider
+      summary: updateProviderService
+      description: Updates service of Provider (service ID must be present!)
+      operationId: updateProviderService
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      requestBody:
+        description: providerServiceDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ProviderServiceDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /Agreements:
+    post:
+      tags:
+      - Agreement
+      summary: addAgreement
+      description: Creates new Agreement
+      operationId: addAgreement
+      parameters: []
+      requestBody:
+        description: AgreementRequestDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgreementRequestDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    put:
+      tags:
+      - Agreement
+      summary: updateAgreement
+      description: Updates Agreement (Agreement ID must be present, updates only date)
+      operationId: updateAgreement
+      parameters: []
+      requestBody:
+        description: AgreementRequestDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AgreementRequestDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /Agreements/cleaning-provider/{email}:
+    get:
+      tags:
+      - Agreement
+      summary: getAllAgreementsByCleaningProvider
+      description: Finds all Agreements for Provider
+      operationId: getAllAgreementsByCleaningProvider
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /Agreements/placement-owner/{email}:
+    get:
+      tags:
+      - Agreement
+      summary: getAllAgreementsByPlacementOwner
+      description: Finds all Agreements for placement owner
+      operationId: getAllAgreementsByPlacementOwner
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /Agreements/{id}:
+    get:
+      tags:
+      - Agreement
+      summary: getAgreementById
+      description: Finds Agreement by id
+      operationId: getAgreementById
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    delete:
+      tags:
+      - Agreement
+      summary: deleteAgreement
+      description: Deletes Agreement by ID
+      operationId: deleteAgreement
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content: {}
+        204:
+          description: No Content
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /placement-owners:
+    get:
+      tags:
+      - Placement Owner
+      summary: getAllPlacementOwners
+      description: Returns a list of all placement owners
+      operationId: getAllPlacementOwners
+      parameters: []
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    post:
+      tags:
+      - Placement Owner
+      summary: addPlacementOwner
+      description: Adds new placement owner
+      operationId: addPlacementOwner
+      parameters: []
+      requestBody:
+        description: placementOwnerDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlacementOwnerDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    put:
+      tags:
+      - Placement Owner
+      summary: updatePlacementOwner
+      description: Updates the placement owner
+      operationId: updatePlacementOwner
+      parameters: []
+      requestBody:
+        description: placementOwnerDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlacementOwnerDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /placement-owners/placements/{id}:
+    get:
+      tags:
+      - Placement Owner
+      summary: getPlacementById
+      description: Finds placement by id
+      operationId: getPlacementById
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    delete:
+      tags:
+      - Placement Owner
+      summary: deletePlacement
+      description: Deletes placement by ID
+      operationId: deletePlacement
+      parameters:
+      - name: id
+        in: path
+        description: id
+        required: true
+        style: simple
+        schema:
+          type: integer
+          format: int64
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content: {}
+        204:
+          description: No Content
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /placement-owners/{email}:
+    get:
+      tags:
+      - Placement Owner
+      summary: getPlacementOwnerByEmail
+      description: Finds placement owner by email
+      operationId: getPlacementOwnerByEmail
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    delete:
+      tags:
+      - Placement Owner
+      summary: deletePlacementOwner
+      description: Deletes placement owner by email
+      operationId: deletePlacementOwner
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content: {}
+        204:
+          description: No Content
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /placement-owners/{email}/placements:
+    get:
+      tags:
+      - Placement Owner
+      summary: getAllPlacements
+      description: Returns all placements
+      operationId: getAllPlacements
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    post:
+      tags:
+      - Placement Owner
+      summary: addPlacement
+      description: Adds new placement for owner
+      operationId: addPlacement
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      requestBody:
+        description: placementDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlacementDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+    put:
+      tags:
+      - Placement Owner
+      summary: updatePlacement
+      description: Updates placement owner (placement id must be present)
+      operationId: updatePlacement
+      parameters:
+      - name: email
+        in: path
+        description: email
+        required: true
+        style: simple
+        schema:
+          type: string
+      requestBody:
+        description: placementDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlacementDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /roles:
+    get:
+      tags:
+      - Role
+      summary: getAllRoles
+      description: Returns a list of all roles
+      operationId: getAllRoles
+      parameters: []
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /device:
+    post:
+      tags:
+      - IoT
+      summary: updateSmartDevice
+      description: Update IoT characteristics, endpoint for Arduino
+      operationId: updateSmartDevice
+      parameters: []
+      requestBody:
+        description: smartDeviceDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SmartDeviceDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /Login/login:
+    post:
+      tags:
+      - Loginentication
+      summary: loginUser
+      description: Performs user login to the system
+      operationId: loginUser
+      parameters: []
+      requestBody:
+        description: loginDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /Login/register/cleaning-provider:
+    post:
+      tags:
+      - Loginentication
+      summary: registerCleaningProvider
+      description: Registers a new Provider
+      operationId: registerCleaningProvider
+      parameters: []
+      requestBody:
+        description: cleaningProviderDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CleaningProviderDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+  /Login/register/placement-owner:
+    post:
+      tags:
+      - Loginentication
+      summary: registerPlacementOwner
+      description: Registers a new placement owner
+      operationId: registerPlacementOwner
+      parameters: []
+      requestBody:
+        description: placementOwnerDto
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PlacementOwnerDto'
+        required: true
+      responses:
+        200:
+          description: OK
+          headers: {}
+          content:
+            '*/*':
+              schema:
+                type: object
+        201:
+          description: Created
+          headers: {}
+          content: {}
+        401:
+          description: Unauthorized
+          headers: {}
+          content: {}
+        403:
+          description: Forbidden
+          headers: {}
+          content: {}
+        404:
+          description: Not Found
+          headers: {}
+          content: {}
+      deprecated: false
+      security:
+      - Loginentication:
+        - ''
+components:
+  schemas:
+    AddressDto:
+      title: AddressDto
+      type: object
+      properties:
+        city:
+          type: string
+        country:
+          type: string
+        houseNumber:
+          type: string
+        latitude:
+          type: string
+        longitude:
+          type: string
+        street:
+          type: string
+    CleaningProviderDto:
+      title: CleaningProviderDto
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressDto'
+        creationDate:
+          type: string
+          format: date-time
+        email:
+          type: string
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        password:
+          type: string
+        phoneNumber:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role1'
+    AgreementRequestDto:
+      title: AgreementRequestDto
+      type: object
+      properties:
+        date:
+          type: string
+          format: date-time
+        id:
+          type: integer
+          format: int64
+        placementId:
+          type: integer
+          format: int64
+        providerServiceId:
+          type: integer
+          format: int64
+    LoginDto:
+      title: LoginDto
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+    PlacementDto:
+      title: PlacementDto
+      type: object
+      properties:
+        area:
+          type: number
+        floor:
+          type: integer
+          format: int32
+        id:
+          type: integer
+          format: int64
+        lastCleaning:
+          type: string
+          format: date-time
+        placementType:
+          type: string
+        smartDevice:
+          $ref: '#/components/schemas/SmartDeviceDto'
+        windowsCount:
+          type: integer
+          format: int32
+    PlacementOwnerDto:
+      title: PlacementOwnerDto
+      type: object
+      properties:
+        address:
+          $ref: '#/components/schemas/AddressDto'
+        creationDate:
+          type: string
+          format: date-time
+        email:
+          type: string
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        password:
+          type: string
+        phoneNumber:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role1'
+    ProviderServiceDto:
+      title: ProviderServiceDto
+      type: object
+      properties:
+        description:
+          type: string
+        id:
+          type: integer
+          format: int64
+        maxArea:
+          type: integer
+          format: int32
+        minArea:
+          type: integer
+          format: int32
+        name:
+          type: string
+        placementType:
+          type: string
+        pricePerMeter:
+          type: number
+    Role:
+      title: Role
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          $ref: '#/components/schemas/Name'
+    SmartDeviceDto:
+      title: SmartDeviceDto
+      type: object
+      properties:
+        adjustmentFactor:
+          type: number
+        airQuality:
+          type: number
+        dirtinessFactor:
+          type: number
+        humidity:
+          type: number
+        id:
+          type: integer
+          format: int64
+        priority:
+          type: string
+        temperature:
+          type: number
+    Name:
+      title: Name
+      enum:
+      - ADMIN
+      - PLACEMENT_OWNER
+      - CLEANING_PROVIDER
+      type: string
+    Role1:
+      title: Role1
+      enum:
+      - ADMIN
+      - PLACEMENT_OWNER
+      - CLEANING_PROVIDER
+      type: string
+  securitySchemes:
+    Loginentication:
+      type: apiKey
+      description: ''
+      name: Loginentication
+      in: header
+security:
+- Loginentication: []
+tags:
+- name: Admin
+  description: Admin Controller
+- name: Login
+  description: Login Controller
+- name: Provider
+  description: Provider Controller
+- name: Agreement
+  description: Agreement Controller
+- name: Placement Owner
+  description: Placement Owner Controller
+- name: Role
+  description: Role Controller
+- name: IoT
+  description: IoT Controller
+- name: Loginentication
+  description: ''
