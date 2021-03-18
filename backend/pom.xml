@@ -9,10 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>ua.nure</groupId>
-	<artifactId>clean-up</artifactId>
+	<artifactId>purity-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>CleanUp</name>
-	<description>Program system to automatize cleaning processes in for placement owners</description>
+	<name>PurityService</name>
 
 	<properties>
 		<java.version>1.8</java.version>
