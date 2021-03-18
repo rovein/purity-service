@@ -1,8 +1,8 @@
 -- MySQL dump 10.13  Distrib 8.0.23, for Linux (x86_64)
 --
--- Host: ivgz2rnl5rh7sphb.chr7pe7iynqr.eu-west-1.rds.amazonaws.com    Database: eycib4loy4rimj3k
+-- Host: d3y0lbg7abxmbuoi.chr7pe7iynqr.eu-west-1.rds.amazonaws.com    Database: nxakhcexfus69jy4
 -- ------------------------------------------------------
--- Server version	5.7.26-log
+-- Server version	8.0.20
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -29,6 +29,7 @@ SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '';
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
+INSERT INTO `address` VALUES (1,'Харків','Україна','10','string','string','Бакуліна'),(2,'Харків','Україна','35','string','string','Перемоги');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -38,7 +39,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `admin` WRITE;
 /*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-INSERT INTO `admin` VALUES (44,'admin@gmail.com','$2a$10$oG2ux1j0U00kyH42ALtzwOcfDkJPUyFFPVEqYh0VnO9BpJCWcvsQS','Rick','Sanchez',1);
+INSERT INTO `admin` VALUES (1,'admin@gmail.com','$2a$10$ecGZcqzz2.BW884wo/6REuUyL/68oo4dJA66FliY.EYjPg5llaXZy','Rick','Sanchez',1);
 /*!40000 ALTER TABLE `admin` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -48,6 +49,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `cleaning_provider` WRITE;
 /*!40000 ALTER TABLE `cleaning_provider` DISABLE KEYS */;
+INSERT INTO `cleaning_provider` VALUES (2,'cleaning_provider@gmail.com','$2a$10$VXZth92XzUKaC8bjhaJt6.BF1qqkfu2eZDlNJbHvGA1dWudaq37ju','2021-03-18 12:00:27.551000','Cleaning Provider','+380567843612',3,1);
 /*!40000 ALTER TABLE `cleaning_provider` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +68,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (1),(1),(1),(1),(1);
+INSERT INTO `hibernate_sequence` VALUES (4),(4),(4),(4),(4);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -85,6 +87,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `placement_owner` WRITE;
 /*!40000 ALTER TABLE `placement_owner` DISABLE KEYS */;
+INSERT INTO `placement_owner` VALUES (3,'placement_owner@gmail.com','$2a$10$M./BesRSMmhAe97EQyZLweefOBaqQ1pxv6wljD4jAfJFzeIP0FadO','2021-03-18 12:06:54.273000','PLacement Owner','+380784538645',2,2);
 /*!40000 ALTER TABLE `placement_owner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -126,4 +129,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-12  1:27:34
+-- Dump completed on 2021-03-18 14:17:08

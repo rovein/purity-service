@@ -40,7 +40,7 @@ public class AdminController {
         createBackupData();
 
         Path filePath = Paths.get(root.toString(),
-                "backend", "src", "main", "resources", "backup_data.sql");
+                 "src", "main", "resources", "backup_data.sql");
         File file = new File(filePath.toString());
 
         HttpHeaders header = new HttpHeaders();
@@ -65,7 +65,7 @@ public class AdminController {
         ProcessBuilder processBuilder = new ProcessBuilder();
 
         Path filePath = Paths.get(root.toString(),
-                "backend", "src", "main", "resources", "backup.sh");
+                "src", "main", "resources", "backup.sh");
 
         processBuilder.command(filePath.toString());
 
