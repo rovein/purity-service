@@ -59,6 +59,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `contract` WRITE;
 /*!40000 ALTER TABLE `contract` DISABLE KEYS */;
+INSERT INTO `contract` VALUES (1,'2021-03-17 12:34:38.802000',1000,5,4),(2,'2021-03-22 12:34:38.802000',500,5,4);
 /*!40000 ALTER TABLE `contract` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -68,7 +69,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (4),(4),(4),(4),(4);
+INSERT INTO `hibernate_sequence` VALUES (6),(6),(6),(6),(6);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -78,6 +79,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `placement` WRITE;
 /*!40000 ALTER TABLE `placement` DISABLE KEYS */;
+INSERT INTO `placement` VALUES (5,40,1,'2021-03-18 12:31:15.970000','Офіс',3,3);
 /*!40000 ALTER TABLE `placement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -97,6 +99,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `provider_service` WRITE;
 /*!40000 ALTER TABLE `provider_service` DISABLE KEYS */;
+INSERT INTO `provider_service` VALUES (4,'Вологе прибирання приміщення',200,20,'Вологе прибирання',25,'Офіс',2);
 /*!40000 ALTER TABLE `provider_service` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -116,6 +119,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `smart_device` WRITE;
 /*!40000 ALTER TABLE `smart_device` DISABLE KEYS */;
+INSERT INTO `smart_device` VALUES (5,0.5,0,0,0,'string',0);
 /*!40000 ALTER TABLE `smart_device` ENABLE KEYS */;
 UNLOCK TABLES;
 SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
@@ -129,4 +133,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-18 14:17:08
+-- Dump completed on 2021-03-18 15:46:57
