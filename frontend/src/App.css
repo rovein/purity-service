@@ -1,0 +1,244 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background: #f4f4f4;
+  font-family: sans-serif;
+  color: #000c09;
+}
+
+li,
+a,
+input {
+  text-decoration: none;
+}
+
+.header {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 30px 10%;
+  height: 20px;
+  font-size: 14px;
+  background: #fbfbfb;
+  box-shadow: 0px 7px 5px rgba(35, 51, 72, 0.26);
+}
+
+.logo {
+  margin-right: auto;
+  width: 15%;
+}
+
+.nav_links {
+  list-style: none;
+}
+
+.nav_links li {
+  display: inline-block;
+  padding: 0px 40px;
+}
+
+.nav_links li a {
+  transition: all 0.3s ease 0s;
+  color: #000c09;
+  cursor: pointer;
+}
+
+.nav_links li a:hover {
+  color: #3f51b5;
+}
+
+#locale {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+#locale:hover {
+  color: #66bd4a;
+}
+
+.container {
+  font-size: 28px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 5%;
+}
+
+.signInForm,
+.signUpForm {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 700px;
+  padding-left: 20px;
+  padding-right: 20px;
+  background: #fbfbfb;
+  margin-top: 2%;
+}
+
+.signInForm,
+.signUpForm h1 {
+  color: #3f51b5;
+}
+
+.signInContainer,
+.signUpContainer {
+  margin: 0 2em 2em;
+}
+
+.input {
+  box-sizing: border-box;
+  margin-bottom: 10%;
+  outline: none;
+  border: none;
+  height: 50px;
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  background: #f2f2f2;
+}
+
+.signUpContainer .input {
+  margin-bottom: 2%;
+}
+
+.btn {
+  width: 100%;
+  padding: 12px;
+  font-size: 14px;
+  border: none;
+  background: #3f51b5;
+  border-radius: 20px;
+  cursor: pointer;
+  font-style: normal;
+  font-size: 14px;
+  text-transform: uppercase;
+  color: #fbfbfb;
+  transition: all 0.3s ease 0s;
+}
+
+.btn:hover {
+  background: #fbfbfb;
+  border: 1px solid #3f51b5;
+  color: #3f51b5;
+}
+
+button,
+input,
+input:active,
+input:focus,
+button:active,
+button:focus {
+  outline: none;
+}
+
+.content {
+  display: table;
+  height: auto;
+  margin-top: 40px;
+  width: 100%;
+}
+
+.card {
+  padding: 20px;
+  margin: auto;
+  background: #fbfbfb;
+  width: 300px;
+  text-align: center;
+  margin-top: 30px;
+}
+
+.profile_back {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    27deg,
+    rgb(35 26 107) 0%,
+    rgb(73 73 167) 35%,
+    rgb(146 211 250) 100%
+  );
+  display: grid;
+  grid-template-columns: 60% 40%;
+}
+
+.search_back {
+  background: rgb(2, 0, 36);
+  background: linear-gradient(
+    27deg,
+    rgb(35 26 107) 0%,
+    rgb(73 73 167) 35%,
+    rgb(146 211 250) 100%
+  );
+  padding: 20px 10% 50px;
+}
+
+.profile_back button {
+  width: 50%;
+  height: 50px;
+  margin: 10px 0 10px 25%;
+}
+
+#cName {
+  font-size: 36px;
+  color: #fbfbfb;
+  font-weight: bold;
+}
+
+.profile_back p {
+  font-size: 18px;
+  cursor: default;
+  color: #f4f4f4;
+  margin: 10px 0 10px 20%;
+}
+
+.rooms_back {
+  background: #fbfbfb;
+  color: #3f51b5;
+  font-weight: bold;
+  border: 1px solid #fbfbfb;
+}
+
+.rooms_back p {
+  padding: 1% 0 1% 10%;
+  font-size: 18px;
+  cursor: default;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 1rem;
+  padding-bottom: 30px;
+}
+
+.react-datepicker-wrapper {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.card button {
+  margin-top: 20px;
+}
+
+.search_cont {
+  padding: 1% 0 1% 10%;
+  font-size: 18px;
+  cursor: default;
+  background: #b3dba1;
+}
+
+.search_cont button {
+  width: 20%;
+  margin-left: 20px;
+}
+
+.react-search-field-button,
+.react-search-field,
+.react-search-field-input {
+  height: 100% !important;
+}
+
+.Dropdown-root {
+  margin: 10px;
+}
