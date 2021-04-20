@@ -27,6 +27,9 @@ class Header extends React.Component{
                 value: localStorage.getItem("i18nextLng")
             }
         }
+        if (localStorage.getItem("Token") == null) {
+            window.location.href='./login';
+        }
      }
 
     onLanguageHandle = (event) => {

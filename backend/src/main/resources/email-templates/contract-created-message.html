@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        table, th, td {
+            border: 1px solid black;
+        }
+        th{
+            background: #AFCDE7;
+        }
+        td {
+            padding: 10px 20px;
+            background: #D8E6F3;
+        }
+        table {
+            empty-cells: hide;
+            width: 100%%;
+            padding: 15px;
+            text-align: center;
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        #more {
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h3 align="center">Складено угоду на прибирання</h3>
+    <table>
+        <thead>
+        <tr>
+            <th>Дата</th>
+            <th>Час</th>
+            <th>Номер приміщення</th>
+            <th>Послуга</th>
+            <th>Вартість</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>%s</td>
+            <td>%s</td>
+            <td>%s</td>
+            <td>%s</td>
+            <td>%s UAH</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3 align="center">
+        Адреса приміщення
+    </h3>
+    <table id="2">
+        <thead>
+        <tr>
+            <th>Країна</th>
+            <th>Місто</th>
+            <th>Вулиця</th>
+            <th>Будинок</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>%s</td>
+            <td>%s</td>
+            <td>%s</td>
+            <td>%s</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <h3 align="center">
+        Контактна інформація сторін договору
+    </h3>
+    <table id="2">
+        <thead>
+        <tr>
+            <th ></th>
+            <th>Назва</th>
+            <th>Пошта</th>
+            <th>Номер телефону</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><strong>Підрядник</strong></td>
+            <td>%s</td>
+            <td>%s</td>
+            <td>%s</td>
+        </tr>
+        <tr>
+            <td><strong>Власник приміщення</strong></td>
+            <td>%s</td>
+            <td>%s</td>
+            <td>%s</td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+<p id="more">Інші договори та більше інформації можливо переглянути <a href="http://localhost:3000/contracts">тут</a>.</p>
+</body>
+</html>

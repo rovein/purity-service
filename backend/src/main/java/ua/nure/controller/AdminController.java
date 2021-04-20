@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ua.nure.util.PathsUtil;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -18,7 +19,6 @@ import java.net.URISyntaxException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Objects;
 
 @RestController
 @CrossOrigin
@@ -39,8 +39,7 @@ public class AdminController {
 
         createBackupData();
 
-        Path filePath = Paths.get(root.toString(),
-                 "src", "main", "resources", "backup_data.sql");
+        Path filePath = PathsUtil.getResourcePath("backup/backup_data.sql");
         File file = new File(filePath.toString());
 
         HttpHeaders header = new HttpHeaders();
@@ -64,8 +63,7 @@ public class AdminController {
     private void createBackupData() {
         ProcessBuilder processBuilder = new ProcessBuilder();
 
-        Path filePath = Paths.get(root.toString(),
-                "src", "main", "resources", "backup.sh");
+        Path filePath = PathsUtil.getResourcePath("backup/backup.sh");
 
         processBuilder.command(filePath.toString());
 

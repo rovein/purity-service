@@ -10,6 +10,7 @@ const FileDownload = require("js-file-download");
 
 class Profile extends React.Component{
     backup() {
+        setTimeout(function() { alert('Файл буде завантажено через декілька секунд'); }, 1);
         axios({
             url: `${url}/admin/backup`,
             method: "GET",

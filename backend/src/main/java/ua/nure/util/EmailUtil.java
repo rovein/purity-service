@@ -21,7 +21,10 @@ import java.util.Properties;
 
 public class EmailUtil {
 
-    public static EmailBuilder builder() {
+    private static final String userName = "roman.kuznetsov@nure.ua";
+    private static final String password = "rgrsxgnmaxzmumyw";
+
+    public static EmailBuilder message() {
         return new EmailBuilder();
     }
 
@@ -34,7 +37,7 @@ public class EmailUtil {
         return props;
     }
 
-    public static Authenticator authenticator(String userName, String password) {
+    public static Authenticator authenticator() {
         return new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(userName, password);
@@ -46,7 +49,7 @@ public class EmailUtil {
         try {
             MimeMessage msg = createMessage(session, subject, toEmail);
 
-            msg.setText(body, "UTF-8");
+            msg.setContent(body, "text/html; charset=utf-8");
 
             Transport.send(msg);
             System.out.println("EMail Sent Successfully!!");
@@ -63,7 +66,7 @@ public class EmailUtil {
             BodyPart messageBodyPart = new MimeBodyPart();
 
             // Fill the message
-            messageBodyPart.setText(body);
+            messageBodyPart.setContent(body, "text/html; charset=utf-8");
 
             // Create a multipart message for attachment
             Multipart multipart = new MimeMultipart();
@@ -94,7 +97,7 @@ public class EmailUtil {
     private static MimeMessage createMessage(Session session, String subject, String emailTo)
             throws MessagingException, UnsupportedEncodingException {
         MimeMessage msg = new MimeMessage(session);
-        msg.addHeader("Content-type", "text/HTML; charset=UTF-8");
+        msg.addHeader("Content-type", "text/html; charset=utf-8");
         msg.addHeader("format", "flowed");
         msg.addHeader("Content-Transfer-Encoding", "8bit");
 
@@ -113,7 +116,8 @@ public class EmailUtil {
 
     public static class EmailBuilder {
 
-        private Session session;
+        private final Session session =
+                Session.getInstance(EmailUtil.properties(), EmailUtil.authenticator());
 
         private String toEmail;
 
@@ -124,11 +128,6 @@ public class EmailUtil {
         private String pathToAttachment;
 
         public EmailBuilder() {
-        }
-
-        public EmailBuilder session(Session session) {
-            this.session = session;
-            return this;
         }
 
         public EmailBuilder destination(String toEmail) {

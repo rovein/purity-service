@@ -10,14 +10,22 @@ import ua.nure.entity.owner.Placement;
 import ua.nure.entity.provider.CleaningProvider;
 import ua.nure.entity.owner.PlacementOwner;
 import ua.nure.entity.provider.ProviderService;
+import ua.nure.entity.user.Address;
 import ua.nure.entity.user.Contract;
 import ua.nure.entity.user.SmartDevice;
 import ua.nure.repository.*;
 import ua.nure.service.ContractService;
+import ua.nure.util.EmailUtil;
 
-import java.util.Collections;
-import java.util.Optional;
-import java.util.Set;
+import com.google.common.io.Files;
+import ua.nure.util.PathsUtil;
+
+import java.io.File;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Path;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class ContractServiceImpl implements ContractService {
@@ -79,10 +87,49 @@ public class ContractServiceImpl implements ContractService {
                 }
             }
             contract.setPrice(price);
+            String html = "Тут мала бути інформація про складену угоду, але щось пішло не так...";
+            String content;
+            try {
+                Path filePath = PathsUtil.getResourcePath("email-templates/contract-created-message.html");
+                html = Files.asCharSource(new File(filePath.toString()), StandardCharsets.UTF_8).read();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } finally {
+                content = html;
+            }
 
-            return ContractMapper.toContractResponseDto(
-                    contractRepository.save(contract)
-            );
+            PlacementOwner owner = placement.getPlacementOwner();
+            CleaningProvider provider = providerService.getCleaningProvider();
+            Address address = owner.getAddress();
+
+            Date date = contract.getDate();
+            SimpleDateFormat dateFormat = new SimpleDateFormat("dd.MM.yyyy");
+            SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm");
+
+            new Thread(() -> Arrays.asList(owner.getEmail(), provider.getEmail())
+                    .forEach(email -> EmailUtil.message()
+                            .destination(email)
+                            .subject("Нова угода на прибирання")
+                            .body(String.format(content,
+                                    dateFormat.format(date),
+                                    timeFormat.format(date),
+                                    contract.getPlacement().getId(),
+                                    contract.getProviderService().getName(),
+                                    contract.getPrice(),
+                                    address.getCountry(),
+                                    address.getCity(),
+                                    address.getStreet(),
+                                    address.getHouseNumber(),
+                                    provider.getName(),
+                                    provider.getEmail(),
+                                    provider.getPhoneNumber(),
+                                    owner.getName(),
+                                    owner.getEmail(),
+                                    owner.getPhoneNumber())
+                            ).send())
+            ).start();
+
+            return ContractMapper.toContractResponseDto(contractRepository.save(contract));
         }
 
         return null;

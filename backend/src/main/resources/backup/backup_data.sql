@@ -29,7 +29,7 @@ SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '';
 
 LOCK TABLES `address` WRITE;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
-INSERT INTO `address` VALUES (1,'Харків','Україна','10','string','string','Бакуліна'),(2,'Харків','Україна','35','string','string','Перемоги');
+INSERT INTO `address` VALUES (1,'Харків','Україна','10','string','string','Бакуліна'),(2,'Харків','Україна','35','string','string','Перемоги'),(3,'Харків','Україна','78','0','0','Пушкіна'),(4,'Харків','Україна','28','0','0','Перемоги'),(5,'Харків','Україна','28','0','0','Перемоги'),(6,'Харків','Україна','10','string','string','Бакуліна'),(7,'Харків','Україна','35','string','string','Перемоги');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -49,7 +49,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `cleaning_provider` WRITE;
 /*!40000 ALTER TABLE `cleaning_provider` DISABLE KEYS */;
-INSERT INTO `cleaning_provider` VALUES (2,'cleaning_provider@gmail.com','$2a$10$VXZth92XzUKaC8bjhaJt6.BF1qqkfu2eZDlNJbHvGA1dWudaq37ju','2021-03-18 12:00:27.551000','Cleaning Provider','+380567843612',3,1);
+INSERT INTO `cleaning_provider` VALUES (2,'cleaning_provider@gmail.com','$2a$10$EMIOb8T3a7.dbidk5Mibaul/ygJocnRi0qfPuoRx2XQtmE9KVVNfm',NULL,'Cleaning_Provider','+380567843612',3,6),(7,'cleaning_provider1@gmail.com','$2a$10$fISpsEWlYmj8ybUkTkP0V.n8lIaFWGesI5NbTsI7E4i3FNfsZo64.',NULL,'ТОВ \"Надавач1\"','+380675446754',3,5);
 /*!40000 ALTER TABLE `cleaning_provider` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +59,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `contract` WRITE;
 /*!40000 ALTER TABLE `contract` DISABLE KEYS */;
-INSERT INTO `contract` VALUES (1,'2021-03-17 12:34:38.802000',1000,5,4),(2,'2021-03-22 12:34:38.802000',500,5,4);
+INSERT INTO `contract` VALUES (1,'2021-03-27 12:34:38.802000',1000,5,4),(2,'2021-03-28 12:34:38.802000',1000,5,4),(3,'2021-03-29 22:34:36.943000',1250,10,4),(4,'2021-03-25 09:50:37.114000',1250,10,4);
 /*!40000 ALTER TABLE `contract` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -69,7 +69,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `hibernate_sequence` WRITE;
 /*!40000 ALTER TABLE `hibernate_sequence` DISABLE KEYS */;
-INSERT INTO `hibernate_sequence` VALUES (6),(6),(6),(6),(6);
+INSERT INTO `hibernate_sequence` VALUES (11),(11),(11),(11),(11);
 /*!40000 ALTER TABLE `hibernate_sequence` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -79,7 +79,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `placement` WRITE;
 /*!40000 ALTER TABLE `placement` DISABLE KEYS */;
-INSERT INTO `placement` VALUES (5,40,1,'2021-03-18 12:31:15.970000','Офіс',3,3);
+INSERT INTO `placement` VALUES (5,40,1,'2021-03-18 12:31:15.970000','Офіс',3,3),(10,50,1,'2021-03-24 22:32:45.019000','Склад',4,3);
 /*!40000 ALTER TABLE `placement` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -89,7 +89,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `placement_owner` WRITE;
 /*!40000 ALTER TABLE `placement_owner` DISABLE KEYS */;
-INSERT INTO `placement_owner` VALUES (3,'placement_owner@gmail.com','$2a$10$M./BesRSMmhAe97EQyZLweefOBaqQ1pxv6wljD4jAfJFzeIP0FadO','2021-03-18 12:06:54.273000','PLacement Owner','+380784538645',2,2);
+INSERT INTO `placement_owner` VALUES (3,'placement_owner@gmail.com','$2a$10$dZLg6RntX/dUcS3qzTgrpeqE0fWZrGjMdXED9pkHmOtzP7By5LgJ.',NULL,'Placement_Owner','+380784538645',2,7),(6,'placement_owner1@gmail.com','$2a$10$/Lh/9dm2MZBVmSPZgXftcO1pSCc1y4XHKWbEJSi.EPCrDX9x3SS2q','2021-03-24 21:20:58.996000','ТОВ \"Приміщення\"','+380567844512',2,3);
 /*!40000 ALTER TABLE `placement_owner` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +119,7 @@ UNLOCK TABLES;
 
 LOCK TABLES `smart_device` WRITE;
 /*!40000 ALTER TABLE `smart_device` DISABLE KEYS */;
-INSERT INTO `smart_device` VALUES (5,0.5,0,0,0,'string',0);
+INSERT INTO `smart_device` VALUES (5,0.8,0,0,0,'string',0),(10,0,0,0,0,'null',0);
 /*!40000 ALTER TABLE `smart_device` ENABLE KEYS */;
 UNLOCK TABLES;
 SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
@@ -133,4 +133,4 @@ SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-03-18 15:46:57
+-- Dump completed on 2021-03-25 11:53:40
