@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.contracts.ContractsActivity">
+    <ImageView
+        android:id="@+id/header_bg"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintHeight_percent=".15"
+        android:background="@color/extra_light"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/back_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_arrow_back"
+        app:layout_constraintBottom_toBottomOf="@id/header_bg"
+        app:layout_constraintEnd_toStartOf="@+id/name_tv"
+        app:layout_constraintHorizontal_bias=".02"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/header_bg" />
+
+    <TextView
+        android:id="@+id/name_tv"
+        style="@style/custom_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/contracts"
+        android:textStyle="normal"
+        app:layout_constraintBottom_toBottomOf="@id/header_bg"
+        app:layout_constraintEnd_toEndOf="@+id/header_bg"
+        app:layout_constraintStart_toStartOf="@+id/header_bg"
+        app:layout_constraintTop_toTopOf="@id/header_bg" />
+
+    <ScrollView
+        android:id="@+id/contracts_sv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/header_bg">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/contracts_rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

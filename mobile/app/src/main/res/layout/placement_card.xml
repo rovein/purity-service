@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/room_cv"
+    style="@style/card">
+
+    <RelativeLayout
+        style="@style/card_rl"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/room_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/card_header">
+            <TextView
+                android:id="@+id/room_type_label"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:text="@string/room_type"
+                android:textColor="@color/light"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/room_type_text"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textColor="@color/light"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:layout_marginStart="10dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/floor_label"
+            style="@style/card_text"
+            android:layout_below="@+id/room_header"
+            android:layout_marginTop="20dp"
+            android:text="@string/floor"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/floor_text"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/floor_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/floor_label" />
+
+        <TextView
+            android:id="@+id/win_count_label"
+            style="@style/card_text"
+            android:layout_below="@+id/floor_label"
+            android:layout_marginTop="10dp"
+            android:text="@string/winCount"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/win_count_text"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/win_count_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/win_count_label" />
+
+        <TextView
+            android:id="@+id/area_label"
+            style="@style/card_text"
+            android:layout_below="@+id/win_count_label"
+            android:layout_marginTop="10dp"
+            android:text="@string/area"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/area_text"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/area_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/area_label" />
+        <TextView
+            android:id="@+id/air_quality_label"
+            style="@style/card_text"
+            android:layout_below="@+id/area_label"
+            android:layout_marginTop="10dp"
+            android:text="@string/air_quality"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/air_quality_text"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/air_quality_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/air_quality_label" />
+
+        <TextView
+            android:id="@+id/humidity_label"
+            style="@style/card_text"
+            android:layout_below="@+id/air_quality_label"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/humidity"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/humidity_text"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/humidity_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/humidity_label" />
+
+        <TextView
+            android:id="@+id/last_cl_date_label"
+            style="@style/card_text"
+            android:layout_below="@+id/humidity_label"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/last_cl_date"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/last_cl_date_text"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/last_cl_date_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/last_cl_date_label" />
+
+        <Button
+            android:id="@+id/edit_room_btn"
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/last_cl_date_text"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:text="@string/edit" />
+
+        <Button
+            android:id="@+id/delete_room_btn"
+            style="@style/button"
+            android:layout_width="wrap_content"
+            android:layout_below="@+id/edit_room_btn"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="25dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/delete" />
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

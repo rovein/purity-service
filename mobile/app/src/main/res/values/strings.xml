@@ -1,0 +1,70 @@
+<resources>
+    <string name="app_name" translatable="false">CleaningService</string>
+
+    <string name="signin_title">Welcome back</string>
+    <string name="signup_title">Create account</string>
+    <string name="sign_in_to_continue">Sign in to continue</string>
+    <string name="create_new_account">Create a new account</string>
+    <string name="name">Name</string>
+    <string name="country">Country</string>
+    <string name="city">City</string>
+    <string name="street">Street</string>
+    <string name="house">House</string>
+    <string name="email">Email</string>
+    <string name="phone">Phone</string>
+    <string name="password">Password</string>
+    <string name="confirmPassword">Confirm Password</string>
+    <string name="login">Login</string>
+    <string name="signup">Signup</string>
+    <string name="dont_have_acc">Don`t have an account?</string>
+    <string name="already_have_acc">Already have an account?</string>
+    <string name="create_acc">Create an account</string>
+    <string name="menu">Menu</string>
+    <string name="profile">Profile</string>
+    <string name="services">Services</string>
+    <string name="contracts">Contracts</string>
+    <string name="desc">Description:</string>
+    <string name="min_area">Minimum area:</string>
+    <string name="max_area">Maximum area:</string>
+    <string name="room_type">Room type:</string>
+    <string name="price">Price:</string>
+    <string name="rooms">Rooms</string>
+    <string name="search">Company search</string>
+    <string name="cleaning_provider" translatable="false">CLEANING_PROVIDER</string>
+    <string name="placement_owner" translatable="false">PLACEMENT_OWNER</string>
+    <string name="about">About</string>
+    <string name="edit">Edit</string>
+    <string name="floor">Floor:</string>
+    <string name="winCount">Number of windows:</string>
+    <string name="area">Area:</string>
+    <string name="last_cl_date">Date of last cleaning:</string>
+    <string name="air_quality">Air quality:</string>
+    <string name="humidity">Humidity:</string>
+    <string name="delete">Delete</string>
+    <string name="done">Done</string>
+    <string name="contractor_id">ID</string>
+    <string name="add_resource">Add resource</string>
+    <string name="exhaustion_date">Date of resource exhaustion</string>
+    <string name="password_tip">The password can only consist of Latin letters and numbers, and is between 8 and 24 characters long.</string>
+    <string name="passwords_tip">Password do not match.</string>
+    <string name="email_tip">It`s not an email format.</string>
+    <string name="phone_tip">It`s not a phone format.</string>
+    <string name="no_internet_connection">No Internet connection</string>
+    <string name="res_added">Resource added successfully!</string>
+    <string name="not_en">Not enough data for analysis.</string>
+    <string name="room_id">Room ID:</string>
+    <string name="edit_service">Edit Service</string>
+    <string name="add_service">Add Service</string>
+    <string name="edit_room">Edit Room</string>
+    <string name="add_room">Add Room</string>
+    <string name="cancel">Cancel</string>
+    <string name="price_pm">Price per meter</string>
+    <string name="save">Save</string>
+    <string name="current_location">You are here</string>
+    <string name="open_map">Open map</string>
+    <string name="sign_contract">Sign a contract</string>
+    <string name="cust_name">Customer name:</string>
+    <string name="clean_came">Cleaning name:</string>
+    <string name="pick_serv_name">Pick service name</string>
+    <string name="pick_room">Pick placement id</string>
+</resources>

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    package="ua.nure.cleaningservice">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.CleaningService"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="m">
+        <activity android:name=".ui.profile.MapActivity"></activity>
+        <activity android:name=".ui.profile.ServicesActivity" />
+        <activity android:name=".ui.profile.PlacementsActivity" />
+        <activity android:name=".ui.contracts.ContractsActivity" />
+        <activity android:name=".ui.profile.ProfileActivity" />
+        <activity android:name=".ui.auth.MenuActivity" />
+        <activity android:name=".ui.auth.SignUpActivity" />
+        <activity android:name=".ui.edit.EditServicesActivity" />
+        <activity android:name=".ui.edit.EditPlacementActivity" />
+        <activity android:name=".ui.add.AddServicesActivity" />
+        <activity android:name=".ui.add.AddPlacementActivity" />
+        <activity android:name=".ui.profile.SearchActivity" />
+        <activity android:name=".ui.contracts.SignContractActivity" />
+        <activity android:name=".ui.auth.SignInActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>

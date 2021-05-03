@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/contract_cv"
+    style="@style/card">
+
+    <RelativeLayout style="@style/card_rl">
+
+        <TextView
+            android:id="@+id/clean_service_name_text"
+            style="@style/card_text"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="10dp" />
+        <TextView
+            android:id="@+id/room_id_label"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/clean_service_name_text"
+            android:layout_marginTop="30dp"
+            android:text="@string/room_id"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/room_id_text"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/room_id_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/room_id_label" />
+
+        <TextView
+            android:id="@+id/price_label"
+            style="@style/card_text"
+            android:layout_below="@+id/room_id_label"
+            android:layout_marginTop="10dp"
+            android:text="@string/price"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/price_text"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/price_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/price_label" />
+
+        <TextView
+            android:id="@+id/last_cl_date_label"
+            style="@style/card_text"
+            android:layout_below="@+id/price_label"
+            android:layout_marginTop="10dp"
+            android:text="@string/last_cl_date"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/last_cl_date_text"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/last_cl_date_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/last_cl_date_label" />
+
+        <TextView
+            android:id="@+id/clean_name_label"
+            style="@style/card_text"
+            android:layout_below="@+id/last_cl_date_text"
+            android:layout_marginTop="10dp"
+            android:text="@string/clean_came"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/clean_name_text"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/clean_name_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/clean_name_label" />
+
+        <TextView
+            android:id="@+id/cust_name_label"
+            style="@style/card_text"
+            android:layout_below="@+id/clean_name_text"
+            android:layout_marginTop="10dp"
+            android:text="@string/cust_name"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/cust_name_text"
+            style="@style/card_text"
+            android:layout_alignTop="@+id/cust_name_label"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="0dp"
+            android:layout_toEndOf="@+id/cust_name_label" />
+
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.edit.EditServicesActivity"
+    android:background="@color/white">
+
+    <TextView
+        android:id="@+id/add_service_label"
+        style="@style/custom_title"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:text="@string/add_service"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/add_name_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/custom_input"
+        android:layout_below="@+id/add_service_label"
+        android:layout_marginTop="40dp"
+        android:hint="@string/name"
+        android:inputType="text"
+        android:autofillHints=""
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"/>
+
+    <EditText
+        android:id="@+id/add_type_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/custom_input"
+        android:layout_below="@+id/add_name_input"
+        android:layout_marginTop="30dp"
+        android:hint="@string/room_type"
+        android:inputType="text"
+        android:autofillHints=""
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"/>
+
+    <EditText
+        android:id="@+id/add_desc_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/custom_input"
+        android:layout_below="@+id/add_type_input"
+        android:layout_marginTop="30dp"
+        android:hint="@string/desc"
+        android:inputType="text"
+        android:autofillHints=""
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"/>
+    <EditText
+        android:id="@+id/add_min_area_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/custom_input"
+        android:layout_below="@+id/add_desc_input"
+        android:layout_marginTop="30dp"
+        android:hint="@string/min_area"
+        android:inputType="text"
+        android:autofillHints=""
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"/>
+    <EditText
+        android:id="@+id/add_max_area_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/custom_input"
+        android:layout_below="@+id/add_min_area_input"
+        android:layout_marginTop="30dp"
+        android:hint="@string/max_area"
+        android:inputType="text"
+        android:autofillHints=""
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"/>
+
+    <EditText
+        android:id="@+id/add_price_pm_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/custom_input"
+        android:layout_below="@+id/add_max_area_input"
+        android:layout_marginTop="30dp"
+        android:hint="@string/price_pm"
+        android:inputType="text"
+        android:autofillHints=""
+        android:layout_marginStart="60dp"
+        android:layout_marginEnd="60dp"/>
+
+
+    <Button
+        android:id="@+id/cancel_add_service_btn"
+        style="@style/cancel_btn"
+        android:layout_below="@+id/add_price_pm_input"
+        android:layout_alignStart="@+id/add_price_pm_input"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="40dp"
+        android:background="@drawable/button"
+        android:text="@string/cancel" />
+
+    <Button
+        android:id="@+id/save_add_service_btn"
+        style="@style/save_btn"
+        android:text="@string/save"
+        android:background="@drawable/button"
+        android:layout_alignTop="@+id/cancel_add_service_btn"
+        android:layout_toEndOf="@+id/cancel_add_service_btn" />
+
+
+</RelativeLayout>

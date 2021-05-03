@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.auth.SignInActivity"
+    android:background="@color/light">
+
+    <TextView
+        android:id="@+id/signup_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/signin_title"
+        style="@style/custom_title"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintVertical_bias=".15"/>
+
+    <TextView
+        android:id="@+id/signup_subtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/sign_in_to_continue"
+        style="@style/custom_subtitle"
+        app:layout_constraintTop_toBottomOf="@id/signup_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/custom_input"
+        android:hint="@string/email"
+        app:layout_constraintTop_toBottomOf="@id/signup_subtitle"
+        app:layout_constraintStart_toStartOf="@id/signup_title"
+        app:layout_constraintEnd_toEndOf="@id/signup_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias=".2" />
+
+    <EditText
+        android:id="@+id/password"
+        style="@style/custom_input"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/password"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/signup_title"
+        app:layout_constraintStart_toStartOf="@id/signup_title"
+        app:layout_constraintTop_toBottomOf="@id/signup_subtitle"
+        app:layout_constraintVertical_bias=".4" />
+
+    <Button
+        android:id="@+id/signup_button"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        style="@style/custom_button"
+        android:text="@string/login"
+        app:layout_constraintTop_toBottomOf="@id/signup_subtitle"
+        app:layout_constraintStart_toStartOf="@id/signup_title"
+        app:layout_constraintEnd_toEndOf="@id/signup_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintVertical_bias=".7" />
+
+    <LinearLayout
+        android:id="@+id/go_to_sign_in"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/signup_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/custom_subtitle_dark"
+            android:text="@string/dont_have_acc" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/custom_subtitle"
+            android:text="@string/signup" />
+
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
