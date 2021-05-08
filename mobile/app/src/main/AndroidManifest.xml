@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <application
+            android:debuggable="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -16,8 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CleaningService"
         android:usesCleartextTraffic="true"
-        tools:targetApi="m">
-        <activity android:name=".ui.profile.MapActivity"></activity>
+        tools:targetApi="m"
+            tools:ignore="HardcodedDebugMode">
         <activity android:name=".ui.profile.ServicesActivity" />
         <activity android:name=".ui.profile.PlacementsActivity" />
         <activity android:name=".ui.contracts.ContractsActivity" />

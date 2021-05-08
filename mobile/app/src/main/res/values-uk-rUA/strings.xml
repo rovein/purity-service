@@ -64,4 +64,6 @@
     <string name="clean_came">Назва клінінгової компанії:</string>
     <string name="pick_serv_name">Оберіть назву сервісу</string>
     <string name="pick_room">Оберіть ідентифікатор кімнати</string>
+    <string name="loading">Завантаження…</string>
+    <string name="invalidCreds">Перевірте правильність введених даних</string>
 </resources>

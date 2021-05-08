@@ -67,4 +67,6 @@
     <string name="clean_came">Cleaning name:</string>
     <string name="pick_serv_name">Pick service name</string>
     <string name="pick_room">Pick placement id</string>
+    <string name="loading">Loading…</string>
+    <string name="invalidCreds">Credentials are invalid</string>
 </resources>

@@ -10,22 +10,22 @@ import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
-import ua.nure.cleaningservice.data.Company;
+import ua.nure.cleaningservice.data.User;
 import ua.nure.cleaningservice.data.Contract;
 import ua.nure.cleaningservice.data.Placement;
 import ua.nure.cleaningservice.data.Service;
 
-public interface JSONPlaceHolderApi {
+public interface JsonPlaceHolderApi {
 
     @POST("/auth/login")
-    Call<Company> login(@Body Company company);
+    Call<User> login(@Body User user);
 
     @GET("/cleaning-providers/{email}")
-    Call<Company> getCleaningProviderData(@Header("Authorization") String token,
+    Call<User> getCleaningProviderData(@Header("Authorization") String token,
             @Path("email") String email);
 
     @GET("/placement-owners/{email}")
-    Call<Company> getPlacementOwnerData(@Header("Authorization") String token,
+    Call<User> getPlacementOwnerData(@Header("Authorization") String token,
             @Path("email") String email);
 
     @GET("/cleaning-providers/{email}/services")
@@ -49,12 +49,12 @@ public interface JSONPlaceHolderApi {
             @Path("email") String email, @Body Service service);
 
     @PUT("/cleaning-providers")
-    Call<Company> updateCleaningProviderProfile(@Header("Authorization") String token,
-            @Body Company cleaningProvider);
+    Call<User> updateCleaningProviderProfile(@Header("Authorization") String token,
+            @Body User cleaningProvider);
 
     @PUT("/placement-owners")
-    Call<Company> updatePlacementOwnerProfile(@Header("Authorization") String token,
-            @Body Company placementOwner);
+    Call<User> updatePlacementOwnerProfile(@Header("Authorization") String token,
+            @Body User placementOwner);
 
     @GET("/cleaning-providers/services/{id}")
     Call<Service> getService(@Header("Authorization") String token,
@@ -85,13 +85,13 @@ public interface JSONPlaceHolderApi {
             @Path("email") String email, @Body Service service);
 
     @GET("/cleaning-providers")
-    Call<ArrayList<Company>> getCleaningProviders(@Header("Authorization") String token);
+    Call<ArrayList<User>> getCleaningProviders(@Header("Authorization") String token);
 
     @POST("/auth/register/cleaning-provider")
-    Call<Company> cleaningProviderSignUp(@Body Company cleaningProvider);
+    Call<User> cleaningProviderSignUp(@Body User cleaningProvider);
 
     @POST("/auth/register/placement-owner")
-    Call<Company> placementOwnerSignUp(@Body Company placementOwner);
+    Call<User> placementOwnerSignUp(@Body User placementOwner);
 
     @POST("/contracts")
     Call<Contract> signContract(@Header("Authorization") String token,

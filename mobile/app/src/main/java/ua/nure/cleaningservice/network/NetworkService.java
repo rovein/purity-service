@@ -41,8 +41,8 @@ public class NetworkService {
         return instance;
     }
 
-    public JSONPlaceHolderApi getApiService() {
-        return retrofit.create(JSONPlaceHolderApi.class);
+    public JsonPlaceHolderApi getApiService() {
+        return retrofit.create(JsonPlaceHolderApi.class);
     }
 
 

@@ -3,7 +3,7 @@ package ua.nure.cleaningservice.data;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Company {
+public class User {
 
     @SerializedName("id")
     @Expose
@@ -33,20 +33,20 @@ public class Company {
     @Expose
     private Address address;
 
-    private static Company instance;
+    private static User instance;
 
-    private Company() {}
+    private User() {}
 
-    public Company(String id, String name, String email, String phoneNumber) {
+    public User(String id, String name, String email, String phoneNumber) {
         this.id = id;
         this.name = name;
         this.email = email;
         this.phoneNumber = phoneNumber;
     }
 
-    public static Company getInstance() {
+    public static User getInstance() {
         if(instance == null) {
-            instance = new Company();
+            instance = new User();
         }
         return instance;
     }
@@ -55,7 +55,7 @@ public class Company {
         return id;
     }
 
-    public Company setId(String id) {
+    public User setId(String id) {
         this.id = id;
         return instance;
     }
@@ -64,7 +64,7 @@ public class Company {
         return name;
     }
 
-    public Company setName(String name) {
+    public User setName(String name) {
         this.name = name;
         return instance;
     }
@@ -73,7 +73,7 @@ public class Company {
         return email;
     }
 
-    public Company setEmail(String email) {
+    public User setEmail(String email) {
         this.email = email;
         return instance;
     }
@@ -82,7 +82,7 @@ public class Company {
         return password;
     }
 
-    public Company setPassword(String password) {
+    public User setPassword(String password) {
         this.password = password;
         return instance;
     }
@@ -91,7 +91,7 @@ public class Company {
         return companyId;
     }
 
-    public Company setCompanyId(String companyId) {
+    public User setCompanyId(String companyId) {
         this.companyId = companyId;
         return instance;
     }
@@ -100,7 +100,7 @@ public class Company {
         return token;
     }
 
-    public Company setToken(String token) {
+    public User setToken(String token) {
         this.token = token;
         return instance;
     }
@@ -109,7 +109,7 @@ public class Company {
         return phoneNumber;
     }
 
-    public Company setPhoneNumber(String phoneNumber) {
+    public User setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
         return instance;
     }
@@ -118,7 +118,7 @@ public class Company {
         return userRole;
     }
 
-    public Company setUserRole(String userRole) {
+    public User setUserRole(String userRole) {
         this.userRole = userRole;
         return instance;
     }
@@ -128,7 +128,7 @@ public class Company {
         return address;
     }
 
-    public Company setAddress(Address address) {
+    public User setAddress(Address address) {
         this.address = address;
         return instance;
     }

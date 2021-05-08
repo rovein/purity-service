@@ -16,6 +16,9 @@ public class AddressMapper {
     }
 
     public static Address toAddress(AddressDto addressDto) {
+        if (addressDto == null) {
+            return new Address();
+        }
         return new Address()
                 .setCountry(addressDto.getCountry())
                 .setCity(addressDto.getCity())
