@@ -34,3 +34,6 @@ build/
 
 *.zip
 *.md5
+
+**/cmake-build-debug/
+**/CMakeLists.txt
