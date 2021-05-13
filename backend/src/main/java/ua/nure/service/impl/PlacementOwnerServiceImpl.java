@@ -187,6 +187,7 @@ public class PlacementOwnerServiceImpl implements PlacementOwnerService {
                     smartDevice.getAdjustmentFactor();
             double adjustmentFactor =
                     round(smartDeviceDto.getAdjustmentFactor());
+            double airQuality = round(smartDeviceDto.getAirQuality());
 
             Date currentDate = new Date();
             placement.getContracts().stream()
@@ -205,15 +206,17 @@ public class PlacementOwnerServiceImpl implements PlacementOwnerService {
                         contract.setPrice(round(price));
                     });
 
+            double dirtinessFactor = round((1 - airQuality) + (adjustmentFactor - 1));
+
             smartDevice
-                    .setAirQuality(smartDeviceDto.getAirQuality())
+                    .setAirQuality(airQuality)
                     .setTemperature(smartDeviceDto.getTemperature())
                     .setHumidity(smartDeviceDto.getHumidity())
                     .setAdjustmentFactor(adjustmentFactor)
-                    .setDirtinessFactor(smartDeviceDto.getDirtinessFactor())
+                    .setDirtinessFactor(dirtinessFactor)
                     .setPriority(smartDeviceDto.getPriority());
             placement.setSmartDevice(smartDevice);
-
+            System.out.println(smartDevice);
             return PlacementMapper
                     .toPlacementDto(placementRepository.save(placement));
         }

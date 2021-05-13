@@ -33,11 +33,11 @@ public class SmartDeviceController {
             return ResponseEntity.notFound().build();
         }
 
-        PlacementDto updatedProcedure =
+        PlacementDto updatedPlacement =
                 placementOwnerService.updateSmartDevice(smartDeviceDto);
-        System.out.println(updatedProcedure);
+        System.out.println(updatedPlacement);
 
-        return ResponseEntity.ok(updatedProcedure);
+        return ResponseEntity.ok(updatedPlacement);
     }
 
 }
