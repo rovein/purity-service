@@ -79,37 +79,55 @@ class Card extends React.Component{
           return <div className='additional'>{t("Loading")}...</div>;
         } else {
           return (
-            <div className="grid">
-              {services.map(this.renderCard)}
-              </div>
+              <table className="w3-table-all w3-centered">
+                  <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>{t("DName")}</th>
+                      <th>{t("Desc")}</th>
+                      <th>{t("minA")}</th>
+                      <th>{t("maxA")}</th>
+                      <th>{t("rType")}</th>
+                      <th>{t("Price")}</th>
+                      <th>Actions</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  {services.sort((oneService, anotherService) => {
+                    return oneService.id - anotherService.id
+                  }).map(this.renderCard)}
+                  </tbody>
+              </table>
           );
         }
       }
 
     renderCard = (service) => {
-      const {t} = this.props
+        const {t} = this.props
+        const columnStyle = {verticalAlign: "middle"};
         return (
-          <div className="card text-center">
-                      <div className="crd-body text-dark" id ={service.id}>
-                          <h2 className="card-title">{service.name}</h2>
-                          <p className="card-text text-secondary">{t("Desc")}: {service.description}</p>
-                          <p className="card-text text-secondary">{t("minA")}: {service.minArea}</p>
-                          <p className="card-text text-secondary">{t("maxA")}: {service.maxArea}</p>
-                          <p className="card-text text-secondary">{t("rType")}: {service.placementType}</p>
-                          <p className="card-text text-secondary">{t("Price")}: {service.pricePerMeter} {t("pMes")}</p>
-                            <Button
-                            text = {t('Edit')}
-                            onClick={(e) => {
-                              localStorage.setItem("serviceId", service.id)
-                              window.location.href='./edit_service';
-                              }}
-                            />
-                            <Button
-                            text = {t('Delete')}
-                            onClick = { () => this.deleteService(service.id)}
-                            />
-                      </div>
-                  </div>
+        <tr>
+            <td style={columnStyle}>{service.id}</td>
+            <td style={columnStyle}>{service.name}</td>
+            <td style={columnStyle}>{service.description}</td>
+            <td style={columnStyle}>{service.minArea}</td>
+            <td style={columnStyle}>{service.maxArea}</td>
+            <td style={columnStyle}>{service.placementType}</td>
+            <td style={columnStyle}>{service.pricePerMeter} {t("pMes")}</td>
+            <td>
+                <a
+                    className='w3-btn w3-khaki w3-round-small w3-medium'
+                    onClick={(e) => {
+                        localStorage.setItem("serviceId", service.id)
+                        window.location.href = './edit_service';
+                    }}
+                >{t('Edit')}</a>&nbsp;
+                <a
+                    className='w3-btn w3-red w3-round-small w3-medium'
+                    onClick={() => this.deleteService(service.id)}
+                >{t('Delete')}</a>
+            </td>
+        </tr>
         );
       };
 }

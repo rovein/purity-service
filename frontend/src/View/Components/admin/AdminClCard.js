@@ -1,6 +1,7 @@
 import React from 'react'
 import Button from '../Button'
 import { withTranslation } from 'react-i18next'
+import Loader from "react-loader-spinner";
 
 var url = "http://localhost:8080"
 
@@ -48,12 +49,30 @@ class Card extends React.Component{
         if (error) {
           return <div className='additional'>{t("Failiture")}: {error.message}</div>;
         } else if (!isLoaded) {
-          return <div className='additional'>{t("Loading")}...</div>;
+          return <div className="centered" style={{marginLeft: '44%'}}>
+            <Loader
+              type="Oval" //Audio Oval ThreeDots
+              color="#4B0082"
+              height={200}
+              width={200}
+              timeout={10000}
+            />
+          </div>;
         } else {
           return (
-            <div className="grid">
+            <table className="w3-table-all w3-centered">
+              <thead>
+              <tr>
+                <th>{t("DName")}</th>
+                <th>{t("Phone")}</th>
+                <th>{t("Email")}</th>
+                <th>Actions</th>
+              </tr>
+              </thead>
+              <tbody>
               {companies.map(this.renderCard)}
-              </div>
+              </tbody>
+            </table>
           );
         }
       }
@@ -81,26 +100,28 @@ class Card extends React.Component{
 
     renderCard = (company) => {
       const {t} = this.props
-      
+      const columnStyle = {verticalAlign: "middle"};
         return (
-          <div className="card text-center">
-                      <div className="crd-body text-dark" id ={company.id}>
-                          <h2 className="card-title">{company.name}</h2>
-                          <p>{t("Phone")}: {company.phoneNumber}</p>
-                          <p>{t("Email")}: {company.email}</p>
-                          <Button
-                            text = {t('Edit')}
-                            onClick={(e) => {
-                                localStorage.setItem("Email",company.email)
-                                localStorage.setItem("Role", "CLEANING_PROVIDER")
-                                window.location.href='./edit';
-                                }}/>
-                            <Button
-                            text = {t('Delete')}
-                            onClick = { () => this.deleteCleaning(company.email)}
-                            />
-                      </div>
-                  </div>
+          <tr>
+            <td style={columnStyle}>{company.name}</td>
+            <td style={columnStyle}>{company.phoneNumber}</td>
+            <td style={columnStyle}> {company.email}</td>
+            <td>
+              <Button
+                className='w3-btn w3-khaki w3-round-small w3-medium'
+                text = {t('Edit')}
+                onClick={(e) => {
+                  localStorage.setItem("Email",company.email)
+                  localStorage.setItem("Role", "CLEANING_PROVIDER")
+                  window.location.href='./edit';
+                }}/>
+              <Button
+                className='w3-btn w3-red w3-round-small w3-medium'
+                text = {t('Delete')}
+                onClick = { () => this.deleteCleaning(company.email)}
+              />
+            </td>
+          </tr>
         );
       };
 }

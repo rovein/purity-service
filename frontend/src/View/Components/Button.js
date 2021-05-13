@@ -4,7 +4,7 @@ class Button extends React.Component{
     render() {
         return(
                 <button 
-                className = 'btn'
+                className = {this.props.className ? this.props.className : 'btn'}
                 type="submit"
                 disabled = {this.props.disabled}
                 onClick={ () => this.props.onClick()}>

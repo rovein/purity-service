@@ -29,6 +29,11 @@ class Profile extends React.Component{
     render() {
         localStorage.removeItem("Email")
         localStorage.removeItem("Role")
+        const adminBack = {
+            textAlign: "center",
+            fontSize: "25px",
+            padding: "0 0 0 0"
+        }
             const {t} = this.props
             return(
                 <div>
@@ -43,13 +48,13 @@ class Profile extends React.Component{
                         />
                     </div>
                     <div className="rooms_back">
-                        <p id="EMP">{t("CComp")}</p>
+                        <p id="EMP" style={adminBack}>{t("CComp")}</p>
                     </div>
                         <div id="rooms_container">
                            <CleaningCard/>
                         </div>
                         <div className="rooms_back">
-                            <p id="EMP">{t("Comp")}</p>
+                            <p id="EMP" style={adminBack}>{t("Comp")}</p>
                         </div>
                         <div id="room_container">
                            <AdminCustCart/>

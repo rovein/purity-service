@@ -3,6 +3,7 @@ import { withTranslation } from 'react-i18next'
 import jwt_decode from "jwt-decode"
 import Moment from 'moment';
 import localization from 'moment/locale/uk'
+import Loader from "react-loader-spinner";
 
 if(localStorage.getItem("Token") != null){
     var token = localStorage.getItem("Token")
@@ -64,12 +65,36 @@ class Card extends React.Component{
         if (error) {
           return <div className='additional'>{t("Failiture")}: {error.message}</div>;
         } else if (!isLoaded) {
-          return <div className='additional'>{t("Loading")}...</div>;
+          return <div className="centered">
+            <Loader
+              type="Oval" //Audio Oval ThreeDots
+              color="#4B0082"
+              height={450}
+              width={450}
+              timeout={10000}
+            />
+          </div>;
         } else {
           return (
-            <div className="grid">
-              {contracts.map(this.renderCard)}
-              </div>
+            <table className="w3-table-all w3-centered">
+              <thead>
+              <tr>
+                <th>ID</th>
+                <th>{t("sId")}</th>
+                <th>{t("serviceName")}</th>
+                {decoded.role === "PLACEMENT_OWNER" && <th>{t("CComp")}</th>}
+                {decoded.role === "CLEANING_PROVIDER" && <th>{t("Comp")}</th>}
+                <th>{t("rId")}</th>
+                <th>{t("Price")}</th>
+                <th>{t("CDate")}</th>
+              </tr>
+              </thead>
+              <tbody>
+              {contracts.sort((oneContract, anotherContract) => {
+                return oneContract.id - anotherContract.id
+              }).map(this.renderCard)}
+              </tbody>
+            </table>
           );
         }
       }
@@ -82,34 +107,27 @@ class Card extends React.Component{
       }
     }
 
-    getName(){
-
-    }
-
-
     renderCard = (contract) => {
       const {t} = this.props
+      const columnStyle = {verticalAlign: "middle"};
       this.localTime(contract.date)
         return (
-          <div className="card text-center">
-                      <div className="crd-body text-dark" id ={contract.id}>
-                          <h2 className="card-title">{t('Contract')}</h2>
-                          <p className="card-text text-secondary">{t("sId")}: {contract.providerServiceId}</p>
-                          <p className="card-text text-secondary">{t("serviceName")}: {contract.serviceName}</p>
-                          {
-                              decoded.role === "PLACEMENT_OWNER" &&
-                              <p className="card-text text-secondary">{t("CComp")}: {contract.cleaningProviderName}</p>
-                          }
-                          {
-                              decoded.role === "CLEANING_PROVIDER" &&
-                              <p className="card-text text-secondary">{t("Comp")}: {contract.placementOwnerName}</p>
-                          }
-                          <p className="card-text text-secondary">{t("rId")}: {contract.placementId}</p>
-                          <p className="card-text text-secondary">{t("Price")}: {contract.price} {t("pMes")}</p>
-                          <p className="card-text text-secondary">{t("CDate")}: {this.state.date}</p>
-
-                      </div>
-                  </div>
+          <tr>
+            <td style={columnStyle}>{contract.id}</td>
+            <td style={columnStyle}>{contract.providerServiceId}</td>
+            <td style={columnStyle}>{contract.serviceName}</td>
+            {
+              decoded.role === "PLACEMENT_OWNER" &&
+              <td style={columnStyle}>{contract.cleaningProviderName}</td>
+            }
+            {
+              decoded.role === "CLEANING_PROVIDER" &&
+              <td style={columnStyle}>{contract.placementOwnerName}</td>
+            }
+            <td style={columnStyle}>{contract.placementId}</td>
+            <td style={columnStyle}>{contract.price}</td>
+            <td style={columnStyle}>{this.state.date}</td>
+          </tr>
         );
       };
 }
