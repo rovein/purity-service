@@ -11,11 +11,11 @@ byte mac[] = {0x90, 0xA2, 0xDA, 0x00, 0x82, 0x7A};
 
 IPAddress server(192, 168, 0, 103);
 
-int    HTTP_PORT = 8080;
-String HTTP_METHOD = "POST";
-String HOST_NAME = "localhost";
-String PATH_NAME = "/device";
-int    id = 5;
+const int    HTTP_PORT = 8080;
+const String HTTP_METHOD = "POST";
+const String HOST_NAME = "localhost";
+const String PATH_NAME = "/device";
+const int    id = 5;
 
 IPAddress ip(192, 168, 0, 104);
 IPAddress myDns(192, 168, 0, 1);
@@ -25,9 +25,9 @@ EthernetClient client;
 DHT dht(DHT_PIN, DHT11);
 MQ135 mq = MQ135(MQ_PIN); 
 
-float recHumidity = 50;
-float recTemperature = 23;
-float fullValue = 1;
+const float recHumidity = 50;
+const float recTemperature = 23;
+const float fullValue = 1;
 
 float humidityDiff;
 float temperatureDiff;
