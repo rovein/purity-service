@@ -1,6 +1,6 @@
 import React from 'react'
-import Input from '../Input'
-import Button from '../Button'
+import Input from '../ui/Input'
+import Button from '../ui/Button'
 import { withTranslation } from 'react-i18next'
 
 var url = "http://localhost:8080";

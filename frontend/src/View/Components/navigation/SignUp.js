@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from './Components/Header'
-import SignUpTabBar from './Components/auth/SignUpTabBar';
+import Header from '../ui/Header'
+import SignUpTabBar from '../auth/SignUpTabBar';
 
 class SignUp extends React.Component{
     render() {

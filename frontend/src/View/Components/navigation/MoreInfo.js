@@ -1,5 +1,5 @@
 import React from 'react'
-import Header from './Components/auth/HeaderAuth'
+import Header from '../auth/HeaderAuth'
 import { withTranslation } from 'react-i18next';
 
 var url = "http://localhost:8080"

@@ -1,10 +1,10 @@
 import React from 'react'
-import Button from './Components/Button'
+import Button from '../../ui/Button'
 import Dropdown from 'react-dropdown';
 import {withTranslation} from 'react-i18next'
 import jwt_decode from "jwt-decode"
 import 'react-dropdown/style.css';
-import Header from './Components/auth/HeaderAuth'
+import Header from '../../auth/HeaderAuth'
 
 const url = "http://localhost:8080";
 if (localStorage.getItem("Token") != null) {

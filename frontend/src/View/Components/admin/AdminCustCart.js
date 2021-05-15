@@ -1,5 +1,5 @@
 import React from 'react'
-import Button from '../Button'
+import Button from '../ui/Button'
 import { withTranslation } from 'react-i18next'
 import Loader from "react-loader-spinner";
 

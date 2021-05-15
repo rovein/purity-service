@@ -79,6 +79,7 @@ class Header extends React.Component{
                         <ul className="nav_links">
                         <li><input type="button" id="locale" value = {this.state.value} onClick={() => { this.onLanguageHandle()}}/></li>
                             <li><a href="/profile" id="PR">{t("Profile")}</a></li>
+                            <li><a href="/configure-smart-device" id="SM">{t("ConfigureDevice")}</a></li>
                             <li><a onClick={() => this.signout()} id="SO">{t("Signout")}</a></li>
                         </ul>
                     </nav>

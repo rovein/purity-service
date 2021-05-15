@@ -91,7 +91,8 @@ i18n.use(LanguageDetector).init({
         Search:"Search",
         eExist:"Such email already exist in system!",
         Temp: "Temperature",
-        dFact: "Dirtiness factor"
+        dFact: "Dirtiness factor",
+        ConfigureDevice: "Configure device"
       }
     },
     UA: {
@@ -134,7 +135,7 @@ i18n.use(LanguageDetector).init({
         Services:"Послуги прибирання",
         AddS:"Додати послугу",
         Desc:"Опис",
-        Price:"Ціна",
+        Price:"Вартість",
         minA:"Мінімальна площа",
         maxA:"Максимальна площа",
         rType:"Тип приміщення",
@@ -182,7 +183,8 @@ i18n.use(LanguageDetector).init({
         Search:"Пошук",
         eExist:"Така електронна пошта вже існує в системі!",
         Temp: "Температура",
-        dFact: "Рівень забрудненості"
+        dFact: "Рівень забрудненості",
+        ConfigureDevice: "Конфігурування IoT"
       }
     },
   },

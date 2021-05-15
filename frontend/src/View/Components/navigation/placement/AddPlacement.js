@@ -1,18 +1,18 @@
 import React from 'react'
-import Header from './Components/Header'
-import LoginForm from './Components/auth/LoginForm'
-class Login extends React.Component{
+import Header from '../../auth/HeaderAuth'
+import AddRForm from '../../placement-owner/AddRForm'
+class Add extends React.Component{
     
     render() { 
         return(
             <div className="signIn">
             <Header/>
                 <div className="container">
-                    <LoginForm/>
+                    <AddRForm/>
             </div>
         </div>
         )
     }
 }
 
-export default Login;
+export default Add;

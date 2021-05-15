@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next';
 import CleaningCard from './AdminClCard';
 import AdminCustCart from './AdminCustCart';
 import axios from "axios";
-import Button from "../Button";
+import Button from "../ui/Button";
 
 var url = "http://localhost:8080";
 const FileDownload = require("js-file-download");

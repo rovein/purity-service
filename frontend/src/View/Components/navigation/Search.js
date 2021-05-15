@@ -1,8 +1,8 @@
 import React from 'react'
-import Header from './Components/auth/HeaderAuth'
+import Header from '../auth/HeaderAuth'
 import { withTranslation } from 'react-i18next'
-import SearchField from './Components/SearchField'
-import CleaningCard from './Components/cleaning-provider/CleaningCard'
+import SearchField from '../ui/SearchField'
+import CleaningCard from '../cleaning-provider/CleaningCard'
 class Search extends React.Component{
     
     render() { 

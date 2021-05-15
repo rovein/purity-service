@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from './Components/auth/HeaderAuth'
-import EditForm from './Components/auth/EditForm'
+import Header from '../../auth/HeaderAuth'
+import EditService from '../../cleaning-provider/EditServiceForm'
 class Edit extends React.Component{
     
     render() { 
@@ -8,7 +8,7 @@ class Edit extends React.Component{
             <div className="signIn">
             <Header/>
                 <div className="container">
-                    <EditForm/>
+                    <EditService/>
             </div>
         </div>
         )

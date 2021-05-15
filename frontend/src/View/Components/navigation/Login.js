@@ -1,18 +1,18 @@
 import React from 'react'
-import Header from './Components/auth/HeaderAuth'
-import EditService from './Components/cleaning-provider/EditServiceForm'
-class Edit extends React.Component{
+import Header from '../ui/Header'
+import LoginForm from '../auth/LoginForm'
+class Login extends React.Component{
     
     render() { 
         return(
             <div className="signIn">
             <Header/>
                 <div className="container">
-                    <EditService/>
+                    <LoginForm/>
             </div>
         </div>
         )
     }
 }
 
-export default Edit;
+export default Login;
