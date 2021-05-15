@@ -19,6 +19,7 @@ import Contract from './View/Components/navigation/contract/Contract'
 import EditService from './View/Components/navigation/service/EditService';
 import SignContract from './View/Components/navigation/contract/SignContract';
 import EditRoom from './View/Components/navigation/placement/EditPlacement';
+import ConfigureDevice from "./View/Components/navigation/ConfigureDevice";
 
 class App extends React.Component{
   constructor(props) {
@@ -50,7 +51,7 @@ class App extends React.Component{
               <Route path='/contracts' component={Contract} />
               <Route path='/sign_contract' component={SignContract}/>
 
-              <Route path='/configure-smart-device' component={Contract} />
+              <Route path='/configure-smart-device' component={ConfigureDevice} />
             <Redirect from='/' to='/login'/>
           </Switch>
         </BrowserRouter>

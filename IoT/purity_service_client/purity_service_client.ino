@@ -65,6 +65,7 @@ void setup() {
 
                         configuringClient.println("HTTP/1.1 200 OK");
                         configuringClient.println("Content-Type: text/plain");
+                        configuringClient.println("Access-Control-Allow-Origin: *");
                         configuringClient.println();
                         configuringClient.println(
                                 "Arduino was successfully configured!");

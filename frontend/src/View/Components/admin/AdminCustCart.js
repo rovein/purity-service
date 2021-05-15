@@ -51,7 +51,7 @@ class Card extends React.Component{
         } else if (!isLoaded) {
           return <div className="centered" style={{marginLeft: '44%'}}>
             <Loader
-              type="Oval" //Audio Oval ThreeDots
+              type="Oval"
               color="#4B0082"
               height={200}
               width={200}

@@ -92,7 +92,13 @@ i18n.use(LanguageDetector).init({
         eExist:"Such email already exist in system!",
         Temp: "Temperature",
         dFact: "Dirtiness factor",
-        ConfigureDevice: "Configure device"
+        ConfigureDevice: "Configure device",
+        SuccessConfiguring: "Device has been configured",
+        DeviceIp: "Device IP",
+        ServerIp: "Server address",
+        ServerPort: "Server port",
+        PlacementId: "Placement ID",
+        Configure: "Configure"
       }
     },
     UA: {
@@ -184,7 +190,13 @@ i18n.use(LanguageDetector).init({
         eExist:"Така електронна пошта вже існує в системі!",
         Temp: "Температура",
         dFact: "Рівень забрудненості",
-        ConfigureDevice: "Конфігурування IoT"
+        ConfigureDevice: "Конфігурування IoT",
+        SuccessConfiguring: "Пристрій було сконфігуровано",
+        DeviceIp: "IP адреса пристрою",
+        ServerIp: "Адреса серверу",
+        ServerPort: "Порт серверу",
+        PlacementId: "Номер приміщення",
+        Configure: "Налаштувати"
       }
     },
   },
