@@ -12,7 +12,6 @@ import Profile from './View/Components/navigation/Profile'
 import Search from './View/Components/navigation/Search'
 import { withTranslation } from 'react-i18next'
 import Edit from './View/Components/navigation/Edit';
-import MoreInfo from './View/Components/navigation/MoreInfo'
 import AddRoom from './View/Components/navigation/placement/AddPlacement'
 import AddService from './View/Components/navigation/service/AddService'
 import Contract from './View/Components/navigation/contract/Contract'
@@ -20,6 +19,7 @@ import EditService from './View/Components/navigation/service/EditService';
 import SignContract from './View/Components/navigation/contract/SignContract';
 import EditRoom from './View/Components/navigation/placement/EditPlacement';
 import ConfigureDevice from "./View/Components/navigation/ConfigureDevice";
+import Info from "./View/Components/navigation/PlacementInfo";
 
 class App extends React.Component{
   constructor(props) {
@@ -40,7 +40,7 @@ class App extends React.Component{
               <Route path='/edit' component={Edit} />
 
               <Route path='/search' component={Search} />
-              <Route path='/more' component={MoreInfo} />
+              <Route path='/more' component={Info} />
 
               <Route path='/add_room' component={AddRoom} />
               <Route path='/edit_room' component={EditRoom} />
