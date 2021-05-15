@@ -3,27 +3,31 @@
 #include <ArduinoJson.h>
 #include "DHT.h"
 #include "MQ135.h"
+#include <TextFinder.h>
 
 #define MQ_PIN  A4
 #define DHT_PIN A5
 
-byte mac[] = {0x90, 0xA2, 0xDA, 0x00, 0x82, 0x7A};
+const byte mac[] = {0x90, 0xA2, 0xDA, 0x00, 0x82, 0x7A};
+IPAddress server;
+unsigned int port;
+unsigned int placementId;
 
-IPAddress server(192, 168, 0, 103);
-
-const int    HTTP_PORT = 8080;
-const String HTTP_METHOD = "POST";
-const String HOST_NAME = "localhost";
-const String PATH_NAME = "/device";
-const int    id = 5;
-
-IPAddress ip(192, 168, 0, 104);
+IPAddress arduinoIp(192, 168, 0, 2);
 IPAddress myDns(192, 168, 0, 1);
+EthernetServer arduinoServer(80);
+boolean isConfigured = false;
+
+byte byte1;
+byte byte2;
+byte byte3;
+byte byte4;
+String readString = String(30);
 
 EthernetClient client;
 
 DHT dht(DHT_PIN, DHT11);
-MQ135 mq = MQ135(MQ_PIN); 
+MQ135 mq = MQ135(MQ_PIN);
 
 const float recHumidity = 50;
 const float recTemperature = 23;
@@ -42,25 +46,40 @@ void setup() {
 
     Serial.println("Ініціалізація з'єднання за допомогою DHCP:");
 
-    if (Ethernet.begin(mac) == 0) {
-        Serial.println("Не вдалося налаштувати Інтернет використовуючи DHCP");
-        if (Ethernet.hardwareStatus() == EthernetNoHardware) {
-            Serial.println("Інтернет модуль не знайдено");
+    Ethernet.begin(mac, arduinoIp);
+    Serial.print(" встановлений IP ");
+    Serial.println(Ethernet.localIP());
+    arduinoServer.begin();
+
+    Serial.println("Очікується конфігурація приладу...");
+    while (!isConfigured) {
+        EthernetClient configuringClient = arduinoServer.available();
+        if (configuringClient) {
+            TextFinder finder(configuringClient);
+            while (configuringClient.connected()) {
+                if (configuringClient.available()) {
+                    if (finder.find("GET")) {
+                        initializeConfiguringValues(finder);
+                        server = IPAddress(byte1, byte2, byte3, byte4);
+                        isConfigured = true;
+
+                        configuringClient.println("HTTP/1.1 200 OK");
+                        configuringClient.println("Content-Type: text/plain");
+                        configuringClient.println();
+                        configuringClient.println(
+                                "Arduino was successfully configured!");
+                        configuringClient.stop();
+                    }
+                }
+            }
         }
-        if (Ethernet.linkStatus() == LinkOFF) {
-            Serial.println("Інтернет кабель не під'єднано");
-        }
-        Ethernet.begin(mac, ip, myDns);
-    } else {
-        Serial.print("  DHCP встановлений IP ");
-        Serial.println(Ethernet.localIP());
     }
-    delay(1000);
+
     Serial.print("під'єднання до ");
     Serial.print(server);
     Serial.println("...");
 
-    if (client.connect(server, HTTP_PORT)) {
+    if (client.connect(server, port)) {
         Serial.print("під'єднано ");
         Serial.println(client.remoteIP());
     } else {
@@ -70,13 +89,12 @@ void setup() {
 
 void loop() {
 
-    if (client.connect(server, HTTP_PORT)) {
-        
+    if (client.connect(server, port)) {
         float humidity = dht.readHumidity();
         float temperature = dht.readTemperature();
         float airPollution = mq.getPPM() / 10;
         Serial.println(
-                "Вологість: " + String(humidity) + " %\t" + 
+                "Вологість: " + String(humidity) + " %\t" +
                 "Температура: " + String(temperature) + " *C\t");
 
         humidityDiff = getPercentDifference(humidity, recHumidity);
@@ -84,25 +102,25 @@ void loop() {
         totalDiff = temperatureDiff + humidityDiff;
 
         printDifference();
-        
+
         const size_t capacity = JSON_OBJECT_SIZE(5);
         DynamicJsonBuffer jsonBuffer(capacity);
 
         float adjustmentFactor = fullValue + totalDiff;
         float airQuality = fullValue - airPollution;
-        
+
         JsonObject &root = jsonBuffer.createObject();
         root["adjustmentFactor"] = adjustmentFactor;
         root["humidity"] = humidity;
-        root["id"] = id;
+        root["id"] = placementId;
         root["airQuality"] = airQuality;
         root["temperature"] = temperature;
-       
+
         String data;
         root.printTo(data);
 
-        client.println("POST " + PATH_NAME + " HTTP/1.1");
-        client.println("Host: " + HOST_NAME);
+        client.println("POST /device HTTP/1.1");
+        client.println("Host: localhost");
         client.println("User-Agent: Arduino/1.0");
         client.println("Connection: close");
         client.println("Content-Type: application/json");
@@ -112,11 +130,9 @@ void loop() {
         client.println(data);
 
         printResponse(client);
-
     }
 
-    delay(100000);
-
+    delay(10000);
 }
 
 float getPercentDifference(float x, float y) {
@@ -150,4 +166,25 @@ void printDifference() {
     Serial.println(
             "Загальне відхилення: " +
             String(totalDiff * 100) + " %\t");
+}
+
+void initializeConfiguringValues(TextFinder finder) {
+    if (finder.find("byte1=")) {
+        byte1 = finder.getValue();
+    }
+    if (finder.find("byte2=")) {
+        byte2 = finder.getValue();
+    }
+    if (finder.find("byte3=")) {
+        byte3 = finder.getValue();
+    }
+    if (finder.find("byte4=")) {
+        byte4 = finder.getValue();
+    }
+    if (finder.find("port=")) {
+        port = finder.getValue();
+    }
+    if (finder.find("roomId=")) {
+        placementId = finder.getValue();
+    }
 }
