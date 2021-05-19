@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import ua.nure.dto.CleaningProviderDto;
 import ua.nure.dto.PlacementOwnerDto;
 import ua.nure.dto.PlacementDto;
 import ua.nure.service.PlacementOwnerService;
@@ -85,12 +86,17 @@ public class PlacementOwnerController {
             return ResponseEntity.badRequest().body(errorBody(bindingResult));
         }
 
-        PlacementOwnerDto updatedOwner = placementOwnerService.update(
-                placementOwnerDto);
+        PlacementOwnerDto owner = placementOwnerService.findByEmail(
+                placementOwnerDto.getEmail());
 
-        if (updatedOwner == null) {
+        if (owner== null) {
             return ResponseEntity.notFound().build();
         }
+        String password = placementOwnerDto.getPassword();
+        if (password == null || password.isEmpty()) {
+            placementOwnerDto.setPassword(owner.getPassword());
+        }
+        PlacementOwnerDto updatedOwner = placementOwnerService.update(placementOwnerDto);
 
         return ResponseEntity.ok(updatedOwner);
     }
