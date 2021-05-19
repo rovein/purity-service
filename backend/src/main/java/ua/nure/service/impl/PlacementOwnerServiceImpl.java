@@ -229,12 +229,14 @@ public class PlacementOwnerServiceImpl implements PlacementOwnerService {
         Placement placement = PlacementMapper.toPlacement(placementDto);
         SmartDevice smartDevice = placement.getSmartDevice();
 
-        if (smartDevice != null) {
-            smartDevice.setPlacement(placement);
-            smartDevice.setId(placement.getId());
-            setDeviceIndicators(smartDevice);
-
+        if (smartDevice == null) {
+            smartDevice = new SmartDevice();
         }
+        smartDevice.setPlacement(placement);
+        smartDevice.setId(placement.getId());
+        setDeviceIndicators(smartDevice);
+        placement.setSmartDevice(smartDevice);
+
         owner.ifPresent(placement::setPlacementOwner);
 
         return PlacementMapper
