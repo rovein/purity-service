@@ -79,12 +79,18 @@ public class CleaningProviderController {
             return ResponseEntity.badRequest().body(errorBody(bindingResult));
         }
 
-        CleaningProviderDto updatedProvider = 
-                cleaningProviderService.update(cleaningProviderDto);
+        CleaningProviderDto provider =
+                cleaningProviderService.findByEmail(cleaningProviderDto.getEmail());
 
-        if (updatedProvider == null) {
+        if (provider == null) {
             return ResponseEntity.notFound().build();
         }
+
+        String password = cleaningProviderDto.getPassword();
+        if (password == null || password.isEmpty()) {
+            cleaningProviderDto.setPassword(provider.getPassword());
+        }
+        CleaningProviderDto updatedProvider = cleaningProviderService.update(cleaningProviderDto);
 
         return ResponseEntity.ok(updatedProvider);
     }
