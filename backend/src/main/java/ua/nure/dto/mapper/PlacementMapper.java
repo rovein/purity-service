@@ -1,7 +1,9 @@
 package ua.nure.dto.mapper;
 
 import ua.nure.dto.PlacementDto;
+import ua.nure.dto.SmartDeviceDto;
 import ua.nure.entity.owner.Placement;
+import ua.nure.entity.user.SmartDevice;
 
 public class PlacementMapper {
 
@@ -17,6 +19,9 @@ public class PlacementMapper {
     }
 
     public static Placement toPlacement(PlacementDto placementDto) {
+        SmartDeviceDto smartDeviceDto = placementDto.getSmartDevice();
+        SmartDevice smartDevice = (smartDeviceDto == null) ? null : SmartDeviceMapper.toSmartDevice(smartDeviceDto);
+
         return new Placement()
                 .setId(placementDto.getId() == null ? 0 : placementDto.getId())
                 .setPlacementType(placementDto.getPlacementType())
@@ -24,7 +29,7 @@ public class PlacementMapper {
                 .setWindowsCount(placementDto.getWindowsCount())
                 .setArea(placementDto.getArea())
                 .setLastCleaning(placementDto.getLastCleaning())
-                .setSmartDevice(SmartDeviceMapper.toSmartDevice(placementDto.getSmartDevice()));
+                .setSmartDevice(smartDevice);
 
     }
 
