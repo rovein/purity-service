@@ -4,6 +4,7 @@ import { withTranslation } from "react-i18next";
 import jwt_decode from "jwt-decode";
 import Moment from "moment";
 import localization from "moment/locale/uk";
+import Loader from "react-loader-spinner";
 
 if (localStorage.getItem("Token") != null) {
   var token = localStorage.getItem("Token");
@@ -33,12 +34,20 @@ class Card extends React.Component {
         </div>
       );
     } else if (!isLoaded) {
-      return <div className="additional">{t("Loading")}...</div>;
+      return <div className="centered">
+        <Loader
+          type="Oval" //Audio Oval ThreeDots
+          color="#4B0082"
+          height={325}
+          width={325}
+          timeout={10000}
+        />
+      </div>;
     } else {
       return (
-          <table className="w3-table-all w3-centered">
+          <table className="w3-table-all w3-centered w3-hoverable w3-large">
             <thead>
-            <tr>
+            <tr class="w3-light-grey">
               <th>ID</th>
               <th>{t("Type")}</th>
               <th> {t("Floor")}</th>
@@ -63,7 +72,7 @@ class Card extends React.Component {
     const columnStyle = {verticalAlign: "middle"};
     this.localTime(room.lastCleaning);
     return (
-        <tr>
+        <tr className="w3-hover-blue">
           <td style={columnStyle}>{room.id}</td>
           <td style={columnStyle}>{room.placementType}</td>
           <td style={columnStyle}>{room.floor}</td>

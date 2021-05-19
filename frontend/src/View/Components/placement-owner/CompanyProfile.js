@@ -25,6 +25,16 @@ class Profile extends React.Component {
     }
 
     componentDidMount() {
+        let cachedPlacementOwner = localStorage.getItem("placementOwner");
+        let cachedAddress = localStorage.getItem("placementOwnerAddress")
+        if (cachedPlacementOwner != null && cachedAddress != null) {
+            this.setState({
+                isLoaded: true,
+                company: JSON.parse(cachedPlacementOwner),
+                address: JSON.parse(cachedAddress)
+            });
+            return
+        }
         fetch(`${url}/placement-owners/${decoded.email}`, {
             method: 'get',
             headers: {
@@ -41,6 +51,8 @@ class Profile extends React.Component {
                         company: result,
                         address: result.address
                     });
+                    localStorage.setItem("placementOwner", JSON.stringify(result));
+                    localStorage.setItem("placementOwnerAddress", JSON.stringify(result.address));
                 },
                 (error) => {
                     this.setState({
@@ -63,26 +75,14 @@ class Profile extends React.Component {
                         <p id="cName">{this.state.company.name}</p>
                         <p></p>
                         <p>{t("Email")}: {this.state.company.email}</p>
-                        <Button
-                            text={t("AddR")}
-                            disabled={false}
-                            onClick={(e) => {
-                                window.location.href = './add_room';
-                            }}
-                        />
+                        <p></p>
                         <p>{t("Phone")}: {this.state.company.phoneNumber}</p>
-                        <Button
-                            text={t('EditP')}
-                            disabled={false}
-                            onClick={() => {
-                                window.location.href = './edit';
-                            }}
-                        />
-                        <p>{
-                            t("Address")}: {this.state.address.country},
-                            {t("City")}{this.state.address.city}, {
-                            t("Street")}{this.state.address.street},
-                            {t("House")}{this.state.address.houseNumber}
+                        <p></p>
+                        <p>
+                            {t("Address")}: {this.state.address.country}, {
+                            t("City")} {this.state.address.city}, {
+                            t("Street")} {this.state.address.street}, {
+                            t("House")} {this.state.address.houseNumber}
                         </p>
                     </div>
                     <div className="rooms_back">
