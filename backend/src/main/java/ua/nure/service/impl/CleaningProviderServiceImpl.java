@@ -196,14 +196,19 @@ public class CleaningProviderServiceImpl implements CleaningProviderService {
     ) {
         cleaningProvider.setEmail(cleaningProviderDto.getEmail());
         cleaningProvider.setPhoneNumber(cleaningProviderDto.getPhoneNumber());
-        cleaningProvider.setPassword(bCryptPasswordEncoder
-                .encode(cleaningProviderDto.getPassword()));
         cleaningProvider.setName(cleaningProviderDto.getName());
         cleaningProvider.setCreationDate(cleaningProviderDto.getCreationDate());
         cleaningProvider.setAddress(
                 AddressMapper.toAddress(cleaningProviderDto.getAddress()));
         cleaningProvider
                 .setRole(roleService.findByName(UserRole.CLEANING_PROVIDER));
+
+        String password = cleaningProviderDto.getPassword();
+        if (password.length() == 60) {
+            cleaningProvider.setPassword(password);
+        } else {
+          cleaningProvider.setPassword(bCryptPasswordEncoder.encode(password));
+        }
 
         return cleaningProvider;
     }

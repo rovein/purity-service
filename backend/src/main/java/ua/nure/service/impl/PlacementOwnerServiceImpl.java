@@ -277,14 +277,19 @@ public class PlacementOwnerServiceImpl implements PlacementOwnerService {
             PlacementOwner placementOwner) {
         placementOwner.setEmail(placementOwnerDto.getEmail());
         placementOwner.setPhoneNumber(placementOwnerDto.getPhoneNumber());
-        placementOwner.setPassword(
-                bCryptPasswordEncoder.encode(placementOwnerDto.getPassword()));
         placementOwner.setName(placementOwnerDto.getName());
         placementOwner.setCreationDate(placementOwnerDto.getCreationDate());
         placementOwner.setAddress(
                 AddressMapper.toAddress(placementOwnerDto.getAddress()));
         placementOwner
                 .setRole(roleService.findByName(UserRole.PLACEMENT_OWNER));
+
+        String password = placementOwnerDto.getPassword();
+        if (password.length() == 60) {
+            placementOwner.setPassword(password);
+        } else {
+            placementOwner.setPassword(bCryptPasswordEncoder.encode(password));
+        }
 
         return placementOwner;
     }
