@@ -76,7 +76,7 @@ class Card extends React.Component{
           </div>;
         } else {
           return (
-            <table className="w3-table-all w3-centered">
+            <table className="w3-table-all w3-centered w3-large">
               <thead>
               <tr>
                 <th>ID</th>

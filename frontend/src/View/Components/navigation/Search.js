@@ -10,13 +10,7 @@ class Search extends React.Component{
         return(
             <div className="signIn">
             <Header/>
-                <div className="search_back">
-                    {/* <p id="cName">{t("Search")}</p>
-                    <SearchField/> */}
-                    <div id="rooms_container">
-                    <CleaningCard/>
-                    </div>
-            </div>
+                <CleaningCard/>
         </div>
         )
     }
