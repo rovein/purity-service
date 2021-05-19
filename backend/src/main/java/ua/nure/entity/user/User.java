@@ -21,8 +21,20 @@ public abstract class User {
     @Column(name = "password")
     protected String password;
 
+    @Column(name = "is_locked")
+    protected Boolean isLocked;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "ROLE_ID")
     protected Role role;
+
+    public User isLocked(boolean isLocked) {
+        this.isLocked = isLocked;
+        return this;
+    }
+
+    public Boolean isLocked() {
+        return isLocked;
+    }
 
 }

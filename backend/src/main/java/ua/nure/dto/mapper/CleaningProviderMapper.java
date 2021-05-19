@@ -15,6 +15,7 @@ public class CleaningProviderMapper {
                 .setName(cleaningProvider.getName())
                 .setCreationDate(cleaningProvider.getCreationDate())
                 .setRole(UserRole.CLEANING_PROVIDER)
+                .isLocked(cleaningProvider.isLocked())
                 .setAddress(AddressMapper.toAddressDto(cleaningProvider.getAddress()));
     }
 }

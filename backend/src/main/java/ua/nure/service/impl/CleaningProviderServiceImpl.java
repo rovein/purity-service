@@ -209,6 +209,7 @@ public class CleaningProviderServiceImpl implements CleaningProviderService {
         } else {
           cleaningProvider.setPassword(bCryptPasswordEncoder.encode(password));
         }
+        cleaningProvider.isLocked(cleaningProviderDto.isLocked() == null ? false : cleaningProviderDto.isLocked());
 
         return cleaningProvider;
     }

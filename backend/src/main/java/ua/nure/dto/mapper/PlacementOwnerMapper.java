@@ -15,6 +15,7 @@ public class PlacementOwnerMapper {
                 .setName(placementOwner.getName())
                 .setCreationDate(placementOwner.getCreationDate())
                 .setRole(UserRole.PLACEMENT_OWNER)
+                .isLocked(placementOwner.isLocked())
                 .setAddress(AddressMapper.toAddressDto(placementOwner.getAddress()));
     }
 

@@ -290,6 +290,7 @@ public class PlacementOwnerServiceImpl implements PlacementOwnerService {
         } else {
             placementOwner.setPassword(bCryptPasswordEncoder.encode(password));
         }
+        placementOwner.isLocked(placementOwnerDto.isLocked() == null ? false : placementOwnerDto.isLocked());
 
         return placementOwner;
     }

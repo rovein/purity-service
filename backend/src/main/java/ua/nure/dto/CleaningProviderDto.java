@@ -37,4 +37,15 @@ public class CleaningProviderDto {
     private AddressDto address;
 
     private UserRole role;
+
+    private Boolean isLocked;
+
+    public CleaningProviderDto isLocked(boolean isLocked) {
+        this.isLocked = isLocked;
+        return this;
+    }
+
+    public Boolean isLocked() {
+        return isLocked;
+    }
 }

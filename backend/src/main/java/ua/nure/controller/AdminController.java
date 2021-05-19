@@ -2,14 +2,23 @@ package ua.nure.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.*;
+import ua.nure.dto.CleaningProviderDto;
+import ua.nure.dto.PlacementOwnerDto;
+import ua.nure.entity.owner.PlacementOwner;
+import ua.nure.entity.provider.CleaningProvider;
+import ua.nure.entity.user.User;
+import ua.nure.security.UserDetailsImpl;
+import ua.nure.service.CleaningProviderService;
+import ua.nure.service.PlacementOwnerService;
 import ua.nure.util.PathsUtil;
 
 import java.io.File;
@@ -26,8 +35,40 @@ import java.nio.file.Paths;
 @Api(tags = "Admin")
 public class AdminController {
 
-    private final Path root = FileSystems.getDefault()
-            .getPath("").toAbsolutePath();
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    @Autowired
+    private PlacementOwnerService placementOwnerService;
+
+    @Autowired
+    private CleaningProviderService cleaningProviderService;
+
+    @PostMapping("/lock-user/{email}")
+    @ApiOperation(
+            value = "Locks/unlocks user access to the system",
+            nickname = "lockUser"
+    )
+    public ResponseEntity<?> lockUser(@PathVariable String email) {
+        PlacementOwnerDto placementOwner = placementOwnerService.findByEmail(email);
+        CleaningProviderDto cleaningProvider = cleaningProviderService.findByEmail(email);
+
+        if (placementOwner != null) {
+            boolean reverseLocked = !placementOwner.isLocked();
+            placementOwner.isLocked(reverseLocked);
+            PlacementOwnerDto updated = placementOwnerService.update(placementOwner);
+            return ResponseEntity.ok(updated);
+        }
+
+        if (cleaningProvider != null) {
+            boolean reverseLocked = !cleaningProvider.isLocked();
+            cleaningProvider.isLocked(reverseLocked);
+            CleaningProviderDto updated = cleaningProviderService.update(cleaningProvider);
+            return ResponseEntity.ok(updated);
+        }
+
+        return ResponseEntity.notFound().build();
+    }
 
     @GetMapping("/backup")
     @ApiOperation(
