@@ -4,7 +4,7 @@ class Input extends React.Component{
     render() {
         return(
                 <input
-                className='input'
+                className={this.props.className ? this.props.className : 'input'}
                 type={this.props.type}
                 placeholder={this.props.placeholder}
                 value={this.props.value}

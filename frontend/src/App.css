@@ -59,11 +59,15 @@ input {
 }
 
 .container {
-  font-size: 28px;
+  font-size: 30px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 5%;
+  margin-top: 2%;
+}
+
+.sized-font {
+  font-size: 28px;
 }
 
 .signInForm,
