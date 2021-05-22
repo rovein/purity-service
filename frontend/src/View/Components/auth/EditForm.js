@@ -339,6 +339,7 @@ class EditForm extends React.Component{
                   </div>
                   <div className="w3-rest">
                       <Input
+                        disabled="true"
                         className={this.state.flag === 2 ? inputClass + " w3-border-red" : inputClass}
                         type='text'
                         placeholder={t('Email')}

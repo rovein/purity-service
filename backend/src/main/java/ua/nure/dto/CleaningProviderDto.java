@@ -26,7 +26,6 @@ public class CleaningProviderDto {
 //    @UniqueEmail
     protected String email;
 
-    @NotEmpty(message = "Password can`t be empty")
     protected String password;
 
     @NotEmpty(message = "Name can`t be empty")

@@ -9,6 +9,12 @@ var url = "http://localhost:8080";
 const FileDownload = require("js-file-download");
 
 class Profile extends React.Component{
+
+    componentDidMount() {
+        const backupNav = document.getElementById("BC");
+        backupNav.onclick = this.backup
+    }
+
     backup() {
         setTimeout(function() { alert('Файл буде завантажено через декілька секунд'); }, 1);
         axios({
@@ -39,13 +45,6 @@ class Profile extends React.Component{
                 <div>
                     <div className="profile_back">
                         <p id="cName">{t("Admin")}</p>
-                        <Button
-                            text={t("Backup")}
-                            disabled={false}
-                            onClick={(e) => {
-                                this.backup();
-                            }}
-                        />
                     </div>
                     <div className="rooms_back">
                         <p id="EMP" style={adminBack}>{t("CComp")}</p>
