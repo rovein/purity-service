@@ -2,6 +2,7 @@ import React from 'react'
 import Button from '../ui/Button'
 import { withTranslation } from 'react-i18next'
 import Loader from "react-loader-spinner";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 var url = "http://localhost:8080"
 
@@ -11,8 +12,10 @@ class Card extends React.Component{
         this.state = {
             error: null,
             isLoaded: false,
-            companies: {},
-            address:{}
+            companies: [],
+            address:{},
+            deleteButtonClicked: false,
+            ownerEmail: ''
         };
       }
     
@@ -42,7 +45,6 @@ class Card extends React.Component{
           )
       }
 
-    
       render() {
         const {t} = this.props
         const { error, isLoaded, companies } = this.state;
@@ -60,24 +62,46 @@ class Card extends React.Component{
           </div>;
         } else {
           return (
-            <table className="w3-table-all w3-centered">
-              <thead>
-              <tr>
-                <th>{t("DName")}</th>
-                <th>{t("Phone")}</th>
-                <th>{t("Email")}</th>
-                <th>Actions</th>
-              </tr>
-              </thead>
-              <tbody>
-              {companies.map(this.renderCard)}
-              </tbody>
-            </table>
+              <div>
+                  <table className="w3-table-all w3-centered">
+                      <thead>
+                      <tr className="w3-light-grey">
+                          <th>{t("DName")}</th>
+                          <th>{t("Phone")}</th>
+                          <th>{t("Email")}</th>
+                          <th></th>
+                      </tr>
+                      </thead>
+                      <tbody>
+                      {companies.map(this.renderCard)}
+                      </tbody>
+                  </table>
+                  {this.state.deleteButtonClicked && <SweetAlert
+                      danger
+                      dependencies={[this.state.deleteButtonClicked]}
+                      title={t("AreYouSure")}
+                      customButtons={
+                          <React.Fragment>
+                              <button
+                                  className="w3-btn w3-light-grey w3-round-small w3-medium"
+                                  onClick={() => this.setState({deleteButtonClicked: false})}
+                              >{t("Cancel")}</button>
+                              &nbsp;
+                              <button
+                                  className="w3-btn w3-red w3-round-small w3-medium"
+                                  onClick={() => this.deleteCustomer(this.state.ownerEmail)}
+                              >{t("Delete")}</button>
+                          </React.Fragment>
+                      }
+                  >
+                  </SweetAlert>}
+              </div>
           );
         }
       }
 
       deleteCustomer(email){
+        this.setState({isLoaded: false})
         fetch(`${url}/placement-owners/${email}`, {
             method: 'delete',
             headers: {
@@ -87,7 +111,14 @@ class Card extends React.Component{
             }
         })
         .then((result) => {
-            window.location.reload()
+                this.setState({
+                    companies: this.state.companies.filter(company => {
+                            return company.email !== email
+                        }
+                    ),
+                    isLoaded: true,
+                    deleteButtonClicked: false
+                })
         },
         (error) => {
         this.setState({
@@ -101,7 +132,6 @@ class Card extends React.Component{
     renderCard = (company) => {
       const {t} = this.props
       const columnStyle = {verticalAlign: "middle"};
-
         return (
           <tr>
             <td style={columnStyle}>{company.name}</td>
@@ -115,11 +145,11 @@ class Card extends React.Component{
                   localStorage.setItem("Email",company.email)
                   localStorage.setItem("Role", "PLACEMENT_OWNER")
                   window.location.href='./edit';
-                }}/>
+                }}/> &nbsp;
               <Button
                 className='w3-btn w3-red w3-round-small w3-medium'
                 text = {t('Delete')}
-                onClick = { () => this.deleteCustomer(company.email)}
+                onClick = { () => this.setState({deleteButtonClicked: true, ownerEmail: company.email})}
               />
             </td>
           </tr>
