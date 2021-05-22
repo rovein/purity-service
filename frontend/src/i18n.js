@@ -30,6 +30,7 @@ i18n.use(LanguageDetector).init({
         Edit:"Edit",
         PasswordChangeMsg: 'Leave this fields empty if you don`t want to the update password',
         Delete:"Delete",
+        Cancel: "Cancel",
         Failiture:"Failure",
         Loading:"Loading",
         Statistics:"Statistics",
@@ -103,7 +104,9 @@ i18n.use(LanguageDetector).init({
         ServerIp: "Server address",
         ServerPort: "Server port",
         PlacementId: "Placement ID",
-        Configure: "Configure"
+        Configure: "Configure",
+        AreYouSure: "Are you sure?",
+        NotRecover: "You will not be able to restore this without administrator.",
       }
     },
     UA: {
@@ -133,6 +136,7 @@ i18n.use(LanguageDetector).init({
         More:"Більше інформації",
         Edit:"Редагувати",
         Delete:"Видалити",
+        Cancel: "Назад",
         Failiture:"Помилка",
         Loading:"Завантаження",
         Save:"Зберегти",
@@ -195,8 +199,9 @@ i18n.use(LanguageDetector).init({
         EMinA:"Формат мінімальної площі неправильний!",
         EMaxA:"Формат максимальної площі неправильний!",
         EPPM:"Формат ціни за метр неправильний!",
-
-        Search:"Пошук",
+        NotRecover: "Ви не зможете відновати дані без адміністратора.",
+        AreYouSure: "Ви впевнені?",
+        Search:"Пошук надавачів",
         eExist:"Така електронна пошта вже існує в системі!",
         Temp: "Температура",
         dFact: "Рівень забрудненості",

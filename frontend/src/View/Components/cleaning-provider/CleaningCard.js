@@ -85,7 +85,7 @@ class Card extends React.Component{
             <td style={columnStyle}>{company.phoneNumber}</td>
             <td style={columnStyle}>
               <Button
-                style={{width: "45%"}}
+                className='w3-btn w3-indigo w3-round-small w3-large'
                 text={t('SContract')}
                 onClick={() => {
                   localStorage.setItem('cleaningMail', company.email);

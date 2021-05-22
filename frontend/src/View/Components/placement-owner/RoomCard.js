@@ -5,6 +5,7 @@ import jwt_decode from "jwt-decode";
 import Moment from "moment";
 import localization from "moment/locale/uk";
 import Loader from "react-loader-spinner";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 if (localStorage.getItem("Token") != null) {
   var token = localStorage.getItem("Token");
@@ -21,6 +22,8 @@ class Card extends React.Component {
       isLoaded: false,
       rooms: [],
       date: "",
+      deleteButtonClicked: false,
+      placementId: 0
     };
   }
 
@@ -45,6 +48,7 @@ class Card extends React.Component {
       </div>;
     } else {
       return (
+        <div>
           <table className="w3-table-all w3-centered w3-hoverable w3-large">
             <thead>
             <tr className="w3-light-grey">
@@ -63,6 +67,27 @@ class Card extends React.Component {
             }).map(this.renderCard)}
             </tbody>
           </table>
+          {this.state.deleteButtonClicked && <SweetAlert
+            danger
+            dependencies={[this.state.deleteButtonClicked]}
+            title={t("AreYouSure")}
+            customButtons={
+              <React.Fragment>
+                <button
+                  className="w3-btn w3-light-grey w3-round-small w3-medium"
+                  onClick={() => this.setState({deleteButtonClicked: false})}
+                >{t("Cancel")}</button>
+                &nbsp;
+                <button
+                  className="w3-btn w3-red w3-round-small w3-medium"
+                  onClick={() => this.deleteRoom(this.state.placementId)}
+                >{t("Delete")}</button>
+              </React.Fragment>
+            }
+          >
+            {t("NotRecover")}
+          </SweetAlert>}
+        </div>
       );
     }
   }
@@ -98,7 +123,7 @@ class Card extends React.Component {
             /> &nbsp;
             <Button
                 className='w3-btn w3-red w3-round-small w3-medium'
-                text={t("Delete")} onClick={() => this.deleteRoom(room.id)} />
+                text={t("Delete")} onClick={() => this.setState({placementId: room.id, deleteButtonClicked: true})} />
           </td>
         </tr>
     );
@@ -139,6 +164,7 @@ class Card extends React.Component {
   }
 
   deleteRoom(id) {
+    this.setState({isLoaded: false})
     fetch(`${url}/placement-owners/placements/${id}`, {
       method: "delete",
       headers: {
@@ -148,7 +174,14 @@ class Card extends React.Component {
       },
     }).then(
       (result) => {
-        window.location.reload();
+        this.setState({
+          rooms: this.state.rooms.filter(room => {
+              return room.id !== id
+            }
+          ),
+          isLoaded: true,
+          deleteButtonClicked: false
+        })
       },
       (error) => {
         this.setState({
