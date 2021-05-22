@@ -65,6 +65,8 @@ class Card extends React.Component{
               <tr color="w3-light-grey">
                 <th>{t("DName")}</th>
                 <th>{t("Phone")}</th>
+                <th>{t("Email")}</th>
+                <th>{t("Address")}</th>
                 <th></th>
               </tr>
               </thead>
@@ -78,11 +80,14 @@ class Card extends React.Component{
 
     renderCard = (company) => {
       const {t} = this.props
+      const {country, city, street, houseNumber} = company.address
       const columnStyle = {verticalAlign: "middle"};
         return (
-          <tr>
+          <tr className="w3-hover-sand">
             <td style={columnStyle}>{company.name}</td>
             <td style={columnStyle}>{company.phoneNumber}</td>
+            <td style={columnStyle}>{company.email}</td>
+            <td style={columnStyle}>{country}, {t("City")} {city}, {t("Street")} {street}, {t("House")} {houseNumber}</td>
             <td style={columnStyle}>
               <Button
                 className='w3-btn w3-indigo w3-round-small w3-large'
