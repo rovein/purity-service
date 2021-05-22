@@ -3,8 +3,9 @@ import Input from '../ui/Input'
 import Button from '../ui/Button'
 import { withTranslation } from 'react-i18next'
 import Loader from "react-loader-spinner";
+import * as Constants from "../util/Constants";
 
-var url = "http://localhost:8080";
+const url = Constants.SERVER_URL;
 
 class SignInForm extends React.Component{
     constructor(props) {
@@ -91,6 +92,7 @@ class SignInForm extends React.Component{
 
     render() {
         const {t} = this.props
+        const inputClass = Constants.INPUT_STYLE_CLASSES;
         if (!this.state.isLoaded) {
             return <div>
                 <Loader
@@ -103,31 +105,50 @@ class SignInForm extends React.Component{
             </div>
         }
         return(
-            <div className="signInForm">
-                <div className='signInContainer'>
-                    <h1>Login</h1>
-                    { this.state.flag === 2 && <p>{t("EEmail")}</p>}
-                    { this.state.flag === 3 && <p>{t("EPass")}</p>}
-                    { this.state.flag === 4 && <p>{t("checkCred")}</p>}
-                    <Input
-                        type = 'text'
-                        placeholder = {t('Email')}
+          <div
+            className="w3-container w3-card-4 w3-light-grey w3-text-indigo w3-margin"
+            style={{width: "700px"}}>
+              <h1 className="w3-center">{t("Login")}</h1>
+              <div className="sized-font w3-center w3-text-red">
+                  {this.state.flag === 2 && <p>{t("EEmail")}</p>}
+                  {this.state.flag === 3 && <p>{t("EPass")}</p>}
+                  {this.state.flag === 4 && <p>{t("checkCred")}</p>}
+              </div>
+              <div className="w3-row w3-section">
+                  <div className="w3-col" style={{width: "50px"}}>
+                      <i className="w3-xxlarge fas fa-envelope"/>
+                  </div>
+                  <div className="w3-rest">
+                      <Input
+                        className={this.state.flag === 2 ? inputClass + " w3-border-red" : inputClass}
+                        type='text'
+                        placeholder={t('Email')}
                         value={this.state.email ? this.state.email : ''}
-                        onChange = { (val) => this.setInputValue('email', val)}
-                    />
-                    <Input
-                        type = 'password'
-                        placeholder = {t('Password')}
+                        onChange={(val) => this.setInputValue('email', val)}
+                      />
+                  </div>
+              </div>
+              <div className="w3-row w3-section">
+                  <div className="w3-col" style={{width: "50px"}}>
+                      <i className="w3-xxlarge fas fa-lock"/>
+                  </div>
+                  <div className="w3-rest">
+                      <Input
+                        className={this.state.flag === 3 ? inputClass + " w3-border-red" : inputClass}
+                        type='password'
+                        placeholder={t('Password')}
                         value={this.state.password ? this.state.password : ''}
-                        onChange = { (val) => this.setInputValue('password', val)}
-                    />
-                    <Button
-                        text = {t('Signin')}
-                        disabled = {this.state.buttonDisabled}
-                        onClick = { () => this.doSignIn()}
-                    />
-                </div>
-            </div>
+                        onChange={(val) => this.setInputValue('password', val)}
+                      />
+                  </div>
+              </div>
+              <Button
+                className="w3-btn w3-block w3-section w3-indigo w3-padding"
+                text={t('Signin')}
+                disabled={this.state.buttonDisabled}
+                onClick={() => this.doSignIn()}
+              />
+          </div>
         )
     }
 }

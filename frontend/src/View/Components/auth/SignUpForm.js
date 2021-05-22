@@ -215,7 +215,7 @@ class SignUpForm extends React.Component{
 
     render() {
         const {t} = this.props
-        const inputClass = "w3-input w3-border";
+        const inputClass = "w3-input w3-border w3-hover-sand";
         if (this.state.isLoading) {
             return <div>
                 <Loader
