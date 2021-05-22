@@ -36,9 +36,6 @@ import java.nio.file.Paths;
 public class AdminController {
 
     @Autowired
-    private UserDetailsService userDetailsService;
-
-    @Autowired
     private PlacementOwnerService placementOwnerService;
 
     @Autowired
