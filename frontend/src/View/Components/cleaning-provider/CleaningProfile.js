@@ -63,19 +63,9 @@ class Profile extends React.Component{
                     <p id="cName">{this.state.company.name}</p>
                     <p></p>
                     <p>{t("Email")}: {this.state.company.email}</p>
-                    <Button
-                        text = {t("AddS")}
-                        disabled = {false}
-                        onClick={(e) => {
-                            window.location.href='./add_service';
-                            }}
-                    />
+                    <p></p>
                     <p>{t("Phone")}: {this.state.company.phoneNumber}</p>
-                    <Button
-                        text = {t('EditP')}
-                        disabled = {false}
-                        onClick = { () => {window.location.href='./edit';}}
-                    />
+                    <p></p>
                     <p>{t("Address")}: {this.state.address.country}, {t("City")}{this.state.address.city}, {t("Street")}{this.state.address.street}, {t("House")}{this.state.address.houseNumber}</p>
                    
                 </div>

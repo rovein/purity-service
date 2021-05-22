@@ -112,7 +112,7 @@ class Card extends React.Component{
       const columnStyle = {verticalAlign: "middle"};
       this.localTime(contract.date)
         return (
-          <tr>
+          <tr className="w3-hover-sand">
             <td style={columnStyle}>{contract.id}</td>
             <td style={columnStyle}>{contract.providerServiceId}</td>
             <td style={columnStyle}>{contract.serviceName}</td>
