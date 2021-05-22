@@ -1,12 +1,15 @@
 import React from 'react'
 import Button from '../../ui/Button'
-import Dropdown from 'react-dropdown';
 import {withTranslation} from 'react-i18next'
 import jwt_decode from "jwt-decode"
 import 'react-dropdown/style.css';
 import Header from '../../auth/HeaderAuth'
+import * as Constants from "../../util/Constants";
+import Select from "react-select";
+import DatePicker from "react-datepicker"
+import "react-datepicker/dist/react-datepicker.css";
 
-const url = "http://localhost:8080";
+const url = Constants.SERVER_URL;
 if (localStorage.getItem("Token") != null) {
     var token = localStorage.getItem("Token")
     var decoded = jwt_decode(token)
@@ -15,15 +18,26 @@ if (localStorage.getItem("Token") != null) {
 class SignContract extends React.Component {
     constructor(props) {
         super(props)
+        let initialDate = new Date();
         this.state = {
-            rooms: '',
+            rooms: [],
+            roomsSelectOptions : [],
             roomId: 0,
-            roomsId: [],
             services: [],
+            servicesSelectOptions : [],
             serviceId: 0,
-            servicesId: [],
+            date: initialDate,
             buttonDisabled: false
         }
+    }
+
+    handleRoomChange(e) {
+        this.setState({roomId: e.value})
+    }
+
+
+    handleServiceChange(e) {
+        this.setState({serviceId: e.value})
     }
 
     componentDidMount() {
@@ -39,13 +53,16 @@ class SignContract extends React.Component {
         )
             .then(res => res.json())
             .then(result => {
-                    this.setState({
-                        isLoaded: true,
-                        rooms: result
-                    });
-                    this.state.rooms.forEach(element => {
-                        this.state.roomsId.push(element.id)
-                    });
+                const options = result.map(room => ({
+                  "value": room.id,
+                  "label": room.id + " - " + room.placementType
+                }))
+                console.log("Rooms options: ", options)
+                this.setState({
+                  isLoaded: true,
+                  rooms: result,
+                  roomsSelectOptions: options
+                });
                 },
                 (error) => {
                     this.setState({
@@ -67,13 +84,15 @@ class SignContract extends React.Component {
             .then(res => res.json())
             .then(
                 (result) => {
+                    const options = result.map(service => ({
+                        "value": service.id,
+                        "label": service.id + " - " + service.name
+                    }))
+                    console.log("Service options: ", options)
                     this.setState({
                         isLoaded: true,
-                        services: result
-                    });
-                    console.log(this.state.services)
-                    this.state.services.forEach(element => {
-                        this.state.servicesId.push(element.id)
+                        services: result,
+                        servicesSelectOptions: options
                     });
                 },
                 (error) => {
@@ -96,7 +115,7 @@ class SignContract extends React.Component {
                     },
                     body: JSON.stringify({
                         providerServiceId: this.state.serviceId,
-                        date: new Date(),
+                        date: this.state.date,
                         placementId: this.state.roomId
                     })
                 }
@@ -111,46 +130,59 @@ class SignContract extends React.Component {
         }
     }
 
-    handleRChange = (event) => {
-        this.setState({
-            roomId: event.value
-        });
-    }
+    filterPassedTime = time => {
+        const currentDate = new Date();
+        const selectedDate = new Date(time);
+        const lowerDateRange  =  new Date(time)
+        const upperDateRange =  new Date(time)
 
-    handleSChange = (event) => {
-        this.setState({
-            serviceId: event.value
-        });
+        lowerDateRange.setHours(9, 0)
+        upperDateRange.setHours(19, 0)
+
+        return currentDate.getTime() < selectedDate.getTime() &&
+            (selectedDate.getTime() >= lowerDateRange.getTime() && selectedDate.getTime() <= upperDateRange);
     }
 
     render() {
         const {t} = this.props
         return (
-            <div className="signIn">
+            <div>
                 <Header/>
                 <div className="container">
-                    <div className="signInForm">
-                        <div className='signInContainer'>
-                            <h1>{t('SContract')}</h1>
+                    <div
+                        className="w3-container w3-card-4 w3-light-grey w3-text-indigo w3-margin"
+                        style={{width: "700px", fontSize: "22px"}}>
+                            <h1 className="w3-center">{t('SContract')}</h1>
                             <div>
-                                <p>{t("pickSId")}</p>
-                                <Dropdown options={this.state.servicesId}
-                                          onChange={this.handleSChange}
-                                          value={this.state.value}
-                                          placeholder={t("Select an id")}/>
-                                <p>{t("pickRId")}</p>
-                                <Dropdown options={this.state.roomsId}
-                                          onChange={this.handleRChange}
-                                          value={this.state.value}
-                                          placeholder={t("Select an id")}/>
+                                <label>{t("pickSId")}</label>
+                                <Select
+                                    options={this.state.servicesSelectOptions}
+                                    onChange={this.handleServiceChange.bind(this)}
+                                    placeholder={t("selectService")}
+                                />
+                                <label>{t("pickRId")}</label>
+                                <Select
+                                    options={this.state.roomsSelectOptions}
+                                    onChange={this.handleRoomChange.bind(this)}
+                                    placeholder={t("selectRoom")}
+                                />
+                                <label>{t("selectDate")}</label>
+                                <br/>
+                                <DatePicker
+                                    selected={this.state.date}
+                                    showTimeSelect
+                                    filterTime={this.filterPassedTime}
+                                    dateFormat="dd.MM.yyyy HH:mm"
+                                    onChange={date => this.setState({date: date})}
+                                />
                             </div>
                             <Button
+                                className="w3-btn w3-block w3-section w3-indigo w3-padding"
                                 text={t('SContract')}
                                 disabled={this.state.buttonDisabled}
                                 onClick={() => this.signContract()}
                             />
                         </div>
-                    </div>
                 </div>
             </div>
         )

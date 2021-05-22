@@ -69,8 +69,9 @@ i18n.use(LanguageDetector).init({
         SContract:"Sign a contract",
         pickSId: "Pick service id:",
         pickRId:"Pick room number:",
-        "Select an id": "Select an id",
-        "Select room": "Select room number",
+        selectService: "Select service",
+        selectRoom: "Select placement",
+        selectDate: "Select date",
 
         DName: "Name",
         checkCred: "Check the correctness of the entered data!",
@@ -173,10 +174,11 @@ i18n.use(LanguageDetector).init({
         Contract:'Договір',
         Contracts:'Договори',
         SContract:"Укласти договір",
-        pickSId: "Оберіть ідентифікатор послуги:",
-        pickRId:"Оберіть номер приміщення:",
-        "Select an id": "Оберіть ідентифікатор",
-        "Select room": "Оберіть номер кімнати",
+        pickSId: "Оберіть послугу",
+        pickRId:"Оберіть приміщення",
+        selectService: "Послуги",
+        selectRoom: "Приміщення",
+        selectDate: "Оберіть дату",
 
 
 
