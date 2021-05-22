@@ -1,5 +1,4 @@
 import React from 'react'
-import Button from '../ui/Button'
 import {withTranslation} from 'react-i18next';
 
 import jwt_decode from "jwt-decode"
@@ -27,7 +26,7 @@ class Profile extends React.Component {
     componentDidMount() {
         let cachedPlacementOwner = localStorage.getItem("placementOwner");
         let cachedAddress = localStorage.getItem("placementOwnerAddress")
-        if (cachedPlacementOwner != null && cachedAddress != null) {
+        if (cachedPlacementOwner != null && cachedAddress != null && cachedAddress !== 'undefined') {
             this.setState({
                 isLoaded: true,
                 company: JSON.parse(cachedPlacementOwner),

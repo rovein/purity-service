@@ -47,14 +47,14 @@ class Card extends React.Component {
       return (
           <table className="w3-table-all w3-centered w3-hoverable w3-large">
             <thead>
-            <tr class="w3-light-grey">
+            <tr className="w3-light-grey">
               <th>ID</th>
               <th>{t("Type")}</th>
               <th> {t("Floor")}</th>
               <th> {t("WCount")}</th>
               <th>{t("Area")}</th>
               <th>{t("Date")}</th>
-              <th>Actions</th>
+              <th></th>
             </tr>
             </thead>
             <tbody>
@@ -72,7 +72,7 @@ class Card extends React.Component {
     const columnStyle = {verticalAlign: "middle"};
     this.localTime(room.lastCleaning);
     return (
-        <tr className="w3-hover-blue">
+        <tr className="w3-hover-sand">
           <td style={columnStyle}>{room.id}</td>
           <td style={columnStyle}>{room.placementType}</td>
           <td style={columnStyle}>{room.floor}</td>

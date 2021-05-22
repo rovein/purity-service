@@ -3,6 +3,7 @@ import Input from '../ui/Input'
 import Button from '../ui/Button'
 import { withTranslation } from 'react-i18next'
 import Loader from "react-loader-spinner";
+import * as Constants from "../util/Constants";
 
 var url = "http://localhost:8080";
 
@@ -215,7 +216,7 @@ class SignUpForm extends React.Component{
 
     render() {
         const {t} = this.props
-        const inputClass = "w3-input w3-border w3-hover-sand";
+        const inputClass = Constants.INPUT_STYLE_CLASSES;
         if (this.state.isLoading) {
             return <div>
                 <Loader

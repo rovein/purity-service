@@ -3,6 +3,8 @@ import Input from '../ui/Input'
 import Button from '../ui/Button'
 import { withTranslation } from 'react-i18next'
 import jwt_decode from "jwt-decode"
+import * as Constants from "../util/Constants";
+import Loader from "react-loader-spinner";
 
 var url = "http://localhost:8080";
 if(localStorage.getItem("Token") != null){
@@ -20,8 +22,10 @@ class EditForm extends React.Component{
             phone:'',
             id:'',
             password:'',
+            confirmPassword: '',
             flag:1,
-            buttonDisabled: false
+            buttonDisabled: false,
+            isLoaded: false
         }
     }
 
@@ -29,6 +33,12 @@ class EditForm extends React.Component{
         this.setState({
             [property]: val
         })
+    }
+
+    setAddressValue(property, val) {
+        let updatedAddress = this.state.address
+        updatedAddress[property] = val
+        this.setState({address: updatedAddress})
     }
 
     resetForm(){
@@ -39,9 +49,11 @@ class EditForm extends React.Component{
             city:'',
             country:'',
             password:'',
+            confirmPassword: '',
             street:'',
             house:'',
-            buttonDisabled: false
+            buttonDisabled: false,
+            isLoaded: true
         })
     }
 
@@ -60,7 +72,6 @@ class EditForm extends React.Component{
         }
     }
 
-      
       getData(resUrl){
         fetch(resUrl, {
             method: 'get',
@@ -79,10 +90,6 @@ class EditForm extends React.Component{
             email: result.email,
             phone: result.phoneNumber,
             address: result.address,
-            // country: result.address.country,
-            // city: result.address.city,
-            // street: result.address.street,
-            // houseNumber: result.address.houseNumber,
             id: result.id,
             company: result
         });
@@ -92,21 +99,13 @@ class EditForm extends React.Component{
             isLoaded: true,
             error
         });
-        }
-        )
+        })
       }
 
       checkEmail(email) {
         let regEmail = new RegExp('^([a-z0-9_-]+.)*[a-z0-9_-]+@[a-z0-9_-]+(.[a-z0-9_-]+)*.[a-z]{2,6}$');
         if(!regEmail.test(email)){
             this.setState({flag: 2});
-          return false
-        }
-        return true
-    }
-    checkPass(password) {
-        if(password.length < 8){
-            this.setState({flag: 3}); 
           return false
         }
         return true
@@ -166,14 +165,27 @@ class EditForm extends React.Component{
         return true
     }
 
+    checkPass(password) {
+        if(password.length < 8){
+            this.setState({flag: 11});
+            return false
+        }
+        return true
+    }
+
+    checkPasswords(password, confirmPassword) {
+        if (password !== confirmPassword) {
+            this.setState({flag: 12});
+            return false
+        }
+        return true
+    }
+
     checkCred(){
         if(!this.checkName(this.state.name)){
             return
         }
         if(!this.checkEmail(this.state.email)){
-            return
-        }
-        if(!this.checkPass(this.state.password)){
             return
         }
         if(!this.checkPhone(this.state.phone)){
@@ -191,9 +203,16 @@ class EditForm extends React.Component{
         if(!this.checkHouseNum(this.state.house)){
             return
         }
+        if(this.state.password && !this.checkPass(this.state.password)){
+            return
+        }
+        if (this.state.confirmPassword && !this.checkPasswords(this.state.password, this.state.confirmPass)) {
+            return
+        }
 
         this.setState({
-            buttonDisabled: true
+            buttonDisabled: true,
+            isLoaded: false
         })
 
         if(decoded.role === "PLACEMENT_OWNER"){
@@ -207,18 +226,37 @@ class EditForm extends React.Component{
                 this.editCompany(`${url}/cleaning-providers`);
             }
         }
-
-        
     }
 
     async editCompany(resUrl) {
         try{
-            var role
+            var role;
             if(decoded.role !== "ADMIN"){
                 role = decoded.role
             }else{
                 role = localStorage.getItem("Role")
             }
+
+            let requestBody = {
+                address: {
+                    city: this.state.address.city,
+                    country: this.state.address.country,
+                    houseNumber: this.state.address.houseNumber,
+                    latitude: this.state.address.latitude,
+                    longitude: this.state.address.longitude,
+                    street: this.state.address.street
+                },
+                name: this.state.name,
+                email: this.state.email,
+                id: this.state.id,
+                phoneNumber: this.state.phone,
+                role: role
+            }
+
+            if (this.state.password) {
+                requestBody.password = this.state.password;
+            }
+
             let res = await fetch(resUrl, {
                 method: 'put',
                 headers: {
@@ -226,25 +264,18 @@ class EditForm extends React.Component{
                     'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + localStorage.getItem('Token')
                 },
-                body: JSON.stringify({
-                    address: {
-                        city: this.state.address.city,
-                        country: this.state.address.country,
-                        houseNumber: this.state.address.houseNumber,
-                        latitude: this.state.address.latitude,
-                        longitude: this.state.address.longitude,
-                        street: this.state.address.street
-                    },
+                body: JSON.stringify(requestBody)
+            })
+            let result = await res.json()
+            if (result && result.id !== null){
+                localStorage.setItem("placementOwner", JSON.stringify({
                     name: this.state.name,
                     email: this.state.email,
                     id: this.state.id,
                     phoneNumber: this.state.phone,
-                    password: this.state.password,
                     role: role
-                })
-            })
-            let result = await res.json()
-            if(result && result.id !== null){
+                }));
+                localStorage.setItem("placementOwnerAddress", JSON.stringify(requestBody.address));
                 window.location.href='./profile';
             } else if (result){
                 this.resetForm()
@@ -259,75 +290,169 @@ class EditForm extends React.Component{
 
     render() {
         const {t} = this.props
-        return(
-            <div className="signUpForm">
-                <div className='signUpContainer'>
-                    <h1>{t('Edit')}</h1>
-                    { this.state.flag === 2 && <p>{t("EEmail")}</p>}
-                    { this.state.flag === 3 && <p>{t("EPass")}</p>}
-                    { this.state.flag === 4 && <p>{t("EName")}</p>}
-                    { this.state.flag === 5 && <p>{t("EPhone")}</p>}
-                    { this.state.flag === 6 && <p>{t("ECountry")}</p>}
-                    { this.state.flag === 7 && <p>{t("ECity")}</p>}
-                    { this.state.flag === 8 && <p>{t("EStreet")}</p>}
-                    { this.state.flag === 9 && <p>{t("EHouse")}</p>}
-                    { this.state.flag === 10 && <p>{t("EError")}</p>}
-                    <Input
-                        type = 'text'
-                        placeholder = {t('DName')}
-                        value={this.state.name ? this.state.name : ''}
-                        onChange = { (val) => this.setInputValue('name', val)}
-                    />
-                    { this.state.flag === 2 && <p>Your login credentials could not be verified, please try again.</p>}
-                    <Input
-                        type = 'text'
-                        placeholder = {t('Email')}
-                        value={this.state.email ? this.state.email : ''}
-                        onChange = { (val) => this.setInputValue('email', val)}
-                    />
-                     <Input
-                        type = 'password'
-                        placeholder = {t('Password')}
-                        value={this.state.password ? this.state.password : ''}
-                        onChange = { (val) => this.setInputValue('password', val)}
-                    />
-                     <Input
-                        type = 'text'
-                        placeholder = {t('Phone')}
-                        value={this.state.phone ? this.state.phone : ''}
-                        onChange = { (val) => this.setInputValue('phone', val)}
-                    />
-                    <Input
-                        type = 'text'
-                        placeholder = {t('FCountry')}
-                        value={this.state.address.country ? this.state.address.country : ''}
-                        onChange = { (val) => this.setInputValue('country', val)}
-                    />
-                    <Input
-                        type = 'text'
-                        placeholder = {t('FCity')}
-                        value={this.state.address.city ? this.state.address.city : ''}
-                        onChange = { (val) => this.setInputValue('city', val)}
-                    />
-                    <Input
-                        type = 'text'
-                        placeholder = {t('FStreet')}
-                        value={this.state.address.street ? this.state.address.street : ''}
-                        onChange = { (val) => this.setInputValue('street', val)}
-                    />
-                    <Input
-                        type = 'text'
-                        placeholder = {t('FHouse')}
-                        value={this.state.address.houseNumber ? this.state.address.houseNumber : ''}
-                        onChange = { (val) => this.setInputValue('house', val)}
-                    />
-                    <Button
-                        text = {t('Save')}
-                        disabled = {this.state.buttonDisabled}
-                        onClick = { () => this.checkCred()}
-                    />
-                </div>
+        const inputClass = Constants.INPUT_STYLE_CLASSES;
+        if (!this.state.isLoaded) {
+            return <div>
+                <Loader
+                  type="Oval" //Audio Oval ThreeDots
+                  color="#4B0082"
+                  height={425}
+                  width={425}
+                  timeout={10000}
+                />
             </div>
+        }
+        return(
+          <div
+            className="w3-container w3-card-4 w3-light-grey w3-text-indigo w3-margin"
+            style={{width: "700px"}}>
+              <h1 className="w3-center">{t('Edit')}</h1>
+              <div className="sized-font w3-center w3-text-red">
+                  {this.state.flag === 2 && <span>{t("EEmail")}</span>}
+                  {this.state.flag === 4 && <p>{t("EName")}</p>}
+                  {this.state.flag === 5 && <p>{t("EPhone")}</p>}
+                  {this.state.flag === 6 && <p>{t("ECountry")}</p>}
+                  {this.state.flag === 7 && <p>{t("ECity")}</p>}
+                  {this.state.flag === 8 && <p>{t("EStreet")}</p>}
+                  {this.state.flag === 9 && <p>{t("EHouse")}</p>}
+                  {this.state.flag === 10 && <p>{t("eExist")}</p>}
+                  {this.state.flag === 11 && <p>{t("EPass")}</p>}
+                  { this.state.flag === 12 && <p>{t("EConfirmPass")}</p>}
+              </div>
+              <div className="w3-row w3-section">
+                  <div className="w3-col" style={{width: "50px"}}>
+                      <i className="w3-xxlarge fa fa-user"/>
+                  </div>
+                  <div className="w3-rest">
+                      <Input
+                        className={this.state.flag === 4 ? inputClass + " w3-border-red" : inputClass}
+                        type='text'
+                        placeholder={t('DName')}
+                        value={this.state.name ? this.state.name : ''}
+                        onChange={(val) => this.setInputValue('name', val)}
+                      />
+                  </div>
+              </div>
+              <div className="w3-row w3-section">
+                  <div className="w3-col" style={{width: "50px"}}>
+                      <i className="w3-xxlarge fas fa-envelope"/>
+                  </div>
+                  <div className="w3-rest">
+                      <Input
+                        className={this.state.flag === 2 ? inputClass + " w3-border-red" : inputClass}
+                        type='text'
+                        placeholder={t('Email')}
+                        value={this.state.email ? this.state.email : ''}
+                        onChange={(val) => this.setInputValue('email', val)}
+                      />
+                  </div>
+              </div>
+              <div className="w3-row w3-section">
+                  <div className="w3-col" style={{width: "50px"}}>
+                      <i className="w3-xxlarge fas fa-phone-alt"/>
+                  </div>
+                  <div className="w3-rest">
+                      <Input
+                        className={this.state.flag === 5 ? inputClass + " w3-border-red" : inputClass}
+                        type='text'
+                        placeholder={t('Phone')}
+                        value={this.state.phone ? this.state.phone : ''}
+                        onChange={(val) => this.setInputValue('phone', val)}
+                      />
+                  </div>
+              </div>
+              <div className="w3-row w3-section">
+                  <div className="w3-col" style={{width: "50px"}}>
+                      <i className="w3-xxlarge fas fa-flag"/>
+                  </div>
+                  <div className="w3-rest">
+                      <Input
+                        className={this.state.flag === 6 ? inputClass + " w3-border-red" : inputClass}
+                        type='text'
+                        placeholder={t('FCountry')}
+                        value={this.state.address.country ? this.state.address.country : ''}
+                        onChange={(val) => this.setAddressValue('country', val)}
+                      />
+                  </div>
+              </div>
+              <div className="w3-row w3-section">
+                  <div className="w3-col" style={{width: "50px"}}>
+                      <i className="w3-xxlarge fas fa-city"/>
+                  </div>
+                  <div className="w3-rest">
+                      <Input
+                        className={this.state.flag === 7 ? inputClass + " w3-border-red" : inputClass}
+                        type='text'
+                        placeholder={t('FCity')}
+                        value={this.state.address.city ? this.state.address.city : ''}
+                        onChange={(val) => this.setAddressValue('city', val)}
+                      />
+                  </div>
+              </div>
+              <div className="w3-row w3-section">
+                  <div className="w3-col" style={{width: "50px"}}>
+                      <i className="w3-xxlarge fas fa-road"/>
+                  </div>
+                  <div className="w3-rest">
+                      <Input
+                        className={this.state.flag === 8 ? inputClass + " w3-border-red" : inputClass}
+                        type='text'
+                        placeholder={t('FStreet')}
+                        value={this.state.address.street ? this.state.address.street : ''}
+                        onChange={(val) => this.setAddressValue('street', val)}
+                      />
+                  </div>
+              </div>
+              <div className="w3-row w3-section">
+                  <div className="w3-col" style={{width: "50px"}}>
+                      <i className="w3-xxlarge fas fa-home"/>
+                  </div>
+                  <div className="w3-rest">
+                      <Input
+                        className={this.state.flag === 9 ? inputClass + " w3-border-red" : inputClass}
+                        type='text'
+                        placeholder={t('FHouse')}
+                        value={this.state.address.houseNumber ? this.state.address.houseNumber : ''}
+                        onChange={(val) => this.setAddressValue('houseNumber', val)}
+                      />
+                  </div>
+              </div>
+              <h4 className="w3-center">{t("PasswordChangeMsg")}</h4>
+              <div className="w3-row w3-section">
+                  <div className="w3-col" style={{width: "50px"}}>
+                      <i className="w3-xxlarge fas fa-lock"/>
+                  </div>
+                  <div className="w3-rest">
+                      <Input
+                        className={(this.state.flag === 11 || this.state.flag === 12) ? inputClass + " w3-border-red" : inputClass}
+                        type='password'
+                        placeholder={t('Password')}
+                        value={this.state.password ? this.state.password : ''}
+                        onChange={(val) => this.setInputValue('password', val)}
+                      />
+                  </div>
+              </div>
+              <div className="w3-row w3-section">
+                  <div className="w3-col" style={{width: "50px"}}>
+                      <i className="w3-xxlarge fas fa-lock"/>
+                  </div>
+                  <div className="w3-rest">
+                      <Input
+                        className={this.state.flag === 12 ? inputClass + " w3-border-red" : inputClass}
+                        type = 'password'
+                        placeholder = {t('ConfirmPassword')}
+                        value={this.state.confirmPass ? this.state.confirmPass : ''}
+                        onChange = { (val) => this.setInputValue('confirmPass', val)}
+                      />
+                  </div>
+              </div>
+              <Button
+                className="w3-btn w3-block w3-section w3-indigo w3-padding"
+                text={t('Edit')}
+                disabled={this.state.buttonDisabled}
+                onClick={() => this.checkCred()}
+              />
+          </div>
         )
     }
 }
