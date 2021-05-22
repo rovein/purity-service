@@ -7,7 +7,7 @@ class Login extends React.Component{
         return(
             <div className="signIn">
             <Header/>
-                <div className="container">
+                <div className="container" style={{marginTop: "10%"}}>
                     <LoginForm/>
             </div>
         </div>
