@@ -3,6 +3,8 @@ import Input from '../ui/Input'
 import Button from '../ui/Button'
 import { withTranslation } from 'react-i18next'
 import jwt_decode from "jwt-decode"
+import * as Constants from "../util/Constants";
+import Loader from "react-loader-spinner";
 
 var url = "http://localhost:8080";
 if(localStorage.getItem("Token") != null){
@@ -19,7 +21,8 @@ class AddRForm extends React.Component{
             floor: '',
             winCount:'',
             flag:1,
-            buttonDisabled: false
+            buttonDisabled: false,
+            isLoaded: false
         }
     }
 
@@ -35,7 +38,8 @@ class AddRForm extends React.Component{
             area:'',
             floor: '',
             winCount:'',
-            buttonDisabled: false
+            buttonDisabled: false,
+            isLoaded: true
         })
     }
 
@@ -57,6 +61,7 @@ class AddRForm extends React.Component{
             area: result.area,
             winCount: result.windowsCount,
             floor: result.floor,
+            lastCleaning: result.lastCleaning
         });
         },
         (error) => {
@@ -118,7 +123,8 @@ class AddRForm extends React.Component{
             return
         }
         this.setState({
-            buttonDisabled: true
+            buttonDisabled: true,
+            isLoaded: false
         })
 
         this.editRoom();      
@@ -138,7 +144,7 @@ class AddRForm extends React.Component{
                     area: this.state.area,
                     floor: this.state.floor,
                     windowsCount: this.state.winCount,
-                    lastCleaning: new Date(),
+                    lastCleaning: this.state.lastCleaning,
                     id: localStorage.getItem("roomId"),
                     smartDevice: {
                         adjustmentFactor: 0,
@@ -146,7 +152,7 @@ class AddRForm extends React.Component{
                         humidity: 0,
                         temperature: 0,
                         dirtinessFactor: 0,
-                        priority: "null"
+                        priority: "LOW"
                       },
                 })
             })
@@ -164,45 +170,64 @@ class AddRForm extends React.Component{
 
     render() {
         const {t} = this.props
-        return(
-            <div className="signUpForm">
-                <div className='signUpContainer'>
-                    <h1>{t('Edit')}</h1>
-                    { this.state.flag === 2 && <p>{t("EType")}</p>}
-                    { this.state.flag === 3 && <p>{t("EFloor")}</p>}
-                    { this.state.flag === 5 && <p>{t("EWCount")}</p>}
-                    { this.state.flag === 4 && <p>{t("EArea")}</p>}
-                    <Input
-                        type = 'text'
-                        placeholder = {t('Type')}
-                        value={this.state.type ? this.state.type : ''}
-                        onChange = { (val) => this.setInputValue('type', val)}
-                    />
-                    <Input
-                        type = 'text'
-                        placeholder = {t('Floor')}
-                        value={this.state.floor ? this.state.floor : ''}
-                        onChange = { (val) => this.setInputValue('floor', val)}
-                    />
-                     <Input
-                        type = 'text'
-                        placeholder = {t('WCount')}
-                        value={this.state.winCount ? this.state.winCount : ''}
-                        onChange = { (val) => this.setInputValue('winCount', val)}
-                    />
-                    <Input
-                        type = 'text'
-                        placeholder = {t('Area')}
-                        value={this.state.area ? this.state.area : ''}
-                        onChange = { (val) => this.setInputValue('area', val)}
-                    />
-                    <Button
-                        text = {t('Edit')}
-                        disabled = {this.state.buttonDisabled}
-                        onClick = { () => this.checkCred()}
-                    />
-                </div>
+        const inputClass = Constants.INPUT_STYLE_CLASSES;
+        if (!this.state.isLoaded) {
+            return <div>
+                <Loader
+                  type="Oval" //Audio Oval ThreeDots
+                  color="#4B0082"
+                  height={400}
+                  width={425}
+                  timeout={10000}
+                />
             </div>
+        }
+        return (
+          <div
+            className="w3-container w3-card-4 w3-light-grey w3-text-indigo w3-margin"
+            style={{width: "700px", fontSize: "22px"}}>
+              <h1 className="w3-center">{t('AddR')}</h1>
+              <div className="sized-font w3-center w3-text-red">
+                  {this.state.flag === 2 && <p>{t("EType")}</p>}
+                  {this.state.flag === 3 && <p>{t("EFloor")}</p>}
+                  {this.state.flag === 5 && <p>{t("EWCount")}</p>}
+                  {this.state.flag === 4 && <p>{t("EArea")}</p>}
+              </div>
+              <label>{t('Type')}</label>
+              <Input
+                className={this.state.flag === 2 ? inputClass + " w3-border-red" : inputClass}
+                type='text'
+                value={this.state.type ? this.state.type : ''}
+                onChange={(val) => this.setInputValue('type', val)}
+              />
+              <label >{t('Floor')}</label>
+              <Input
+                className={this.state.flag === 3 ? inputClass + " w3-border-red" : inputClass}
+                type='text'
+                value={this.state.floor ? this.state.floor : ''}
+                onChange={(val) => this.setInputValue('floor', val)}
+              />
+              <label>{t('WCount')}</label>
+              <Input
+                className={this.state.flag === 5 ? inputClass + " w3-border-red" : inputClass}
+                type='text'
+                value={this.state.winCount ? this.state.winCount : ''}
+                onChange={(val) => this.setInputValue('winCount', val)}
+              />
+              <label>{t('Area')}</label>
+              <Input
+                className={this.state.flag === 4 ? inputClass + " w3-border-red" : inputClass}
+                type='text'
+                value={this.state.area ? this.state.area : ''}
+                onChange={(val) => this.setInputValue('area', val)}
+              />
+              <Button
+                className="w3-btn w3-block w3-section w3-indigo w3-padding"
+                text={t('Add')}
+                disabled={this.state.buttonDisabled}
+                onClick={() => this.checkCred()}
+              />
+          </div>
         )
     }
 }
