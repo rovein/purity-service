@@ -1,7 +1,7 @@
 import React from 'react'
 import { withTranslation } from 'react-i18next';
-import CleaningCard from './AdminClCard';
-import AdminCustCart from './AdminCustCart';
+import CleaningCard from './AdminCleaningProvidersTable';
+import AdminCustCart from './AdminPlacementOwnersTable';
 import axios from "axios";
 import Button from "../ui/Button";
 
