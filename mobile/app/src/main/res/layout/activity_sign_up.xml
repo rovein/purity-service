@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.auth.SignUpActivity"
-    android:background="@color/light">
+    android:background="@color/light_grey">
 
     <EditText
             android:id="@+id/confirm_password"

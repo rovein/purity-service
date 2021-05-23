@@ -51,18 +51,23 @@ class ProfileActivity : AppCompatActivity() {
         get() {
             loadingDialog.start()
             val callback: Callback<User> = object : Callback<User> {
-                override fun onResponse(call: Call<User>,
-                                        response: Response<User>) {
+                override fun onResponse(
+                    call: Call<User>,
+                    response: Response<User>
+                ) {
                     if (!response.isSuccessful) {
                         Log.i(TAG, response.message())
                         println(response)
                     } else {
                         User.getInstance().name = response.body()!!.name
-                        User.getInstance().phoneNumber = response.body()!!.phoneNumber
+                        User.getInstance().phoneNumber =
+                            response.body()!!.phoneNumber
                         Address.getInstance().setCountry(
-                                response.body()!!.address.country)
-                                .setCity(response.body()!!.address.city)
-                                .setStreet(response.body()!!.address.street).houseNumber = response.body()!!.address
+                            response.body()!!.address.country
+                        )
+                            .setCity(response.body()!!.address.city)
+                            .setStreet(response.body()!!.address.street).houseNumber =
+                            response.body()!!.address
                                 .houseNumber
                         mNameTV!!.text = User.getInstance().name
                         mPhoneTV!!.text = User.getInstance().phoneNumber
@@ -82,13 +87,15 @@ class ProfileActivity : AppCompatActivity() {
             }
             val email = User.getInstance().email
             if (User.getInstance().userRole
-                    == getString(R.string.cleaning_provider)) {
+                == getString(R.string.cleaning_provider)
+            ) {
                 NetworkService.getInstance().apiService
-                        .getCleaningProviderData(token, email).enqueue(callback)
+                    .getCleaningProviderData(token, email).enqueue(callback)
             } else if (User.getInstance().userRole
-                    == getString(R.string.placement_owner)) {
+                == getString(R.string.placement_owner)
+            ) {
                 NetworkService.getInstance().apiService
-                        .getPlacementOwnerData(token, email).enqueue(callback)
+                    .getPlacementOwnerData(token, email).enqueue(callback)
             }
         }
 
@@ -118,7 +125,8 @@ class ProfileActivity : AppCompatActivity() {
         mLogOut.setOnClickListener(View.OnClickListener { v: View? ->
             User.getInstance().setToken(null).name = null
             startActivity(
-                    Intent(this@ProfileActivity, SignInActivity::class.java))
+                Intent(this@ProfileActivity, SignInActivity::class.java)
+            )
         })
         showTV()
     }
@@ -178,24 +186,26 @@ class ProfileActivity : AppCompatActivity() {
 
     //TODO edit profile with location
     private fun submitEditing() {
-        loadingDialog.start()
         val callback: Callback<User?> = object : Callback<User?> {
-            override fun onResponse(call: Call<User?>,
-                                    response: Response<User?>) {
+            override fun onResponse(
+                call: Call<User?>,
+                response: Response<User?>
+            ) {
                 if (!response.isSuccessful) {
-                    Toast.makeText(context, response.message(),
-                            Toast.LENGTH_LONG).show()
+                    Toast.makeText(
+                        context, response.message(),
+                        Toast.LENGTH_LONG
+                    ).show()
                 } else {
                     mEditButton!!.setOnClickListener { v: View? -> startEditing() }
                     data
                     showTV()
                 }
-                loadingDialog.dismiss()
+
             }
 
             override fun onFailure(call: Call<User?>, t: Throwable) {
                 Toast.makeText(context, t.message, Toast.LENGTH_LONG).show()
-                loadingDialog.dismiss()
             }
         }
         mNameET!!.visibility = View.GONE
@@ -207,22 +217,26 @@ class ProfileActivity : AppCompatActivity() {
         mHouseET!!.visibility = View.GONE
         mPasswordET!!.visibility = View.GONE
         User.getInstance().setName(mNameET!!.text.toString())
-                .setEmail(mEmailET!!.text.toString())
-                .setPhoneNumber(mPhoneET!!.text.toString()).address = Address(mCountryET!!.text.toString(),
-                mCityET!!.text.toString(),
-                mStreetET!!.text.toString(),
-                mHouseET!!.text.toString(), "0", "0")
+            .setEmail(mEmailET!!.text.toString())
+            .setPhoneNumber(mPhoneET!!.text.toString()).address = Address(
+            mCountryET!!.text.toString(),
+            mCityET!!.text.toString(),
+            mStreetET!!.text.toString(),
+            mHouseET!!.text.toString(), "0", "0"
+        )
 
         if (User.getInstance().userRole
-                == getString(R.string.cleaning_provider)) {
+            == getString(R.string.cleaning_provider)
+        ) {
             NetworkService.getInstance().apiService
-                    .updateCleaningProviderProfile(token, User.getInstance())
-                    .enqueue(callback)
+                .updateCleaningProviderProfile(token, User.getInstance())
+                .enqueue(callback)
         } else if (User.getInstance().userRole
-                == getString(R.string.placement_owner)) {
+            == getString(R.string.placement_owner)
+        ) {
             NetworkService.getInstance().apiService
-                    .updatePlacementOwnerProfile(token, User.getInstance())
-                    .enqueue(callback)
+                .updatePlacementOwnerProfile(token, User.getInstance())
+                .enqueue(callback)
         }
     }
 

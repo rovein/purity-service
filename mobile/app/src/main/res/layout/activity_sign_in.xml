@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.auth.SignInActivity"
-    android:background="@color/light">
+    android:background="@color/light_grey">
 
     <TextView
         android:id="@+id/signup_title"
@@ -31,7 +31,7 @@
 
     <EditText
         android:id="@+id/email"
-        android:layout_width="0dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         style="@style/custom_input"
         android:hint="@string/email"
@@ -44,7 +44,7 @@
     <EditText
         android:id="@+id/password"
         style="@style/custom_input"
-        android:layout_width="0dp"
+        android:layout_width="280dp"
         android:layout_height="wrap_content"
         android:hint="@string/password"
         android:inputType="textPassword"
