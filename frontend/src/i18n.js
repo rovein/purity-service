@@ -72,6 +72,10 @@ i18n.use(LanguageDetector).init({
         selectService: "Select service",
         selectRoom: "Select placement",
         selectDate: "Select date",
+        accIsLocked: "Account is locked.",
+        LockUser: "Lock",
+        UnlockUser: "Unlock",
+        IsLocked: "Is locked",
 
         DName: "Name",
         checkCred: "Check the correctness of the entered data!",
@@ -179,7 +183,10 @@ i18n.use(LanguageDetector).init({
         selectService: "Послуги",
         selectRoom: "Приміщення",
         selectDate: "Оберіть дату",
-
+        LockUser: "⠀Заблокувати⠀",
+        accIsLocked: "Цей обліковий запис заблоковано.",
+        UnlockUser: "Розблокувати⠀",
+        IsLocked: "Активований",
 
 
         DName: "Назва",

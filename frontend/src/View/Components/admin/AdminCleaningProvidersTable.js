@@ -68,6 +68,7 @@ class Card extends React.Component{
                             <th>{t("DName")}</th>
                             <th>{t("Phone")}</th>
                             <th>{t("Email")}</th>
+                            <th>{t("IsLocked")}</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -136,7 +137,17 @@ class Card extends React.Component{
             <td style={columnStyle}>{company.name}</td>
             <td style={columnStyle}>{company.phoneNumber}</td>
             <td style={columnStyle}> {company.email}</td>
+            <td style={columnStyle}>{company.isLocked
+                ? <i className="w3-xxlarge w3-text-red fas fa-times"/>
+                : <i className="w3-xxlarge w3-text-green fas fa-check"/>
+            }
+            </td>
             <td>
+              <Button
+                  className="w3-btn w3-indigo w3-round-small w3-medium"
+                  text={company.isLocked ? t("UnlockUser") : t("LockUser")}
+                  onClick={() => this.lockUser(company.email)}
+              /> &nbsp;
               <Button
                 className='w3-btn w3-khaki w3-round-small w3-medium'
                 text = {t('Edit')}
@@ -154,6 +165,31 @@ class Card extends React.Component{
           </tr>
         );
       };
+
+    lockUser(email) {
+        this.setState({isLoaded: false})
+        fetch(`${url}/admin/lock-user/${email}`, {
+            method: "post",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("Token"),
+            },
+        }).then(
+            (result) => {
+                let idx = this.state.companies.findIndex(owner => owner.email === email);
+                let owners = this.state.companies;
+                owners[idx].isLocked = !owners[idx].isLocked;
+                this.setState({companies: owners, isLoaded: true})
+            },
+            (error) => {
+                this.setState({
+                    isLoaded: true,
+                    error,
+                });
+            }
+        );
+    }
 }
 
 export default withTranslation()  (Card);

@@ -76,7 +76,10 @@ class SignInForm extends React.Component{
                 })
             })
             let result = await res.json()
-            if(result && result.message !== "Access Denied"){
+            if (result.message === "Access Denied" && result.trace.includes('account is locked')) {
+                this.resetForm()
+                this.setState({flag: 5});
+            } else if(result && result.message !== "Access Denied"){
                 localStorage.setItem('Token', result.token);
                 window.location.href='./profile';
             } else if (result){
@@ -113,6 +116,7 @@ class SignInForm extends React.Component{
                   {this.state.flag === 2 && <p>{t("EEmail")}</p>}
                   {this.state.flag === 3 && <p>{t("EPass")}</p>}
                   {this.state.flag === 4 && <p>{t("checkCred")}</p>}
+                  {this.state.flag === 5 && <p>{t("accIsLocked")}</p>}
               </div>
               <div className="w3-row w3-section">
                   <div className="w3-col" style={{width: "50px"}}>
