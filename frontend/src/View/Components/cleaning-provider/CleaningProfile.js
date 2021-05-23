@@ -25,6 +25,16 @@ class Profile extends React.Component{
       }
 
     componentDidMount() {
+        let cachedCleaningProvider = localStorage.getItem("cleaningProvider");
+        let cachedAddress = localStorage.getItem("cleaningProviderAddress")
+        if (cachedCleaningProvider != null && cachedAddress != null && cachedAddress !== 'undefined') {
+            this.setState({
+                isLoaded: true,
+                company: JSON.parse(cachedCleaningProvider),
+                address: JSON.parse(cachedAddress)
+            });
+            return
+        }
         fetch(`${url}/cleaning-providers/${decoded.email}`, {
             method: 'get',
             headers: {
@@ -41,6 +51,8 @@ class Profile extends React.Component{
                 company: result,
                 address:result.address
               });
+            localStorage.setItem("cleaningProvider", JSON.stringify(result));
+            localStorage.setItem("cleaningProviderAddress", JSON.stringify(result.address));
             },
             (error) => {
               this.setState({
