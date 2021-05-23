@@ -62,7 +62,7 @@ class Card extends React.Component{
           </div>;
         } else {
             return (<div>
-                    <table className="w3-table-all w3-centered">
+                    <table className="w3-table-all w3-centered w3-hoverable w3-large">
                         <thead>
                         <tr className="w3-light-grey">
                             <th>{t("DName")}</th>
@@ -132,7 +132,7 @@ class Card extends React.Component{
       const {t} = this.props
       const columnStyle = {verticalAlign: "middle"};
         return (
-          <tr>
+          <tr className="w3-hover-sand">
             <td style={columnStyle}>{company.name}</td>
             <td style={columnStyle}>{company.phoneNumber}</td>
             <td style={columnStyle}> {company.email}</td>
