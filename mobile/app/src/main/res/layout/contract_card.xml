@@ -52,7 +52,7 @@
             style="@style/card_text"
             android:layout_below="@+id/price_label"
             android:layout_marginTop="10dp"
-            android:text="@string/last_cl_date"
+            android:text="@string/date"
             android:textSize="18sp"
             android:textStyle="bold" />
         <TextView
@@ -75,10 +75,9 @@
         <TextView
             android:id="@+id/clean_name_text"
             style="@style/card_text"
-            android:layout_alignTop="@+id/clean_name_label"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_toEndOf="@+id/clean_name_label" />
+            android:layout_below="@+id/clean_name_label"
+            android:layout_marginTop="10dp"
+            />
 
         <TextView
             android:id="@+id/cust_name_label"
@@ -92,10 +91,9 @@
         <TextView
             android:id="@+id/cust_name_text"
             style="@style/card_text"
-            android:layout_alignTop="@+id/cust_name_label"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_toEndOf="@+id/cust_name_label" />
+            android:layout_below="@+id/cust_name_label"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp" />
 
 
 

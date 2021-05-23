@@ -131,10 +131,9 @@
         <TextView
             android:id="@+id/last_cl_date_text"
             style="@style/card_text"
-            android:layout_alignTop="@+id/last_cl_date_label"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="0dp"
-            android:layout_toEndOf="@+id/last_cl_date_label" />
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/last_cl_date_label"
+          />
 
         <Button
             android:id="@+id/edit_room_btn"
