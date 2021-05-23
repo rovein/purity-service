@@ -1,7 +1,6 @@
 import React from 'react'
 import Header from '../auth/HeaderAuth'
 import ConfigureSmartDevice from "../admin/ConfigureSmartDevice";
-import AddRForm from "../placement-owner/AddRForm";
 
 class ConfigureDevice extends React.Component {
 

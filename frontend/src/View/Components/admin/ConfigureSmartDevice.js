@@ -3,6 +3,7 @@ import Input from '../ui/Input'
 import Button from '../ui/Button'
 import { withTranslation } from 'react-i18next'
 import Loader from "react-loader-spinner";
+import * as Constants from "../util/Constants";
 
 class ConfigureSmartDeviceForm extends React.Component{
   constructor(props) {
@@ -63,41 +64,49 @@ class ConfigureSmartDeviceForm extends React.Component{
 
   render() {
     const {t} = this.props
+    const inputClass = Constants.INPUT_STYLE_CLASSES;
     return(
-      <div className="signUpForm">
-        <div className='signUpContainer'>
-          <h1>{t('ConfigureDevice')}</h1>
-          {this.state.isSuccess && <p>{t("SuccessConfiguring")}</p>}
+        <div
+            className="w3-container w3-card-4 w3-light-grey w3-text-indigo w3-margin"
+            style={{width: "700px", fontSize: "22px"}}>
+          <h1 className="w3-center">{t('ConfigureDevice')}</h1>
+          <div className="sized-font w3-center">
+            {this.state.isSuccess && <p>{t("SuccessConfiguring")}</p>}
+          </div>
+          <label> {t('DeviceIp')}</label>
           <Input
+            className={inputClass}
             type = 'text'
-            placeholder = {t('DeviceIp')}
             value={this.state.deviceIp ? this.state.deviceIp : ''}
             onChange = { (val) => this.setInputValue('deviceIp', val)}
           />
+          <label>{t('ServerIp')}</label>
           <Input
+            className={inputClass}
             type = 'text'
-            placeholder = {t('ServerIp')}
             value={this.state.serverIp ? this.state.serverIp : ''}
             onChange = { (val) => this.setInputValue('serverIp', val)}
           />
+          <label>{t('ServerPort')}</label>
           <Input
+            className={inputClass}
             type = 'text'
-            placeholder = {t('ServerPort')}
             value={this.state.serverPort ? this.state.serverPort : ''}
             onChange = { (val) => this.setInputValue('serverPort', val)}
           />
+          <label>{t('PlacementId')}</label>
           <Input
+            className={inputClass}
             type = 'text'
-            placeholder = {t('PlacementId')}
             value={this.state.placementId ? this.state.placementId : ''}
             onChange = { (val) => this.setInputValue('placementId', val)}
           />
           <Button
+            className="w3-btn w3-block w3-section w3-indigo w3-padding"
             text = {t('Configure')}
             disabled = {this.state.buttonDisabled}
             onClick = { () => this.submitForm()}
           />
-        </div>
       </div>
     )
   }
