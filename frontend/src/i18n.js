@@ -97,6 +97,8 @@ i18n.use(LanguageDetector).init({
         EEroor:"Something went wrong! Please? try again.",
         EPPM:"Your price per meter format is wrong! Please try again.",
         PPM:"Price per meter",
+        BackupWillDownload: "File for data restore will be downloaded after some seconds...",
+        Success: "Success!",
 
         Search:"Search",
         eExist:"Such email already exist in system!",
@@ -187,7 +189,8 @@ i18n.use(LanguageDetector).init({
         accIsLocked: "Цей обліковий запис заблоковано.",
         UnlockUser: "Розблокувати⠀",
         IsLocked: "Активований",
-
+        BackupWillDownload: "Файл для відновлення даних буде завантажено через декілька секунд...",
+        Success: "Добре!",
 
         DName: "Назва",
         checkCred: "Перевірте правильність введених даних!",

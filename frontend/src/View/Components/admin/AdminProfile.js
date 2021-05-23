@@ -4,11 +4,21 @@ import CleaningCard from './AdminCleaningProvidersTable';
 import AdminCustCart from './AdminPlacementOwnersTable';
 import axios from "axios";
 import Button from "../ui/Button";
+import SweetAlert from "react-bootstrap-sweetalert";
 
 var url = "http://localhost:8080";
 const FileDownload = require("js-file-download");
 
 class Profile extends React.Component{
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            backupButtonClicked: false
+        };
+        this.backup = this.backup.bind(this)
+        this.closeBackupAlert = this.closeBackupAlert.bind(this)
+    }
 
     componentDidMount() {
         const backupNav = document.getElementById("BC");
@@ -16,7 +26,7 @@ class Profile extends React.Component{
     }
 
     backup() {
-        setTimeout(function() { alert('Файл буде завантажено через декілька секунд'); }, 1);
+       this.setState({backupButtonClicked: true})
         axios({
             url: `${url}/admin/backup`,
             method: "GET",
@@ -28,7 +38,7 @@ class Profile extends React.Component{
             },
             responseType: "blob", // Important
         }).then((response) => {
-            FileDownload(response.data, "backup_data.sql");
+            FileDownload(response.data, `backup_data.sql`);
         });
     }
 
@@ -58,8 +68,27 @@ class Profile extends React.Component{
                         <div id="room_container">
                            <AdminCustCart/>
                         </div>
+                    {this.state.backupButtonClicked &&
+                    <SweetAlert success title={t("Success")}
+                                onConfirm={this.closeBackupAlert}
+                                onCancel={this.closeBackupAlert}
+                                customButtons={
+                                    <React.Fragment>
+                                        <button
+                                            className="w3-btn w3-indigo w3-round-small w3-medium"
+                                            onClick={this.closeBackupAlert}
+                                        >OK</button>
+                                    </React.Fragment>
+                                }
+                    >
+                        {t("BackupWillDownload")}
+                    </SweetAlert>}
                 </div>
             )
+        }
+
+        closeBackupAlert() {
+            this.setState({backupButtonClicked: false})
         }
     
 }
