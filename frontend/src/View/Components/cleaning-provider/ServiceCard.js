@@ -81,7 +81,7 @@ class Card extends React.Component{
                             <th>{t("minA")}</th>
                             <th>{t("maxA")}</th>
                             <th>{t("rType")}</th>
-                            <th>{t("Price")}</th>
+                            <th>{t("PPM")}</th>
                             <th></th>
                         </tr>
                         </thead>
