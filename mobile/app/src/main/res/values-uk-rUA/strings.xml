@@ -4,7 +4,7 @@
     <string name="signup_title">Створити акаунт</string>
     <string name="sign_in_to_continue">Вхід до системи</string>
     <string name="create_new_account">Створити новий акаунт надавача або власника приміщень</string>
-    <string name="name">Ім\'я</string>
+    <string name="name">Назва</string>
     <string name="country">Країна</string>
     <string name="city">Місто</string>
     <string name="street">Вулиця</string>

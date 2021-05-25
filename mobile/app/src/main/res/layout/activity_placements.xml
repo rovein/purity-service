@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/header_bg"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="70dp"
         app:layout_constraintHeight_percent=".15"
         android:background="@color/extra_light"
         app:layout_constraintTop_toTopOf="parent" />

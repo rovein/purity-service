@@ -32,7 +32,6 @@ class ProfileActivity : AppCompatActivity() {
     var mCityET: EditText? = null
     var mStreetET: EditText? = null
     var mHouseET: EditText? = null
-    var mPasswordET: EditText? = null
     lateinit var mEditButton: Button
     lateinit var mBack: ImageView
     lateinit var mLogOut: ImageView
@@ -116,7 +115,6 @@ class ProfileActivity : AppCompatActivity() {
         mCityET = findViewById(R.id.profile_city_edit)
         mStreetET = findViewById(R.id.profile_street_edit)
         mHouseET = findViewById(R.id.profile_house_edit)
-        mPasswordET = findViewById(R.id.profile_password_edit)
         mEditButton = findViewById(R.id.edit_profile_btn)
         mEditButton.setOnClickListener(View.OnClickListener { v: View? -> startEditing() })
         mBack = findViewById(R.id.back_btn)
@@ -140,7 +138,6 @@ class ProfileActivity : AppCompatActivity() {
         mCityET!!.visibility = View.GONE
         mStreetET!!.visibility = View.GONE
         mHouseET!!.visibility = View.GONE
-        mPasswordET!!.visibility = View.GONE
         mNameTV!!.visibility = View.VISIBLE
         mEmailTV!!.visibility = View.VISIBLE
         mPhoneTV!!.visibility = View.VISIBLE
@@ -168,7 +165,6 @@ class ProfileActivity : AppCompatActivity() {
         mCityET!!.visibility = View.VISIBLE
         mStreetET!!.visibility = View.VISIBLE
         mHouseET!!.visibility = View.VISIBLE
-        mPasswordET!!.visibility = View.VISIBLE
         mNameET!!.setText(User.getInstance().name)
         mEmailET!!.setText(User.getInstance().email)
         mPhoneET!!.setText(User.getInstance().phoneNumber)
@@ -215,7 +211,6 @@ class ProfileActivity : AppCompatActivity() {
         mCityET!!.visibility = View.GONE
         mStreetET!!.visibility = View.GONE
         mHouseET!!.visibility = View.GONE
-        mPasswordET!!.visibility = View.GONE
         User.getInstance().setName(mNameET!!.text.toString())
             .setEmail(mEmailET!!.text.toString())
             .setPhoneNumber(mPhoneET!!.text.toString()).address = Address(
