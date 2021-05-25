@@ -23,6 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
         style="@style/custom_button"
+        android:backgroundTint="@color/indigo"
         android:text="@string/profile"/>
 
     <Button
@@ -31,6 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         style="@style/custom_button"
+        android:backgroundTint="@color/indigo"
         android:text="@string/services" />
 
     <Button
@@ -39,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         style="@style/custom_button"
+        android:backgroundTint="@color/indigo"
         android:text="@string/contracts"/>
 
 </LinearLayout>

@@ -67,4 +67,5 @@
     <string name="invalidCreds">Credentials are invalid</string>
     <string name="date">Date:</string>
     <string name="pick_date">Pick date</string>
+    <string name="or">or</string>
 </resources>

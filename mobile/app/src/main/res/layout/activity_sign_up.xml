@@ -37,7 +37,6 @@
         android:id="@+id/signup_subtitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/create_new_account"
         style="@style/custom_subtitle"
         app:layout_constraintTop_toBottomOf="@id/signup_title"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,40 +104,17 @@
         app:layout_constraintVertical_bias=".63"/>
 
     <Button
-        android:id="@+id/signup_button"
+        android:id="@+id/signin_button"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         style="@style/custom_button"
+        android:backgroundTint="@color/indigo"
         android:text="@string/signup"
         app:layout_constraintTop_toBottomOf="@id/signup_subtitle"
         app:layout_constraintStart_toStartOf="@id/signup_title"
         app:layout_constraintEnd_toEndOf="@id/signup_title"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintVertical_bias=".75" />
-
-    <LinearLayout
-        android:id="@+id/go_to_sign_in"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/signup_button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/custom_subtitle_dark"
-            android:text="@string/already_have_acc" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@style/custom_subtitle"
-            android:text="@string/login" />
-
-    </LinearLayout>
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

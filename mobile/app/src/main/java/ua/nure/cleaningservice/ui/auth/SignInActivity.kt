@@ -21,7 +21,7 @@ class SignInActivity : AppCompatActivity() {
     lateinit var email: EditText
     lateinit var password: EditText
     private lateinit var confirm: Button
-    private lateinit var goToSignUp: LinearLayout
+    private lateinit var goToSignUp: Button
     private val loadingDialog = LoadingDialog(this@SignInActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,17 +48,19 @@ class SignInActivity : AppCompatActivity() {
                 Verification.verifyPassword(this, password)
             }
         }
-        confirm = findViewById(R.id.signup_button)
+        confirm = findViewById(R.id.signin_button)
         confirm.setOnClickListener(View.OnClickListener {
             signIn(email.text.toString(), password.text.toString())
         })
 
-        goToSignUp = findViewById(R.id.go_to_sign_in)
-        goToSignUp.setOnClickListener(View.OnClickListener {
-            val intent = Intent(this@SignInActivity,
-                    SignUpActivity::class.java)
+        goToSignUp = findViewById(R.id.signup_button)
+        goToSignUp.setOnClickListener {
+            val intent = Intent(
+                this@SignInActivity,
+                SignUpActivity::class.java
+            )
             startActivity(intent)
-        })
+        }
     }
 
     private fun signIn(email: String, password: String) {

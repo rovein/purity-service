@@ -12,7 +12,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ua.nure.cleaningservice.R
-import ua.nure.cleaningservice.data.Address
 import ua.nure.cleaningservice.data.User
 import ua.nure.cleaningservice.network.NetworkService
 import ua.nure.cleaningservice.ui.util.LoadingDialog
@@ -88,7 +87,7 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
 
-        confirmButton = findViewById(R.id.signup_button)
+        confirmButton = findViewById(R.id.signin_button)
         confirmButton.setOnClickListener {
             signUp(
                 name.text.toString(),
