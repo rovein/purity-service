@@ -42,6 +42,7 @@ class PlacementsRVA(private val mContext: Context, private var mPlacements: Muta
     @RequiresApi(api = Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: RoomsViewHolder, position: Int) {
         holder.mCardView.id = mPlacements!![position].id
+        holder.mRoomNumberTV.text = mPlacements!![position].id.toString()
         holder.mRoomTypeTV.text = mPlacements!![position].placementType
         holder.mFloorTV.text = String.format(Locale.getDefault(), "%d", mPlacements!![position].floor)
         holder.mWinCountTV.text = String.format(Locale.getDefault(), "%d", mPlacements!![position].windowsCount)
@@ -52,11 +53,6 @@ class PlacementsRVA(private val mContext: Context, private var mPlacements: Muta
         val dateTime = ZonedDateTime.parse(mPlacements!![position].lastCleaning, formatter)
         formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         holder.mLastClDateTV.text = dateTime.format(formatter)
-        holder.mEditButton.setOnClickListener { v: View? -> editRoom(holder) }
-        holder.mDeleteButton.setOnClickListener { v: View? ->
-            mRoomsViewHolder = holder
-            deleteRoom()
-        }
     }
 
     override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
@@ -69,6 +65,7 @@ class PlacementsRVA(private val mContext: Context, private var mPlacements: Muta
 
     inner class RoomsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var mCardView: CardView
+        var mRoomNumberTV: TextView
         var mRoomTypeTV: TextView
         var mFloorTV: TextView
         var mWinCountTV: TextView
@@ -76,20 +73,17 @@ class PlacementsRVA(private val mContext: Context, private var mPlacements: Muta
         var mAirQualityTV: TextView
         var mHumidityTV: TextView
         var mLastClDateTV: TextView
-        var mEditButton: Button
-        var mDeleteButton: Button
 
         init {
             mCardView = itemView.findViewById<View>(R.id.room_cv) as CardView
             mRoomTypeTV = itemView.findViewById<View>(R.id.room_type_text) as TextView
+            mRoomNumberTV = itemView.findViewById<View>(R.id.room_number_text) as TextView
             mFloorTV = itemView.findViewById<View>(R.id.floor_text) as TextView
             mWinCountTV = itemView.findViewById<View>(R.id.win_count_text) as TextView
             mAreaTV = itemView.findViewById<View>(R.id.area_text) as TextView
             mAirQualityTV = itemView.findViewById<View>(R.id.air_quality_text) as TextView
             mHumidityTV = itemView.findViewById<View>(R.id.humidity_text) as TextView
             mLastClDateTV = itemView.findViewById<View>(R.id.last_cl_date_text) as TextView
-            mEditButton = itemView.findViewById<View>(R.id.edit_room_btn) as Button
-            mDeleteButton = itemView.findViewById<View>(R.id.delete_room_btn) as Button
         }
     }
 

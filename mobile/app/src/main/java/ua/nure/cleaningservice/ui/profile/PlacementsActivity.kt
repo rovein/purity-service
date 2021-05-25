@@ -1,9 +1,13 @@
 package ua.nure.cleaningservice.ui.profile
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,21 +16,27 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ua.nure.cleaningservice.R
-import ua.nure.cleaningservice.data.User
 import ua.nure.cleaningservice.data.Placement
+import ua.nure.cleaningservice.data.User
 import ua.nure.cleaningservice.network.JsonPlaceHolderApi
 import ua.nure.cleaningservice.network.NetworkService
 import ua.nure.cleaningservice.ui.add.AddPlacementActivity
 import ua.nure.cleaningservice.ui.auth.MenuActivity
+import ua.nure.cleaningservice.ui.edit.EditPlacementActivity
 import ua.nure.cleaningservice.ui.rva.PlacementsRVA
 import ua.nure.cleaningservice.ui.util.LoadingDialog
 import java.util.*
 
+
 class PlacementsActivity : AppCompatActivity() {
     private lateinit var mPlacements: MutableList<Placement>
     private lateinit var mRecyclerView: RecyclerView
+    private lateinit var editButton: Button
+    private lateinit var deleteButton: Button
     private var mApi: JsonPlaceHolderApi? = null
     private val loadingDialog = LoadingDialog(this@PlacementsActivity)
+
+    private var placementId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +55,25 @@ class PlacementsActivity : AppCompatActivity() {
         addButton.setOnClickListener { v: View? ->
             navigateToScreen(AddPlacementActivity::class.java)
             finish()
+        }
+        editButton = findViewById(R.id.edit_room_btn)
+        editButton.setOnClickListener {
+            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
+            builder.setTitle(R.string.enter_placement_number)
+
+            val input = EditText(this)
+            input.inputType = InputType.TYPE_CLASS_TEXT
+            builder.setView(input)
+
+            builder.setPositiveButton("OK") { _, _ -> editRoom(Integer.parseInt(input.text.toString())) }
+            builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
+
+            builder.show()
+        }
+
+        deleteButton = findViewById(R.id.delete_room_btn)
+        deleteButton.setOnClickListener {
+
         }
     }
 
@@ -95,7 +124,34 @@ class PlacementsActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
+    private fun editRoom(id: Int) {
+        val intent = Intent(this, EditPlacementActivity::class.java)
+        intent.putExtra("rId", id)
+        startActivity(intent)
+    }
+
+    private fun deleteRoom() {
+        loadingDialog.start()
+        mApi!!.deletePlacement(User.getInstance().token, 1).enqueue(deleteCallback)
+    }
+
+    var deleteCallback: Callback<Placement?> = object : Callback<Placement?> {
+        override fun onResponse(call: Call<Placement?>, response: Response<Placement?>) {
+            if (response.isSuccessful) {
+                println(response.body())
+                loadingDialog.dismiss()
+            }
+        }
+
+        override fun onFailure(call: Call<Placement?>, t: Throwable) {
+            println(t)
+            loadingDialog.dismiss()
+        }
+    }
+
     companion object {
         private const val TAG = "ServicesActivity"
     }
+
+
 }

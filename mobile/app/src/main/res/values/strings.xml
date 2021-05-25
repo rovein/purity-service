@@ -68,4 +68,6 @@
     <string name="date">Date:</string>
     <string name="pick_date">Pick date</string>
     <string name="or">or</string>
+    <string name="room_number">Room number:</string>
+    <string name="enter_placement_number">Enter placement number</string>
 </resources>

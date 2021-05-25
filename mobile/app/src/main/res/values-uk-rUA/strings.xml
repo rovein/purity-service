@@ -25,7 +25,7 @@
     <string name="desc">Опис:</string>
     <string name="min_area">Мінімальна площа:</string>
     <string name="max_area">Макимальна площа:</string>
-    <string name="room_type">Тип кімнати:</string>
+    <string name="room_type">Тип приміщення:</string>
     <string name="price">Вартість:</string>
     <string name="rooms">Приміщення</string>
     <string name="search">Пошук надавачів</string>
@@ -65,4 +65,6 @@
     <string name="date">Дата:</string>
     <string name="pick_date">Оберіть дату</string>
     <string name="or">або</string>
+    <string name="room_number">Номер приміщення:</string>
+    <string name="enter_placement_number">Введіть номер приміщення</string>
 </resources>
