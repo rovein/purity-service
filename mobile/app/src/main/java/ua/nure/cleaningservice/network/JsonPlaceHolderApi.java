@@ -73,8 +73,7 @@ public interface JsonPlaceHolderApi {
             @Path("id") Integer id);
 
     @DELETE("/placement-owners/placements/{id}")
-    Call<Placement> deletePlacement(@Header("Authorization") String token,
-            @Path("id") Integer id);
+    Call<Placement> deletePlacement(@Header("Authorization") String token, @Path("id") Integer id);
 
     @POST("/placement-owners/{email}/placements")
     Call<Placement> addPlacement(@Header("Authorization") String token,

@@ -2,6 +2,7 @@ package ua.nure.cleaningservice.ui.profile
 
 import android.app.AlertDialog
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
@@ -9,6 +10,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -58,22 +60,20 @@ class PlacementsActivity : AppCompatActivity() {
         }
         editButton = findViewById(R.id.edit_room_btn)
         editButton.setOnClickListener {
-            val builder: AlertDialog.Builder = AlertDialog.Builder(this)
-            builder.setTitle(R.string.enter_placement_number)
-
             val input = EditText(this)
-            input.inputType = InputType.TYPE_CLASS_TEXT
-            builder.setView(input)
-
+            val builder = AlertDialogUtil.getBaseAlertDialogBuilder(input, this@PlacementsActivity)
+            builder.setTitle(R.string.enter_placement_number)
             builder.setPositiveButton("OK") { _, _ -> editRoom(Integer.parseInt(input.text.toString())) }
-            builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
-
             builder.show()
         }
 
         deleteButton = findViewById(R.id.delete_room_btn)
         deleteButton.setOnClickListener {
-
+            val input = EditText(this)
+            val builder = AlertDialogUtil.getBaseAlertDialogBuilder(input, this@PlacementsActivity)
+            builder.setTitle(R.string.enter_placement_number)
+            builder.setPositiveButton("OK") { _, _ -> deleteRoom(Integer.parseInt(input.text.toString())) }
+            builder.show()
         }
     }
 
@@ -99,9 +99,8 @@ class PlacementsActivity : AppCompatActivity() {
             }
             val placementList = response.body()!!
             for (placement in placementList) {
-                mPlacements!!.add(Placement(placement.id, placement.placementType, placement
-                        .floor, placement.windowsCount, placement.area, placement
-                        .lastCleaning, placement.smartDevice))
+                mPlacements.add(Placement(placement.id, placement.placementType, placement.floor,
+                    placement.windowsCount, placement.area, placement.lastCleaning, placement.smartDevice))
             }
             initializeAdapter()
         }
@@ -130,21 +129,26 @@ class PlacementsActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-    private fun deleteRoom() {
+    private fun deleteRoom(id: Int) {
         loadingDialog.start()
-        mApi!!.deletePlacement(User.getInstance().token, 1).enqueue(deleteCallback)
+        placementId = id
+        mApi!!.deletePlacement("Bearer " + User.getInstance().token, id).enqueue(deleteCallback)
     }
 
     var deleteCallback: Callback<Placement?> = object : Callback<Placement?> {
         override fun onResponse(call: Call<Placement?>, response: Response<Placement?>) {
             if (response.isSuccessful) {
                 println(response.body())
-                loadingDialog.dismiss()
             }
+            loadingDialog.dismiss()
         }
 
+        @RequiresApi(Build.VERSION_CODES.N)
         override fun onFailure(call: Call<Placement?>, t: Throwable) {
             println(t)
+            val adapter = mRecyclerView.adapter as PlacementsRVA
+            adapter.mPlacements?.removeIf{ placement -> placement.id == placementId }
+            adapter.notifyDataSetChanged()
             loadingDialog.dismiss()
         }
     }

@@ -26,11 +26,10 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class PlacementsRVA(private val mContext: Context, private var mPlacements: MutableList<Placement>?) : RecyclerView.Adapter<RoomsViewHolder>() {
+class PlacementsRVA(private val mContext: Context, var mPlacements: MutableList<Placement>?) : RecyclerView.Adapter<RoomsViewHolder>() {
     private var mRoomsViewHolder: RoomsViewHolder? = null
     private var mApi: JsonPlaceHolderApi? = null
     var token: String? = null
-    private val loadingDialog = LoadingDialog(mContext as Activity)
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, i: Int): RoomsViewHolder {
         val v = LayoutInflater.from(viewGroup.context).inflate(R.layout.placement_card, viewGroup, false)
@@ -53,10 +52,6 @@ class PlacementsRVA(private val mContext: Context, private var mPlacements: Muta
         val dateTime = ZonedDateTime.parse(mPlacements!![position].lastCleaning, formatter)
         formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy")
         holder.mLastClDateTV.text = dateTime.format(formatter)
-    }
-
-    override fun onAttachedToRecyclerView(recyclerView: RecyclerView) {
-        super.onAttachedToRecyclerView(recyclerView)
     }
 
     override fun getItemCount(): Int {
@@ -87,31 +82,4 @@ class PlacementsRVA(private val mContext: Context, private var mPlacements: Muta
         }
     }
 
-    private fun editRoom(holder: RoomsViewHolder) {
-        val intent = Intent(mContext, EditPlacementActivity::class.java)
-        intent.putExtra("rId", holder.mCardView.id)
-        mContext.startActivity(intent)
-    }
-
-    private fun deleteRoom() {
-        loadingDialog.start()
-        mApi!!.deletePlacement(token, mRoomsViewHolder!!.mCardView.id).enqueue(deleteCallback)
-    }
-
-    var deleteCallback: Callback<Placement?> = object : Callback<Placement?> {
-        override fun onResponse(call: Call<Placement?>, response: Response<Placement?>) {
-            if (response.isSuccessful) {
-                println(response.body())
-                mPlacements?.removeAt(mRoomsViewHolder!!.adapterPosition)
-                notifyItemRemoved(mRoomsViewHolder!!.adapterPosition)
-                loadingDialog.dismiss()
-                //                notifyItemRangeChanged(mRoomsViewHolder.getAdapterPosition(), mRooms.size());
-            }
-        }
-
-        override fun onFailure(call: Call<Placement?>, t: Throwable) {
-            println(t)
-            loadingDialog.dismiss()
-        }
-    }
 }
