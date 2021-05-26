@@ -14,7 +14,7 @@ import retrofit2.Response
 import ua.nure.cleaningservice.R
 import ua.nure.cleaningservice.data.User
 import ua.nure.cleaningservice.network.NetworkService
-import ua.nure.cleaningservice.ui.util.LoadingDialog
+import ua.nure.cleaningservice.ui.util.LoadingDialogUtil
 import ua.nure.cleaningservice.util.InternetConnection
 import ua.nure.cleaningservice.util.Verification
 import java.util.*
@@ -32,7 +32,7 @@ class SignUpActivity : AppCompatActivity() {
     lateinit var roles: ArrayList<String>
     lateinit var user: List<User>
     lateinit var context: Context
-    private val loadingDialog = LoadingDialog(this@SignUpActivity)
+    private val loadingDialog = LoadingDialogUtil(this@SignUpActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -96,12 +96,6 @@ class SignUpActivity : AppCompatActivity() {
                 password.text.toString(),
                 role.selectedItem.toString()
             )
-        }
-
-        goToLogin = findViewById(R.id.go_to_sign_in)
-        goToLogin.setOnClickListener {
-            val intent = Intent(this@SignUpActivity, SignInActivity::class.java)
-            startActivity(intent)
         }
     }
 

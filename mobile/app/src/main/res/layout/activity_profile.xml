@@ -10,16 +10,16 @@
     <ImageView
         android:id="@+id/header_bg"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="70dp"
         app:layout_constraintHeight_percent=".1"
-        android:background="@color/extra_light"
+        android:background="@color/indigo"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/back_btn"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_arrow_back"
+        android:src="@drawable/ic_baseline_arrow_back_24_white"
         app:layout_constraintTop_toTopOf="@id/header_bg"
         app:layout_constraintBottom_toBottomOf="@id/header_bg"
         app:layout_constraintEnd_toEndOf="parent"
@@ -27,22 +27,25 @@
         app:layout_constraintHorizontal_bias=".02"/>
 
     <TextView
-        android:id="@+id/name_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/profile"
-        style="@style/custom_title"
-        android:textStyle="normal"
-        app:layout_constraintTop_toTopOf="@id/header_bg"
-        app:layout_constraintBottom_toBottomOf="@id/header_bg"
-        app:layout_constraintStart_toEndOf="@+id/back_btn"
-        app:layout_constraintEnd_toStartOf="@id/exit_btn" />
+            android:id="@+id/name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/profile"
+            style="@style/custom_title"
+            android:textStyle="normal"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="@id/header_bg"
+            app:layout_constraintBottom_toBottomOf="@id/header_bg"
+            app:layout_constraintStart_toEndOf="@+id/back_btn"
+            app:layout_constraintEnd_toStartOf="@id/exit_btn"
+            app:layout_constraintHorizontal_bias="0.494"
+            app:layout_constraintVertical_bias="0.36" />
 
     <ImageView
         android:id="@+id/exit_btn"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_exit"
+        android:src="@drawable/ic_exit_white_24"
         app:layout_constraintTop_toTopOf="@id/header_bg"
         app:layout_constraintBottom_toBottomOf="@id/header_bg"
         app:layout_constraintStart_toStartOf="parent"

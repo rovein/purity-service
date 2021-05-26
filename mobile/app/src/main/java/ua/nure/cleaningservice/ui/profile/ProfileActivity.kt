@@ -15,7 +15,7 @@ import ua.nure.cleaningservice.data.Address
 import ua.nure.cleaningservice.data.User
 import ua.nure.cleaningservice.network.NetworkService
 import ua.nure.cleaningservice.ui.auth.SignInActivity
-import ua.nure.cleaningservice.ui.util.LoadingDialog
+import ua.nure.cleaningservice.ui.util.LoadingDialogUtil
 
 class ProfileActivity : AppCompatActivity() {
     var mNameTV: TextView? = null
@@ -37,7 +37,7 @@ class ProfileActivity : AppCompatActivity() {
     lateinit var mLogOut: ImageView
     var context: Context? = null
     var token: String? = null
-    private val loadingDialog = LoadingDialog(this@ProfileActivity)
+    private val loadingDialog = LoadingDialogUtil(this@ProfileActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

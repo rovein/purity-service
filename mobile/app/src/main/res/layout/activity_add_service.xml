@@ -5,8 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.edit.EditServicesActivity"
-        android:background="@color/light_grey">
+    android:background="@color/light_grey">
 
+    <ImageView
+            android:id="@+id/header_bg"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:background="@color/indigo"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_percent=".1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
     <TextView
         android:id="@+id/add_service_label"
         style="@style/custom_title"
@@ -14,9 +23,15 @@
         android:layout_width="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp"
+        android:textColor="@color/white"
+        android:layout_marginTop="10dp"
+        app:layout_constraintBottom_toBottomOf="@id/header_bg"
+        app:layout_constraintEnd_toEndOf="@+id/header_bg"
+        app:layout_constraintTop_toTopOf="@id/header_bg"
         android:text="@string/add_service"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        app:layout_constraintHorizontal_bias="0.304"
+        app:layout_constraintVertical_bias="0.318"/>
 
     <EditText
         android:id="@+id/add_name_input"
@@ -94,7 +109,6 @@
         android:layout_marginStart="60dp"
         android:layout_marginEnd="60dp"/>
 
-
     <Button
         android:id="@+id/cancel_add_service_btn"
         style="@style/cancel_btn"
@@ -102,16 +116,13 @@
         android:layout_alignStart="@+id/add_price_pm_input"
         android:layout_marginStart="0dp"
         android:layout_marginTop="40dp"
-        android:background="@drawable/button"
         android:text="@string/cancel" />
 
     <Button
         android:id="@+id/save_add_service_btn"
         style="@style/save_btn"
         android:text="@string/save"
-        android:background="@drawable/button"
         android:layout_alignTop="@+id/cancel_add_service_btn"
         android:layout_toEndOf="@+id/cancel_add_service_btn" />
-
 
 </RelativeLayout>

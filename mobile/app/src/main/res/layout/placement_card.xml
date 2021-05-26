@@ -29,7 +29,7 @@
                 android:textColor="@color/light"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="3dp"/>
         </LinearLayout>
 
         <TextView
@@ -50,8 +50,7 @@
                 android:layout_below="@+id/room_header"
                 style="@style/card_text"
                 android:textSize="18sp"
-                android:textStyle="bold"
-                android:layout_marginStart="10dp"/>
+                android:layout_marginStart="0dp"/>
 
         <TextView
             android:id="@+id/floor_label"
@@ -66,7 +65,7 @@
             android:id="@+id/floor_text"
             style="@style/card_text"
             android:layout_alignTop="@+id/floor_label"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/floor_label" />
 
@@ -83,7 +82,7 @@
             android:id="@+id/win_count_text"
             style="@style/card_text"
             android:layout_alignTop="@+id/win_count_label"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/win_count_label" />
 
@@ -100,7 +99,7 @@
             android:id="@+id/area_text"
             style="@style/card_text"
             android:layout_alignTop="@+id/area_label"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/area_label" />
         <TextView
@@ -116,7 +115,7 @@
             android:id="@+id/air_quality_text"
             style="@style/card_text"
             android:layout_alignTop="@+id/air_quality_label"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/air_quality_label" />
 
@@ -135,7 +134,7 @@
             android:id="@+id/humidity_text"
             style="@style/card_text"
             android:layout_alignTop="@+id/humidity_label"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="0dp"
             android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/humidity_label" />
 
@@ -153,6 +152,8 @@
             android:id="@+id/last_cl_date_text"
             style="@style/card_text"
             android:layout_marginTop="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_below="@+id/last_cl_date_label"
           />
 

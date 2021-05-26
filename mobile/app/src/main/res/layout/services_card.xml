@@ -95,35 +95,9 @@
             style="@style/card_text"
             android:layout_alignTop="@+id/price_label"
             android:layout_marginStart="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_marginTop="0dp"
             android:layout_toEndOf="@+id/price_label" />
-
-        <Button
-            android:id="@+id/edit_service_btn"
-            style="@style/button"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/price_text"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="25dp"
-            android:text="@string/edit" />
-
-        <Button
-            android:id="@+id/delete_service_btn"
-            style="@style/button"
-            android:layout_width="wrap_content"
-            android:layout_below="@+id/edit_service_btn"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="10dp"
-            android:text="@string/delete" />
-
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

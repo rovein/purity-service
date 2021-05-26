@@ -1,10 +1,8 @@
 package ua.nure.cleaningservice.ui.profile
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.text.InputType
 import android.util.Log
 import android.view.View
 import android.widget.Button
@@ -26,38 +24,44 @@ import ua.nure.cleaningservice.ui.add.AddPlacementActivity
 import ua.nure.cleaningservice.ui.auth.MenuActivity
 import ua.nure.cleaningservice.ui.edit.EditPlacementActivity
 import ua.nure.cleaningservice.ui.rva.PlacementsRVA
-import ua.nure.cleaningservice.ui.util.LoadingDialog
+import ua.nure.cleaningservice.ui.util.AlertDialogUtil
+import ua.nure.cleaningservice.ui.util.LoadingDialogUtil
 import java.util.*
-
 
 class PlacementsActivity : AppCompatActivity() {
     private lateinit var mPlacements: MutableList<Placement>
     private lateinit var mRecyclerView: RecyclerView
     private lateinit var editButton: Button
     private lateinit var deleteButton: Button
+
     private var mApi: JsonPlaceHolderApi? = null
-    private val loadingDialog = LoadingDialog(this@PlacementsActivity)
+    private val loadingDialog = LoadingDialogUtil(this@PlacementsActivity)
 
     private var placementId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_placements)
-        mRecyclerView = findViewById(R.id.rooms_rv)
+
         val backButton = findViewById<ImageButton>(R.id.back_btn)
         val addButton = findViewById<ImageButton>(R.id.add_room_btn)
-        mApi = NetworkService.getInstance().apiService
         val llm = LinearLayoutManager(this)
+
+        mApi = NetworkService.getInstance().apiService
+        mRecyclerView = findViewById(R.id.rooms_rv)
         mRecyclerView.layoutManager = llm
         mRecyclerView.setHasFixedSize(true)
-        backButton.setOnClickListener { v: View? ->
+
+        backButton.setOnClickListener {
             navigateToScreen(MenuActivity::class.java)
             finish()
         }
-        addButton.setOnClickListener { v: View? ->
+
+        addButton.setOnClickListener {
             navigateToScreen(AddPlacementActivity::class.java)
             finish()
         }
+
         editButton = findViewById(R.id.edit_room_btn)
         editButton.setOnClickListener {
             val input = EditText(this)
@@ -156,6 +160,5 @@ class PlacementsActivity : AppCompatActivity() {
     companion object {
         private const val TAG = "ServicesActivity"
     }
-
 
 }

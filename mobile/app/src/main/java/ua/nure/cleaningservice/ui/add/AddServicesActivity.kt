@@ -14,7 +14,7 @@ import ua.nure.cleaningservice.data.Service
 import ua.nure.cleaningservice.network.JsonPlaceHolderApi
 import ua.nure.cleaningservice.network.NetworkService
 import ua.nure.cleaningservice.ui.auth.MenuActivity
-import ua.nure.cleaningservice.ui.util.LoadingDialog
+import ua.nure.cleaningservice.ui.util.LoadingDialogUtil
 
 class AddServicesActivity : AppCompatActivity() {
 
@@ -30,7 +30,7 @@ class AddServicesActivity : AppCompatActivity() {
     var mPricePMET: EditText? = null
     private var mApi: JsonPlaceHolderApi? = null
     var token: String? = null
-    private val loadingDialog = LoadingDialog(this@AddServicesActivity)
+    private val loadingDialog = LoadingDialogUtil(this@AddServicesActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

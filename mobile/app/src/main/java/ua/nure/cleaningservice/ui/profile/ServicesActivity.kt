@@ -1,10 +1,14 @@
 package ua.nure.cleaningservice.ui.profile
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Button
+import android.widget.EditText
 import android.widget.ImageButton
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -18,8 +22,11 @@ import ua.nure.cleaningservice.network.JsonPlaceHolderApi
 import ua.nure.cleaningservice.network.NetworkService
 import ua.nure.cleaningservice.ui.add.AddServicesActivity
 import ua.nure.cleaningservice.ui.auth.MenuActivity
+import ua.nure.cleaningservice.ui.edit.EditServicesActivity
+import ua.nure.cleaningservice.ui.rva.PlacementsRVA
 import ua.nure.cleaningservice.ui.rva.ServicesRVA
-import ua.nure.cleaningservice.ui.util.LoadingDialog
+import ua.nure.cleaningservice.ui.util.AlertDialogUtil
+import ua.nure.cleaningservice.ui.util.LoadingDialogUtil
 import java.util.*
 
 class ServicesActivity : AppCompatActivity() {
@@ -27,7 +34,11 @@ class ServicesActivity : AppCompatActivity() {
     private var mServices: MutableList<Service>? = null
     private var mRecyclerView: RecyclerView? = null
     private var mApi: JsonPlaceHolderApi? = null
-    private val loadingDialog = LoadingDialog(this@ServicesActivity)
+    private lateinit var editButton: Button
+    private lateinit var deleteButton: Button
+    private val loadingDialog = LoadingDialogUtil(this@ServicesActivity)
+
+    private var serviceId = -1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +50,33 @@ class ServicesActivity : AppCompatActivity() {
         val llm = LinearLayoutManager(this)
         mRecyclerView!!.layoutManager = llm
         mRecyclerView!!.setHasFixedSize(true)
+
         mBackButton.setOnClickListener { v: View? ->
             navigateToScreen(MenuActivity::class.java)
             finish()
         }
+
         mAddButton.setOnClickListener { v: View? ->
             navigateToScreen(AddServicesActivity::class.java)
             finish()
+        }
+
+        editButton = findViewById(R.id.edit_service_btn)
+        editButton.setOnClickListener {
+            val input = EditText(this)
+            val builder = AlertDialogUtil.getBaseAlertDialogBuilder(input, this@ServicesActivity)
+            builder.setTitle(R.string.enter_service_number)
+            builder.setPositiveButton("OK") { _, _ -> editService(Integer.parseInt(input.text.toString())) }
+            builder.show()
+        }
+
+        deleteButton = findViewById(R.id.delete_service_btn)
+        deleteButton.setOnClickListener {
+            val input = EditText(this)
+            val builder = AlertDialogUtil.getBaseAlertDialogBuilder(input, this@ServicesActivity)
+            builder.setTitle(R.string.enter_service_number)
+            builder.setPositiveButton("OK") { _, _ -> deleteService(Integer.parseInt(input.text.toString())) }
+            builder.show()
         }
     }
 
@@ -88,7 +119,7 @@ class ServicesActivity : AppCompatActivity() {
     }
 
     private fun initializeAdapter() {
-        val adapter = ServicesRVA(this, mServices)
+        val adapter = ServicesRVA(mServices)
         mRecyclerView!!.adapter = adapter
         loadingDialog.dismiss()
     }
@@ -96,6 +127,34 @@ class ServicesActivity : AppCompatActivity() {
     private fun navigateToScreen(cls: Class<*>) {
         val intent = Intent(this@ServicesActivity, cls)
         startActivity(intent)
+    }
+
+    private fun editService(id: Int) {
+        val intent = Intent(this@ServicesActivity, EditServicesActivity::class.java)
+        intent.putExtra("sId", id)
+        startActivity(intent)
+    }
+
+    private fun deleteService(id: Int) {
+        loadingDialog.start()
+        serviceId = id
+        mApi!!.deleteService("Bearer " + User.getInstance().token, id).enqueue(deleteCallback)
+    }
+
+    var deleteCallback: Callback<Service?> = object : Callback<Service?> {
+        override fun onResponse(call: Call<Service?>, response: Response<Service?>) {
+            println(response.body())
+            loadingDialog.dismiss()
+        }
+
+        @RequiresApi(Build.VERSION_CODES.N)
+        override fun onFailure(call: Call<Service?>, t: Throwable) {
+            println(t)
+            val adapter = mRecyclerView?.adapter as ServicesRVA
+            adapter.mServices?.removeIf{ service -> service.id == serviceId }
+            adapter.notifyDataSetChanged()
+            loadingDialog.dismiss()
+        }
     }
 
     companion object {

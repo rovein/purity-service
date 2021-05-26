@@ -11,8 +11,8 @@
     <ImageView
         android:id="@+id/header_bg"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/extra_light"
+        android:layout_height="70dp"
+        android:background="@color/indigo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHeight_percent=".1"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,25 +21,28 @@
         android:id="@+id/back_btn"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:src="@drawable/ic_arrow_back"
+        android:src="@drawable/ic_baseline_arrow_back_24_white"
         app:layout_constraintTop_toTopOf="@id/header_bg"
         app:layout_constraintBottom_toBottomOf="@id/header_bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintHorizontal_bias=".02"/>
 
-    <TextView
-        android:id="@+id/name_tv"
-        style="@style/custom_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_contract"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@id/header_bg"
-        app:layout_constraintEnd_toEndOf="@+id/header_bg"
-        app:layout_constraintStart_toEndOf="@+id/back_btn"
-        app:layout_constraintTop_toTopOf="@id/header_bg" />
 
+    <TextView
+            android:id="@+id/name_tv"
+            style="@style/custom_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_contract"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@id/header_bg"
+            app:layout_constraintEnd_toEndOf="@+id/header_bg"
+            app:layout_constraintStart_toEndOf="@+id/back_btn"
+            app:layout_constraintTop_toTopOf="@id/header_bg"
+            app:layout_constraintHorizontal_bias="0.304"
+            app:layout_constraintVertical_bias="0.318" />
 
     <TextView
             android:id="@+id/chose_serv_label"
@@ -131,16 +134,17 @@
             app:layout_constraintTop_toBottomOf="@id/timeButton" />
 
     <Button
-        android:id="@+id/sign_contract_btn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="@string/sign_contract"
-        style="@style/custom_button"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias=".66"
-        app:layout_constraintWidth_percent=".6" />
+            android:id="@+id/sign_contract_btn"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_contract"
+            style="@style/custom_button"
+            app:layout_constraintTop_toBottomOf="@id/dateButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintVertical_bias="0.178"
+            app:layout_constraintWidth_percent=".6"
+            app:layout_constraintHorizontal_bias="0.454" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

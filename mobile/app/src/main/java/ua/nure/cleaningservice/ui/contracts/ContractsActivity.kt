@@ -18,7 +18,7 @@ import ua.nure.cleaningservice.network.JsonPlaceHolderApi
 import ua.nure.cleaningservice.network.NetworkService
 import ua.nure.cleaningservice.ui.auth.MenuActivity
 import ua.nure.cleaningservice.ui.rva.ContractsRVA
-import ua.nure.cleaningservice.ui.util.LoadingDialog
+import ua.nure.cleaningservice.ui.util.LoadingDialogUtil
 import java.util.*
 
 class ContractsActivity : AppCompatActivity() {
@@ -26,7 +26,7 @@ class ContractsActivity : AppCompatActivity() {
     private lateinit var mRecyclerView: RecyclerView
     private var mApi: JsonPlaceHolderApi? = null
     private lateinit var mBackButton: ImageButton
-    private val loadingDialog = LoadingDialog(this@ContractsActivity)
+    private val loadingDialog = LoadingDialogUtil(this@ContractsActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

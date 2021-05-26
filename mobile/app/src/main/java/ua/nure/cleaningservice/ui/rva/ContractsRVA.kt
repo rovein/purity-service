@@ -1,5 +1,6 @@
 package ua.nure.cleaningservice.ui.rva
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.view.LayoutInflater
@@ -24,12 +25,13 @@ class ContractsRVA(private val mContext: Context, private val mContracts: List<C
         return ContractsViewHolder(v)
     }
 
+    @SuppressLint("SetTextI18n")
     @RequiresApi(api = Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ContractsViewHolder, position: Int) {
         holder.mCardView.id = mContracts!![position].id
         holder.mCleanServiceNameTV.text = mContracts[position].serviceName
         holder.mRoomIdTV.text = String.format(Locale.getDefault(), "%d", mContracts[position].placementId)
-        holder.mPriceTV.text = mContracts[position].price.toString()
+        holder.mPriceTV.text = mContracts[position].price.toString() + " ₴"
         holder.mCleanTV.text = mContracts[position].cleaningProviderName
         holder.mCustTV.text = mContracts[position].placementOwnerName
 

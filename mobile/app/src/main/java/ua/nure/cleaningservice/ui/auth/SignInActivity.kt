@@ -13,7 +13,7 @@ import retrofit2.Response
 import ua.nure.cleaningservice.R
 import ua.nure.cleaningservice.data.User
 import ua.nure.cleaningservice.network.NetworkService
-import ua.nure.cleaningservice.ui.util.LoadingDialog
+import ua.nure.cleaningservice.ui.util.LoadingDialogUtil
 import ua.nure.cleaningservice.util.InternetConnection
 import ua.nure.cleaningservice.util.Verification
 
@@ -22,7 +22,7 @@ class SignInActivity : AppCompatActivity() {
     lateinit var password: EditText
     private lateinit var confirm: Button
     private lateinit var goToSignUp: Button
-    private val loadingDialog = LoadingDialog(this@SignInActivity)
+    private val loadingDialog = LoadingDialogUtil(this@SignInActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

@@ -17,7 +17,7 @@ import ua.nure.cleaningservice.network.JsonPlaceHolderApi
 import ua.nure.cleaningservice.network.NetworkService
 import ua.nure.cleaningservice.ui.auth.MenuActivity
 import ua.nure.cleaningservice.ui.rva.SearchRVA
-import ua.nure.cleaningservice.ui.util.LoadingDialog
+import ua.nure.cleaningservice.ui.util.LoadingDialogUtil
 import java.util.*
 
 class SearchActivity : AppCompatActivity() {
@@ -25,7 +25,7 @@ class SearchActivity : AppCompatActivity() {
     private var mUsers: MutableList<User>? = null
     private var mRecyclerView: RecyclerView? = null
     private var mApi: JsonPlaceHolderApi? = null
-    private val loadingDialog = LoadingDialog(this@SearchActivity)
+    private val loadingDialog = LoadingDialogUtil(this@SearchActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

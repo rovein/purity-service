@@ -10,8 +10,8 @@
     <ImageView
         android:id="@+id/header_bg"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/extra_light"
+        android:layout_height="70dp"
+        android:background="@color/indigo"
         app:layout_constraintHeight_percent=".15"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -21,7 +21,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_arrow_back"
+        android:src="@drawable/ic_baseline_arrow_back_24_white"
         app:layout_constraintBottom_toBottomOf="@id/header_bg"
         app:layout_constraintEnd_toStartOf="@+id/name_tv"
         app:layout_constraintHorizontal_bias=".02"
@@ -33,7 +33,7 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:background="@android:color/transparent"
-        android:src="@drawable/ic_baseline_add_24"
+        android:src="@drawable/ic_baseline_add_circle_32_white"
         app:layout_constraintBottom_toBottomOf="@id/header_bg"
         app:layout_constraintEnd_toEndOf="@+id/header_bg"
         app:layout_constraintHorizontal_bias=".8"
@@ -41,23 +41,62 @@
         app:layout_constraintTop_toTopOf="@id/header_bg" />
 
     <TextView
-        android:id="@+id/name_tv"
-        style="@style/custom_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/services"
-        android:textStyle="normal"
-        app:layout_constraintBottom_toBottomOf="@id/header_bg"
-        app:layout_constraintEnd_toEndOf="@+id/header_bg"
-        app:layout_constraintStart_toStartOf="@+id/header_bg"
-        app:layout_constraintTop_toTopOf="@id/header_bg" />
+            android:id="@+id/name_tv"
+            style="@style/custom_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/services"
+            android:textColor="@color/white"
+            android:textStyle="normal"
+            app:layout_constraintBottom_toBottomOf="@id/header_bg"
+            app:layout_constraintEnd_toEndOf="@+id/header_bg"
+            app:layout_constraintStart_toStartOf="@+id/header_bg"
+            app:layout_constraintTop_toTopOf="@id/header_bg"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintVertical_bias="0.318" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            style="@style/card_rl"
+            android:id="@+id/buttons"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/header_bg">
+
+        <Button
+                android:id="@+id/edit_service_btn"
+                style="@style/button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/delete_service_btn"
+                android:layout_width="190dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:text="@string/edit" />
+
+        <Button
+                android:id="@+id/delete_service_btn"
+                style="@style/button"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/edit_service_btn"
+                app:layout_constraintRight_toRightOf="parent"
+                android:layout_width="190dp"
+                android:layout_below="@+id/edit_service_btn"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:text="@string/delete"
+                android:layout_marginEnd="0dp"
+                tools:layout_editor_absoluteY="0dp"
+                tools:layout_editor_absoluteX="0dp" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ScrollView
         android:id="@+id/services_sv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/header_bg">
+        app:layout_constraintTop_toBottomOf="@+id/buttons">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/services_rv"

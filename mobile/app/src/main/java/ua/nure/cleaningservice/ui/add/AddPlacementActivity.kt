@@ -14,7 +14,7 @@ import ua.nure.cleaningservice.data.Placement
 import ua.nure.cleaningservice.network.JsonPlaceHolderApi
 import ua.nure.cleaningservice.network.NetworkService
 import ua.nure.cleaningservice.ui.auth.MenuActivity
-import ua.nure.cleaningservice.ui.util.LoadingDialog
+import ua.nure.cleaningservice.ui.util.LoadingDialogUtil
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -29,7 +29,7 @@ class AddPlacementActivity : AppCompatActivity() {
     var mAreaET: EditText? = null
     private var mApi: JsonPlaceHolderApi? = null
     var token: String? = null
-    private val loadingDialog = LoadingDialog(this@AddPlacementActivity)
+    private val loadingDialog = LoadingDialogUtil(this@AddPlacementActivity)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

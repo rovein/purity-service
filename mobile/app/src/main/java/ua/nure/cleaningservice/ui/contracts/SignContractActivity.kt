@@ -24,7 +24,8 @@ import ua.nure.cleaningservice.data.Service
 import ua.nure.cleaningservice.data.User
 import ua.nure.cleaningservice.network.JsonPlaceHolderApi
 import ua.nure.cleaningservice.network.NetworkService
-import ua.nure.cleaningservice.ui.util.LoadingDialog
+import ua.nure.cleaningservice.ui.auth.MenuActivity
+import ua.nure.cleaningservice.ui.util.LoadingDialogUtil
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,7 +46,10 @@ class SignContractActivity : AppCompatActivity() {
     var mServices: List<Service>? = null
     var mPlacements: List<Placement>? = null
     var token: String? = null
-    private val loadingDialog = LoadingDialog(this@SignContractActivity)
+    var currentDateTime: TextView? = null
+    var dateAndTime: Calendar = Calendar.getInstance()
+
+    private val loadingDialog = LoadingDialogUtil(this@SignContractActivity)
 
     @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
