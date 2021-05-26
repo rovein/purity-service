@@ -62,7 +62,7 @@
     <string name="cust_name">Customer name:</string>
     <string name="clean_came">Cleaning name:</string>
     <string name="pick_serv_name">Pick service name</string>
-    <string name="pick_room">Pick placement id</string>
+    <string name="pick_room">Pick placement</string>
     <string name="loading">Loading…</string>
     <string name="invalidCreds">Credentials are invalid</string>
     <string name="date">Date:</string>
@@ -70,4 +70,7 @@
     <string name="or">or</string>
     <string name="room_number">Room number:</string>
     <string name="enter_placement_number">Enter placement number</string>
+    <string name="enter_service_number">Enter service number</string>
+    <string name="choose_time">Choose time</string>
+    <string name="choose_date">Choose date</string>
 </resources>

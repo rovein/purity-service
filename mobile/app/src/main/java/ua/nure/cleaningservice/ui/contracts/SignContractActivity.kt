@@ -1,33 +1,43 @@
 package ua.nure.cleaningservice.ui.contracts
 
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
+import android.text.format.DateUtils
 import android.util.Log
 import android.view.View
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ua.nure.cleaningservice.R
-import ua.nure.cleaningservice.data.User
 import ua.nure.cleaningservice.data.Contract
 import ua.nure.cleaningservice.data.Placement
 import ua.nure.cleaningservice.data.Service
+import ua.nure.cleaningservice.data.User
 import ua.nure.cleaningservice.network.JsonPlaceHolderApi
 import ua.nure.cleaningservice.network.NetworkService
 import ua.nure.cleaningservice.ui.util.LoadingDialog
 import java.text.SimpleDateFormat
 import java.util.*
 
+
 class SignContractActivity : AppCompatActivity() {
 
-    private val mContracts: List<Contract>? = null
     private var mApi: JsonPlaceHolderApi? = null
-    var mBack: ImageView? = null
+    lateinit var mBack: ImageView
     lateinit var mSignContractButton: Button
     lateinit var mServicesSpinner: Spinner
     lateinit var mRoomsSpinner: Spinner
+    lateinit var timeButton: Button
+    lateinit var dateButton: Button
     var mContract: Contract? = null
     var roomId = 0
     var serviceId = 0
@@ -37,10 +47,16 @@ class SignContractActivity : AppCompatActivity() {
     var token: String? = null
     private val loadingDialog = LoadingDialog(this@SignContractActivity)
 
+    @RequiresApi(Build.VERSION_CODES.N)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.sign_contract_activity)
         mBack = findViewById(R.id.back_btn)
+        mBack.setOnClickListener{
+            navigateToMenuScreen()
+            finish()
+        }
+
         mSignContractButton = findViewById(R.id.sign_contract_btn)
         mSignContractButton.setOnClickListener(View.OnClickListener { v: View? -> signContract() })
         mApi = NetworkService.getInstance().apiService
@@ -61,6 +77,15 @@ class SignContractActivity : AppCompatActivity() {
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
         })
+
+        timeButton = findViewById(R.id.timeButton)
+        timeButton.setOnClickListener { v -> setTime(v) }
+
+        dateButton = findViewById(R.id.dateButton)
+        dateButton.setOnClickListener { v -> setDate(v) }
+
+        currentDateTime= findViewById(R.id.currentDateTime)
+        setInitialDateTime()
     }
 
     override fun onResume() {
@@ -102,6 +127,7 @@ class SignContractActivity : AppCompatActivity() {
             loadingDialog.dismiss()
         }
     }
+
     var roomsCallback: Callback<ArrayList<Placement>?> = object : Callback<ArrayList<Placement>?> {
         override fun onResponse(call: Call<ArrayList<Placement>?>, response: Response<ArrayList<Placement>?>) {
             if (!response.isSuccessful) {
@@ -142,12 +168,13 @@ class SignContractActivity : AppCompatActivity() {
         loadingDialog.dismiss()
     }
 
+    @RequiresApi(Build.VERSION_CODES.N)
     private fun signContract() {
         loadingDialog.start()
         mContract!!.providerServiceId = servicesId[serviceId]
         mContract!!.placementId = roomId
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX")
-        mContract!!.date = dateFormat.format(Date())
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSSX", resources.configuration.locales.get(0))
+        mContract!!.date = dateFormat.format(Date(dateAndTime.timeInMillis))
         NetworkService.getInstance()
                 .apiService
                 .signContract(token, mContract)
@@ -170,6 +197,54 @@ class SignContractActivity : AppCompatActivity() {
             Log.i(TAG, t.message!!)
             loadingDialog.dismiss()
         }
+    }
+
+    fun setDate(v: View?) {
+        DatePickerDialog(
+            this@SignContractActivity, d,
+            dateAndTime[Calendar.YEAR],
+            dateAndTime[Calendar.MONTH],
+            dateAndTime[Calendar.DAY_OF_MONTH]
+        )
+            .show()
+    }
+
+    fun setTime(v: View?) {
+        TimePickerDialog(
+            this@SignContractActivity, t,
+            dateAndTime[Calendar.HOUR_OF_DAY],
+            dateAndTime[Calendar.MINUTE], true
+        )
+            .show()
+    }
+
+    var d =
+        OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+            dateAndTime[Calendar.YEAR] = year
+            dateAndTime[Calendar.MONTH] = monthOfYear
+            dateAndTime[Calendar.DAY_OF_MONTH] = dayOfMonth
+            setInitialDateTime()
+        }
+
+    var t =
+        OnTimeSetListener { view, hourOfDay, minute ->
+            dateAndTime[Calendar.HOUR_OF_DAY] = hourOfDay
+            dateAndTime[Calendar.MINUTE] = minute
+            setInitialDateTime()
+        }
+
+    private fun setInitialDateTime() {
+        currentDateTime!!.text = DateUtils.formatDateTime(
+            this,
+            dateAndTime.timeInMillis,
+            DateUtils.FORMAT_SHOW_DATE or DateUtils.FORMAT_SHOW_YEAR
+                    or DateUtils.FORMAT_SHOW_TIME
+        )
+    }
+
+    private fun navigateToMenuScreen() {
+        val intent = Intent(this@SignContractActivity, MenuActivity::class.java)
+        startActivity(intent)
     }
 
     companion object {

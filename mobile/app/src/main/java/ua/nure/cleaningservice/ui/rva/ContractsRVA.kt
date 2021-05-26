@@ -32,9 +32,13 @@ class ContractsRVA(private val mContext: Context, private val mContracts: List<C
         holder.mPriceTV.text = mContracts[position].price.toString()
         holder.mCleanTV.text = mContracts[position].cleaningProviderName
         holder.mCustTV.text = mContracts[position].placementOwnerName
+
         var formatter = DateTimeFormatter.ISO_OFFSET_DATE_TIME
         val dateTime = ZonedDateTime.parse(mContracts[position].date, formatter)
-        formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy HH:mm:ss")
+        formatter = DateTimeFormatter
+            .ofPattern("dd.MM.yyyy HH:mm", mContext.resources.configuration.locales.get(0))
+            .withZone(TimeZone.getDefault().toZoneId())
+
         holder.mLastClDateTV.text = dateTime.format(formatter)
     }
 

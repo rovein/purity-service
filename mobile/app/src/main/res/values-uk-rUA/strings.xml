@@ -59,7 +59,7 @@
     <string name="cust_name">Власник приміщень:</string>
     <string name="clean_came">Надавач послуг:</string>
     <string name="pick_serv_name">Оберіть послугу</string>
-    <string name="pick_room">Оберіть ідентифікатор кімнати</string>
+    <string name="pick_room">Оберіть приміщення</string>
     <string name="loading">Завантаження…</string>
     <string name="invalidCreds">Перевірте правильність введених даних</string>
     <string name="date">Дата:</string>
@@ -67,4 +67,7 @@
     <string name="or">або</string>
     <string name="room_number">Номер приміщення:</string>
     <string name="enter_placement_number">Введіть номер приміщення</string>
+    <string name="enter_service_number">Введіть номер послуги</string>
+    <string name="choose_time">Обрати час</string>
+    <string name="choose_date">Обрати дату</string>
 </resources>
