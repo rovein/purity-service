@@ -80,6 +80,7 @@
     </style>
 
     <style name="cancel_btn">
+        <item name="android:backgroundTint">@color/indigo</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textAllCaps">false</item>
@@ -90,6 +91,7 @@
     </style>
 
     <style name="save_btn">
+        <item name="android:backgroundTint">@color/indigo</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_marginStart">30dp</item>
