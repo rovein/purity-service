@@ -4,7 +4,7 @@ import android.app.Activity
 import android.app.AlertDialog
 import ua.nure.cleaningservice.R
 
-class LoadingDialog(private val activity: Activity) {
+class LoadingDialogUtil(private val activity: Activity) {
 
     private lateinit var dialog: AlertDialog
     private var progressStatus = 0
