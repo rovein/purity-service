@@ -125,7 +125,7 @@ class Card extends React.Component{
               <td style={columnStyle}>{contract.placementOwnerName}</td>
             }
             <td style={columnStyle}>{contract.placementId}</td>
-            <td style={columnStyle}>{contract.price}</td>
+            <td style={columnStyle}>{contract.price} ₴</td>
             <td style={columnStyle}>{this.state.date}</td>
           </tr>
         );

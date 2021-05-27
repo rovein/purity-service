@@ -154,7 +154,7 @@ class Info extends React.Component {
                 <td style={columnStyle}>{contract.serviceName}</td>
                 <td style={columnStyle}>{contract.cleaningProviderName}</td>
                 <td style={columnStyle}>{contract.placementId}</td>
-                <td style={columnStyle}>{contract.price}</td>
+                <td style={columnStyle}>{contract.price} ₴</td>
                 <td style={columnStyle}>{this.state.date}</td>
               </tr>
             );

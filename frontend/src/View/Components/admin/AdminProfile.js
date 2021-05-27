@@ -53,16 +53,13 @@ class Profile extends React.Component{
             const {t} = this.props
             return(
                 <div>
-                    <div className="profile_back">
-                        <p id="cName">{t("Admin")}</p>
-                    </div>
-                    <div className="rooms_back">
+                    <div className="rooms_back" style={{border: "1px solid black"}}>
                         <p id="EMP" style={adminBack}>{t("CComp")}</p>
                     </div>
                         <div id="rooms_container">
                            <CleaningCard/>
                         </div>
-                        <div className="rooms_back">
+                        <div className="rooms_back" style={{border: "1px solid black"}}>
                             <p id="EMP" style={adminBack}>{t("Comp")}</p>
                         </div>
                         <div id="room_container">
