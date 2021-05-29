@@ -16,7 +16,7 @@ import AddRoom from './View/Components/navigation/placement/AddPlacement'
 import AddService from './View/Components/navigation/service/AddService'
 import Contract from './View/Components/navigation/contract/Contract'
 import EditService from './View/Components/navigation/service/EditService';
-import SignContract from './View/Components/navigation/contract/SignContract';
+import SignContract from './View/Components/contract/CreateContract';
 import EditRoom from './View/Components/navigation/placement/EditPlacement';
 import ConfigureDevice from "./View/Components/navigation/ConfigureDevice";
 import Info from "./View/Components/navigation/PlacementInfo";

@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../../auth/HeaderAuth'
-import AddSForm from '../../cleaning-provider/AddSForm'
+import AddSForm from '../../cleaning-provider/service/AddServiceForm'
 class Add extends React.Component{
     
     render() { 

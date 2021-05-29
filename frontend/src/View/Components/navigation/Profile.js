@@ -1,8 +1,8 @@
 import React from 'react'
 import Header from '../auth/HeaderAuth'
 import jwt_decode from "jwt-decode"
-import CompanyProfile from '../placement-owner/CompanyProfile'
-import CleaningProfile from '../cleaning-provider/CleaningProfile'
+import CompanyProfile from '../placement-owner/PlacementOwnerProfile'
+import CleaningProfile from '../cleaning-provider/CleaningProviderProfile'
 import AdminProfile from '../admin/AdminProfile'
 
 if (localStorage.getItem("Token") != null) {

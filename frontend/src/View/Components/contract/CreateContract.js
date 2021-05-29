@@ -1,13 +1,14 @@
 import React from 'react'
-import Button from '../../ui/Button'
+import Button from '../ui/Button'
 import {withTranslation} from 'react-i18next'
 import jwt_decode from "jwt-decode"
 import 'react-dropdown/style.css';
-import Header from '../../auth/HeaderAuth'
-import * as Constants from "../../util/Constants";
+import Header from '../auth/HeaderAuth'
+import * as Constants from "../util/Constants";
 import Select from "react-select";
 import DatePicker from "react-datepicker"
 import "react-datepicker/dist/react-datepicker.css";
+import Loader from "react-loader-spinner";
 
 const url = Constants.SERVER_URL;
 if (localStorage.getItem("Token") != null) {
@@ -15,7 +16,7 @@ if (localStorage.getItem("Token") != null) {
     var decoded = jwt_decode(token)
 }
 
-class SignContract extends React.Component {
+class CreateContract extends React.Component {
     constructor(props) {
         super(props)
         let initialDate = new Date();
@@ -27,7 +28,8 @@ class SignContract extends React.Component {
             servicesSelectOptions : [],
             serviceId: 0,
             date: initialDate,
-            buttonDisabled: false
+            buttonDisabled: false,
+            isLoaded: false
         }
     }
 
@@ -59,14 +61,12 @@ class SignContract extends React.Component {
                 }))
                 console.log("Rooms options: ", options)
                 this.setState({
-                  isLoaded: true,
                   rooms: result,
                   roomsSelectOptions: options
                 });
                 },
                 (error) => {
                     this.setState({
-                        isLoaded: true,
                         error
                     });
                 }
@@ -105,6 +105,7 @@ class SignContract extends React.Component {
     }
 
     async signContract() {
+        this.setState({isLoaded: false})
         try {
             let res = await fetch(`${url}/contracts`, {
                     method: 'post',
@@ -126,7 +127,7 @@ class SignContract extends React.Component {
             }
         } catch (e) {
             console.log(e)
-            this.resetForm()
+            this.setState({isLoaded: true})
         }
     }
 
@@ -148,6 +149,16 @@ class SignContract extends React.Component {
         return (
             <div>
                 <Header/>
+                {!this.state.isLoaded && <div className="centered">
+                    <Loader
+                        type="Oval" //Audio Oval ThreeDots
+                        color="#4B0082"
+                        height={450}
+                        width={450}
+                        timeout={10000}
+                    />
+                </div>}
+                {this.state.isLoaded &&
                 <div className="container">
                     <div
                         className="w3-container w3-card-4 w3-light-grey w3-text-indigo w3-margin"
@@ -183,10 +194,10 @@ class SignContract extends React.Component {
                                 onClick={() => this.signContract()}
                             />
                         </div>
-                </div>
+                </div> }
             </div>
         )
     }
 }
 
-export default withTranslation()(SignContract);
+export default withTranslation()(CreateContract);

@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../../auth/HeaderAuth'
-import EditRoomForm from '../../placement-owner/EditRoomForm'
+import EditRoomForm from '../../placement-owner/placement/EditPlacementForm'
 class Edit extends React.Component{
     
     render() { 

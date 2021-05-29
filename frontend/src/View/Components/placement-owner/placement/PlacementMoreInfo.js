@@ -2,7 +2,7 @@ import React from 'react'
 import { Line, Circle } from 'rc-progress';
 import {withTranslation} from 'react-i18next';
 import Loader from "react-loader-spinner";
-import Button from "../ui/Button";
+import Button from "../../ui/Button";
 import Moment from "moment";
 import localization from 'moment/locale/uk';
 

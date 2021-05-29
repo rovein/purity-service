@@ -1,9 +1,9 @@
 import React from 'react'
-import Input from '../ui/Input'
-import Button from '../ui/Button'
+import Input from '../../ui/Input'
+import Button from '../../ui/Button'
 import { withTranslation } from 'react-i18next'
 import jwt_decode from "jwt-decode"
-import * as Constants from "../util/Constants";
+import * as Constants from "../../util/Constants";
 import Loader from "react-loader-spinner";
 
 var url = "http://localhost:8080";
@@ -12,7 +12,7 @@ if(localStorage.getItem("Token") != null){
     var decoded = jwt_decode(token)
 }
 
-class AddSForm extends React.Component{
+class AddServiceForm extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
@@ -236,4 +236,4 @@ class AddSForm extends React.Component{
     }
 }
 
-export default withTranslation() (AddSForm);
+export default withTranslation() (AddServiceForm);

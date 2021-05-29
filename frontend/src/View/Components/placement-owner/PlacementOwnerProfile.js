@@ -2,7 +2,7 @@ import React from 'react'
 import {withTranslation} from 'react-i18next';
 
 import jwt_decode from "jwt-decode"
-import RoomCard from './RoomCard';
+import RoomCard from './placement/PlacementsTable';
 
 if (localStorage.getItem("Token") != null) {
     var token = localStorage.getItem("Token")

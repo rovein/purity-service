@@ -1,9 +1,9 @@
 import React from 'react'
-import Input from '../ui/Input'
-import Button from '../ui/Button'
+import Input from '../../ui/Input'
+import Button from '../../ui/Button'
 import { withTranslation } from 'react-i18next'
 import jwt_decode from "jwt-decode"
-import * as Constants from "../util/Constants";
+import * as Constants from "../../util/Constants";
 import Loader from "react-loader-spinner";
 
 var url = "http://localhost:8080";
@@ -211,7 +211,7 @@ class EditForm extends React.Component{
             <div
                 className="w3-container w3-card-4 w3-light-grey w3-text-indigo w3-margin"
                 style={{width: "700px", fontSize: "22px"}}>
-                <h1 className="w3-center">{t('Edit')}</h1>
+                <h1 className="w3-center">{t('EditS')}</h1>
                 <div className="sized-font w3-center w3-text-red">
                     {this.state.flag === 2 && <p>{t("EName")}</p>}
                     {this.state.flag === 3 && <p>{t("EMinA")}</p>}
@@ -265,7 +265,7 @@ class EditForm extends React.Component{
                 />
                 <Button
                     className="w3-btn w3-block w3-section w3-indigo w3-padding"
-                    text={t('Save')}
+                    text={t('Edit')}
                     disabled={this.state.buttonDisabled}
                     onClick={() => this.checkCred()}
                 />

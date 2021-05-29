@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../../auth/HeaderAuth'
-import EditService from '../../cleaning-provider/EditServiceForm'
+import EditService from '../../cleaning-provider/service/EditServiceForm'
 class Edit extends React.Component{
     
     render() { 

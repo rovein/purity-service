@@ -2,7 +2,7 @@ import React from 'react'
 import Header from '../auth/HeaderAuth'
 import { withTranslation } from 'react-i18next'
 import SearchField from '../ui/SearchField'
-import CleaningCard from '../cleaning-provider/CleaningCard'
+import CleaningCard from '../cleaning-provider/CleaningProvidersTable'
 class Search extends React.Component{
     
     render() { 

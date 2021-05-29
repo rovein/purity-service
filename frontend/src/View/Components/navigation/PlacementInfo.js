@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../auth/HeaderAuth'
-import MoreInfo from "../placement-owner/MoreInfo";
+import MoreInfo from "../placement-owner/placement/PlacementMoreInfo";
 
 class Info extends React.Component{
 

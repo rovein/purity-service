@@ -1,9 +1,9 @@
 import React from 'react'
-import Input from '../ui/Input'
-import Button from '../ui/Button'
+import Input from '../../ui/Input'
+import Button from '../../ui/Button'
 import { withTranslation } from 'react-i18next'
 import jwt_decode from "jwt-decode"
-import * as Constants from "../util/Constants";
+import * as Constants from "../../util/Constants";
 import Loader from "react-loader-spinner";
 
 var url = "http://localhost:8080";
@@ -12,7 +12,7 @@ if(localStorage.getItem("Token") != null){
     var decoded = jwt_decode(token)
 }
 
-class AddRForm extends React.Component{
+class AddPlacementForm extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
@@ -22,7 +22,7 @@ class AddRForm extends React.Component{
             winCount:'',
             flag:1,
             buttonDisabled: false,
-            isLoaded: false
+            isLoading: false
         }
     }
 
@@ -39,39 +39,10 @@ class AddRForm extends React.Component{
             floor: '',
             winCount:'',
             buttonDisabled: false,
-            isLoaded: true
+            isLoading: false
         })
     }
 
-    componentDidMount() {
-        fetch(`${url}/placement-owners/placements/${localStorage.getItem("roomId")}`, {
-            method: 'get',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + token
-            }
-        })
-        .then(res => res.json())
-        .then(
-        (result) => {
-        this.setState({
-            isLoaded: true,
-            type: result.placementType,
-            area: result.area,
-            winCount: result.windowsCount,
-            floor: result.floor,
-            lastCleaning: result.lastCleaning
-        });
-        },
-        (error) => {
-        this.setState({
-            isLoaded: true,
-            error
-        });
-        }
-        )
-      }
 
     checkType(type) {
         let rType = new RegExp('^([А-Яа-яё]+)|([a-z]+)$');
@@ -110,7 +81,7 @@ class AddRForm extends React.Component{
     }
 
     checkCred(){
-        if(!this.checkType(this.state.type)){
+        if(!this.checkType(this.state.type)) {
             return
         }
         if(!this.checkFloor(this.state.floor)){
@@ -124,16 +95,16 @@ class AddRForm extends React.Component{
         }
         this.setState({
             buttonDisabled: true,
-            isLoaded: false
+            isLoading: true
         })
 
-        this.editRoom();      
+        this.addRoom();      
     }
 
-    async editRoom() {
+    async addRoom() {
         try{
             let res = await fetch(`${url}/placement-owners/${decoded.email}/placements`, {
-                method: 'put',
+                method: 'post',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json',
@@ -144,8 +115,7 @@ class AddRForm extends React.Component{
                     area: this.state.area,
                     floor: this.state.floor,
                     windowsCount: this.state.winCount,
-                    lastCleaning: this.state.lastCleaning,
-                    id: localStorage.getItem("roomId"),
+                    lastCleaning: new Date(),
                     smartDevice: {
                         adjustmentFactor: 0,
                         airQuality: 0,
@@ -158,7 +128,6 @@ class AddRForm extends React.Component{
             })
             let result = await res.json()
             if(result){
-                localStorage.removeItem("roomId")
                 window.location.href='./profile';
             }
         }
@@ -171,7 +140,7 @@ class AddRForm extends React.Component{
     render() {
         const {t} = this.props
         const inputClass = Constants.INPUT_STYLE_CLASSES;
-        if (!this.state.isLoaded) {
+        if (this.state.isLoading) {
             return <div>
                 <Loader
                   type="Oval" //Audio Oval ThreeDots
@@ -200,7 +169,7 @@ class AddRForm extends React.Component{
                 value={this.state.type ? this.state.type : ''}
                 onChange={(val) => this.setInputValue('type', val)}
               />
-              <label >{t('Floor')}</label>
+              <label>{t('Floor')}</label>
               <Input
                 className={this.state.flag === 3 ? inputClass + " w3-border-red" : inputClass}
                 type='text'
@@ -232,4 +201,4 @@ class AddRForm extends React.Component{
     }
 }
 
-export default withTranslation() (AddRForm);
+export default withTranslation() (AddPlacementForm);

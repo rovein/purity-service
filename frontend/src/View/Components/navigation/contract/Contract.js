@@ -1,6 +1,6 @@
 import React from 'react'
 import Header from '../../auth/HeaderAuth'
-import ContractCard from '../../admin/ContractCard'
+import ContractCard from '../../contract/ContractsTable'
 class Contract extends React.Component{
     
     render() { 

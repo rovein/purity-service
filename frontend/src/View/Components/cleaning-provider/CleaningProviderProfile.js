@@ -3,7 +3,7 @@ import Button from '../ui/Button'
 import { withTranslation } from 'react-i18next';
 
 import jwt_decode from "jwt-decode"
-import ServiceCard from './ServiceCard';
+import ServiceCard from './service/ServicesTable';
 
 if(localStorage.getItem("Token") != null){
     var token = localStorage.getItem("Token")
