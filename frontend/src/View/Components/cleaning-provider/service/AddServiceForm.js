@@ -190,20 +190,7 @@ class AddServiceForm extends React.Component{
                         value={this.state.name ? this.state.name : ''}
                         onChange = { (val) => this.setInputValue('name', val)}
                     />
-                    <label>{t('Type')}</label>
-                    <Input
-                        className={this.state.flag === 6 ? inputClass + " w3-border-red" : inputClass}
-                        type = 'text'
-                        value={this.state.type ? this.state.type : ''}
-                        onChange = { (val) => this.setInputValue('type', val)}
-                    />
                     <label>{t('Desc')}</label>
-                    <Input
-                         className={this.state.flag === 5 ? inputClass + " w3-border-red" : inputClass}
-                        type = 'text'
-                        value={this.state.desc ? this.state.desc : ''}
-                        onChange = { (val) => this.setInputValue('desc', val)}
-                    />
                     <label>{t('minA')}</label>
                     <Input
                         className={this.state.flag === 3 ? inputClass + " w3-border-red" : inputClass}
@@ -224,6 +211,14 @@ class AddServiceForm extends React.Component{
                         type = 'text'
                         value={this.state.ppm ? this.state.ppm : ''}
                         onChange = { (val) => this.setInputValue('ppm', val)}
+                    />
+                    <label>{t('Desc')}</label>
+                    <textarea
+                      className={this.state.flag === 5 ? inputClass + " w3-border-red" : inputClass}
+                      value={this.state.desc ? this.state.desc : ''}
+                      onChange={(val) => this.setInputValue('desc', val.target.value)}
+                      rows={3}
+                      cols={3}
                     />
                     <Button
                         className="w3-btn w3-block w3-section w3-indigo w3-padding"
