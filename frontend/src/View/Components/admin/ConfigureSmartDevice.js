@@ -37,8 +37,8 @@ class ConfigureSmartDeviceForm extends React.Component{
 
   submitForm(){
     this.setState({
-      buttonDisabled: true,
-      isLoaded: false
+      buttonDisabled: false,
+      isLoaded: true
     })
 
     this.configureDevice();
@@ -51,9 +51,7 @@ class ConfigureSmartDeviceForm extends React.Component{
         `http://${this.state.deviceIp}/?byte1=${bytes[0]}&byte2=${bytes[1]}&byte3=${bytes[2]}&byte4=${bytes[3]}&port=${this.state.serverPort}&roomId=${this.state.placementId}`
       )
       if (res.status === 200) {
-        setTimeout(() => {
-          this.setState({isSuccess: true, isLoaded: true})
-        }, 1500);
+        this.setState({isSuccess: true, isLoaded: true, buttonDisabled: false})
       }
     }
     catch(e){
