@@ -190,7 +190,6 @@ class AddServiceForm extends React.Component{
                         value={this.state.name ? this.state.name : ''}
                         onChange = { (val) => this.setInputValue('name', val)}
                     />
-                    <label>{t('Desc')}</label>
                     <label>{t('minA')}</label>
                     <Input
                         className={this.state.flag === 3 ? inputClass + " w3-border-red" : inputClass}
