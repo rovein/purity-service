@@ -135,12 +135,6 @@ class EditForm extends React.Component{
         if(!this.checkName(this.state.name)){
             return
         }
-        if(!this.checkRType(this.state.rType)){
-            return
-        }
-        if(!this.checkDesc(this.state.desc)){
-            return
-        }
         if(!this.checkminA(this.state.minA)){
             return
         }
@@ -216,8 +210,6 @@ class EditForm extends React.Component{
                     {this.state.flag === 2 && <p>{t("EName")}</p>}
                     {this.state.flag === 3 && <p>{t("EMinA")}</p>}
                     {this.state.flag === 4 && <p>{t("EMaxA")}</p>}
-                    {this.state.flag === 5 && <p>{t("EDesc")}</p>}
-                    {this.state.flag === 6 && <p>{t("EType")}</p>}
                     {this.state.flag === 7 && <p>{t("EPPM")}</p>}
                     {this.state.flag === 10 && <p>{t("EError")}</p>}
                 </div>
