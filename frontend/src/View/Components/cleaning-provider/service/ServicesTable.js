@@ -23,6 +23,8 @@ class Card extends React.Component{
           services: [],
           date: '',
           deleteButtonClicked: false,
+          descriptionButtonClicked: false,
+          serviceDescription: '',
           serviceId: 0
         };
       }
@@ -77,10 +79,8 @@ class Card extends React.Component{
                         <tr className="w3-light-grey">
                             <th>ID</th>
                             <th>{t("DName")}</th>
-                            <th>{t("Desc")}</th>
                             <th>{t("minA")}</th>
                             <th>{t("maxA")}</th>
-                            <th>{t("rType")}</th>
                             <th>{t("PPM")}</th>
                             <th></th>
                         </tr>
@@ -111,6 +111,20 @@ class Card extends React.Component{
                     >{t("NotRecover")}
                     </SweetAlert>
                     }
+                  {this.state.descriptionButtonClicked && <SweetAlert
+                    success
+                    title={t("Desc")}
+                    customButtons={
+                      <React.Fragment>
+                        <button
+                          className="w3-btn w3-indigo w3-round-small w3-medium"
+                          onClick={() => this.setState({descriptionButtonClicked: false})}
+                        >{t("OK")}</button>
+                      </React.Fragment>
+                    }
+                  >{this.state.serviceDescription}
+                  </SweetAlert>
+                  }
                 </div>
           );
         }
@@ -123,12 +137,15 @@ class Card extends React.Component{
         <tr className="w3-hover-sand">
             <td style={columnStyle}>{service.id}</td>
             <td style={columnStyle}>{service.name}</td>
-            <td style={columnStyle}>{service.description}</td>
             <td style={columnStyle}>{service.minArea}</td>
             <td style={columnStyle}>{service.maxArea}</td>
-            <td style={columnStyle}>{service.placementType}</td>
             <td style={columnStyle}>{service.pricePerMeter} {t("pMes")}</td>
             <td>
+              <Button
+                className='w3-btn w3-indigo w3-round-small w3-medium'
+                text={t("More")}
+                onClick={() => {this.setState({descriptionButtonClicked: true, serviceDescription: service.description})}}
+              /> &nbsp;
                 <a
                     className='w3-btn w3-khaki w3-round-small w3-medium'
                     onClick={(e) => {

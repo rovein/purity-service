@@ -128,7 +128,7 @@ i18n.use(LanguageDetector).init({
         Name: "Ім'я",
         Email: "Електронна пошта",
         Password: "Пароль",
-        Profile: "Домашня сторінка",
+        Profile: "Головна",
         Type: "Тип",
         WCount: "Кількість вікон",
         Floor: "Поверх",
