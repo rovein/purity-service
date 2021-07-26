@@ -51,12 +51,12 @@ public class ProviderService {
     private Double pricePerMeter;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cleaning_provider_id")
     protected CleaningProvider cleaningProvider;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "providerService", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "providerService", fetch = FetchType.LAZY)
     Set<Contract> contracts;
 
 }

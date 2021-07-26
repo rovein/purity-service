@@ -11,6 +11,7 @@ import ua.nure.entity.owner.PlacementOwner;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ import javax.persistence.OneToOne;
 @SelectBeforeUpdate
 @NoArgsConstructor
 @Accessors(chain = true)
-@ToString(exclude = {"cleaningProvider", "customerCompany"})
+@ToString(exclude = {"cleaningProvider", "placementOwner"})
 @Data
 public class Address {
     @Id
@@ -47,11 +48,11 @@ public class Address {
     private String longitude;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
     private CleaningProvider cleaningProvider;
 
     @JsonIgnore
-    @OneToOne(mappedBy = "address")
+    @OneToOne(mappedBy = "address", fetch = FetchType.LAZY)
     private PlacementOwner placementOwner;
 
 }
