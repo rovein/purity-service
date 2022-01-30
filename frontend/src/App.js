@@ -20,6 +20,7 @@ import SignContract from './View/Components/contract/CreateContract';
 import EditRoom from './View/Components/navigation/placement/EditPlacement';
 import ConfigureDevice from "./View/Components/navigation/ConfigureDevice";
 import Info from "./View/Components/navigation/PlacementInfo";
+import FilterTable from "./View/Components/ui/FilterTable";
 
 class App extends React.Component{
   constructor(props) {
@@ -52,6 +53,7 @@ class App extends React.Component{
               <Route path='/sign_contract' component={SignContract}/>
 
               <Route path='/configure-smart-device' component={ConfigureDevice} />
+              <Route path='/data-table' component={FilterTable} />
             <Redirect from='/' to='/login'/>
           </Switch>
         </BrowserRouter>

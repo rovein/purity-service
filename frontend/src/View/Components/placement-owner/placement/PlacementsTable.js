@@ -14,7 +14,7 @@ if (localStorage.getItem("Token") != null) {
 
 var url = "http://localhost:8080";
 
-class Card extends React.Component {
+class PlacementsTable extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -193,4 +193,4 @@ class Card extends React.Component {
   }
 }
 
-export default withTranslation()(Card);
+export default withTranslation()(PlacementsTable);

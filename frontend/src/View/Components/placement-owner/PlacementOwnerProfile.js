@@ -2,7 +2,7 @@ import React from 'react'
 import {withTranslation} from 'react-i18next';
 
 import jwt_decode from "jwt-decode"
-import RoomCard from './placement/PlacementsTable';
+import PlacementsTable from './placement/PlacementsTable';
 
 if (localStorage.getItem("Token") != null) {
     var token = localStorage.getItem("Token")
@@ -88,7 +88,7 @@ class Profile extends React.Component {
                         <p>{t("Rooms")}</p>
                     </div>
                     <div id="rooms_container">
-                        <RoomCard/>
+                        <PlacementsTable/>
                     </div>
                 </div>
             )
