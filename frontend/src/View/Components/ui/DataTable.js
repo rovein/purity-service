@@ -6,8 +6,6 @@ import Button from "./Button";
 import SweetAlert from "react-bootstrap-sweetalert";
 import {useTranslation, withTranslation} from "react-i18next";
 
-
-// Define a default UI for filtering
 function GlobalFilter({globalFilter, setGlobalFilter}) {
     const [value, setValue] = React.useState(globalFilter)
     const onChange = useAsyncDebounce(value => {
@@ -34,6 +32,7 @@ function DefaultColumnFilter({column: {filterValue, setFilter}}) {
         <input
             className="form-control"
             value={filterValue || ''}
+            style={{"width": "100px"}}
             onChange={e => {
                 setFilter(e.target.value || undefined)
             }}
@@ -49,6 +48,7 @@ function Table({columns, data, operations}) {
     const defaultColumn = React.useMemo(() => ({Filter: DefaultColumnFilter}), [])
 
     const {t} = useTranslation();
+    const columnStyle = {verticalAlign: "middle"};
 
     const {
         getTableProps,
@@ -88,18 +88,18 @@ function Table({columns, data, operations}) {
     }
 
     return (
-        <div>
+        <div className={"w3-responsive"}>
             <GlobalFilter
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
             />
-            <table className="table" {...getTableProps()}>
+            <table className="w3-table-all w3-large w3-centered w3-hoverable" {...getTableProps()}>
                 <thead>
                 {headerGroups.map(headerGroup => (
-                    <tr {...headerGroup.getHeaderGroupProps()}>
-                        {headerGroup.headers.map(column => (
-                            <div style={{display: "table-cell"}}>
+                    <>
+                        <tr {...headerGroup.getHeaderGroupProps()} className={"w3-light-grey"}>
+                            {headerGroup.headers.map(column => (
                                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                                 <span>
                                     {column.render('Header')}
@@ -110,10 +110,16 @@ function Table({columns, data, operations}) {
                                         : ''}
                                 </span>
                                 </th>
-                                {column.canFilter ? column.render('Filter') : null}
-                            </div>
-                        ))}
-                    </tr>
+                            ))}
+                        </tr>
+                        <tr {...headerGroup.getHeaderGroupProps()} className={"w3-light-grey"}>
+                            {headerGroup.headers.map(column => (
+                                <th>
+                                    {column.canFilter ? column.render('Filter') : null}
+                                </th>
+                            ))}
+                        </tr>
+                    </>
                 ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
@@ -121,82 +127,91 @@ function Table({columns, data, operations}) {
                     console.log(page)
                     prepareRow(row)
                     return (
-                        <tr {...row.getRowProps()}>
+                        <tr {...row.getRowProps()} className="w3-hover-sand">
                             {row.cells.map(cell => {
-                                return <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
+                                return <td style={columnStyle} {...cell.getCellProps()}>{cell.render('Cell')}</td>
                             })}
-                            {operations.map(operation => {
-                                return <td><Button
-                                    className={operation.className}
-                                    text={operation.name}
-                                    onClick={() => {
-                                        if (operation.name === 'Delete') {
-                                            handleDeleteOperation(operation.url,
-                                                row.original[operation.onClickPassParameter])
-                                        } else {
-                                            operation.onClick(row.original[operation.onClickPassParameter])
-                                        }
-                                    }}
-                                /></td>
-                            })}
+                            <td style={columnStyle}>
+                                {operations.map(operation => {
+                                    return <><Button
+                                        className={operation.className}
+                                        text={operation.name}
+                                        onClick={() => {
+                                            if (operation.name === 'Delete') {
+                                                handleDeleteOperation(operation.url,
+                                                    row.original[operation.onClickPassParameter])
+                                            } else {
+                                                operation.onClick(row.original[operation.onClickPassParameter])
+                                            }
+                                        }}
+                                    /> &nbsp;
+                                    </>
+                                })}
+                            </td>
                         </tr>
                     )
                 })}
                 </tbody>
             </table>
-            <ul className="pagination">
-                <li className="page-item" onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
-                    <a className="page-link">First</a>
-                </li>
-                <li className="page-item" onClick={() => previousPage()} disabled={!canPreviousPage}>
-                    <a className="page-link">{'<'}</a>
-                </li>
-                <li className="page-item" onClick={() => nextPage()} disabled={!canNextPage}>
-                    <a className="page-link">{'>'}</a>
-                </li>
-                <li className="page-item" onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
-                    <a className="page-link">Last</a>
-                </li>
-                <li>
-                    <a className="page-link">
-                        Page{' '}
-                        <strong>
-                            {pageIndex + 1} of {pageOptions.length}
-                        </strong>{' '}
-                    </a>
-                </li>
-                <li>
-                    <a className="page-link">
-                        <input
-                            className="form-control"
-                            type="number"
-                            min={1}
-                            max={pageOptions.length}
-                            defaultValue={pageIndex + 1}
-                            onChange={e => {
-                                const page = e.target.value ? Number(e.target.value) - 1 : 0
-                                gotoPage(page)
-                            }}
-                            style={{width: '100px', height: '20px'}}
-                        />
-                    </a>
-                </li>
-                {' '}
-                <select
-                    className="form-control"
-                    value={pageSize}
-                    onChange={e => {
-                        setPageSize(Number(e.target.value))
-                    }}
-                    style={{width: '120px', height: '38px'}}
-                >
-                    {[5, 10, 20, 30, 40, 50].map(pageSize => (
-                        <option key={pageSize} value={pageSize}>
-                            Show {pageSize}
-                        </option>
-                    ))}
-                </select>
-            </ul>
+            <div className="w3-center">
+                <ul className="w3-bar w3-large">
+                    <li className="w3-button w3-bar-item w3-hover-light-grey" onClick={() => gotoPage(0)}
+                        disabled={!canPreviousPage}>
+                        <a>{'<<'}</a>
+                    </li>
+                    <li className="w3-button w3-bar-item w3-hover-light-grey" onClick={() => previousPage()}
+                        disabled={!canPreviousPage}>
+                        <a>{'<'}</a>
+                    </li>
+                    <li className="w3-button w3-bar-item w3-hover-light-grey" onClick={() => nextPage()}
+                        disabled={!canNextPage}>
+                        <a>{'>'}</a>
+                    </li>
+                    <li className="w3-button w3-bar-item w3-hover-light-grey" onClick={() => gotoPage(pageCount - 1)}
+                        disabled={!canNextPage}>
+                        <a>{'>>'}</a>
+                    </li>
+                    <li className="w3-button w3-bar-item w3-hover-light-grey">
+                        <a>
+                            Page{' '}
+                            <strong>
+                                {pageIndex + 1} of {pageOptions.length}
+                            </strong>{' '}
+                        </a>
+                    </li>
+                    <li className="w3-button w3-bar-item w3-hover-light-grey">
+                        <a>
+                            <input
+                                className="form-control"
+                                type="number"
+                                min={1}
+                                max={pageOptions.length}
+                                defaultValue={pageIndex + 1}
+                                onChange={e => {
+                                    const page = e.target.value ? Number(e.target.value) - 1 : 0
+                                    gotoPage(page)
+                                }}
+                                style={{width: '100px', height: '20px'}}
+                            />
+                        </a>
+                    </li>
+                    {' '}
+                    <select
+                        className="w3-button w3-bar-item w3-hover-light-grey"
+                        value={pageSize}
+                        onChange={e => {
+                            setPageSize(Number(e.target.value))
+                        }}
+                        style={{width: '120px', height: '38px'}}
+                    >
+                        {[5, 10, 20, 30, 40, 50].map(pageSize => (
+                            <option key={pageSize} value={pageSize}>
+                                Show {pageSize}
+                            </option>
+                        ))}
+                    </select>
+                </ul>
+            </div>
             {deleteClicked && <SweetAlert
                 danger
                 dependencies={[deleteClicked]}
@@ -223,6 +238,14 @@ function Table({columns, data, operations}) {
             </SweetAlert>}
         </div>
     )
+}
+
+function deleteRoom(id) {
+    alert("Deleted " + id)
+}
+
+function editRoom(id) {
+    alert("Edited " + id)
 }
 
 function DataTableComponent() {
@@ -353,14 +376,6 @@ function DataTableComponent() {
     return (
         <Table columns={columns} data={data} operations={operations}/>
     )
-}
-
-function deleteRoom(id) {
-    alert("Deleted " + id)
-}
-
-function editRoom(id) {
-    alert("Edited " + id)
 }
 
 export default withTranslation()(DataTableComponent);
