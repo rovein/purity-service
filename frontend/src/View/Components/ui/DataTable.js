@@ -1,10 +1,22 @@
-// src/components/filter.table.js
-import React from "react";
+import React, {useEffect, useState} from "react";
 
-import {useTable, useFilters, useGlobalFilter, useAsyncDebounce, usePagination, useSortBy} from 'react-table'
+import {
+    useTable,
+    useFilters,
+    useGlobalFilter,
+    useAsyncDebounce,
+    usePagination,
+    useSortBy,
+    useRowState
+} from 'react-table'
 import Button from "./Button";
 import SweetAlert from "react-bootstrap-sweetalert";
 import {useTranslation, withTranslation} from "react-i18next";
+import axios from '../util/Api';
+import * as Constants from "../util/Constants";
+import Loader from "react-loader-spinner";
+
+const baseUrl = Constants.SERVER_URL;
 
 function GlobalFilter({globalFilter, setGlobalFilter}) {
     const [value, setValue] = React.useState(globalFilter)
@@ -73,7 +85,9 @@ function Table({columns, data, operations}) {
             columns,
             data,
             defaultColumn,
-            initialState: {pageIndex: 0, pageSize: 10}
+            initialState: {pageIndex: 0, pageSize: 10},
+            autoResetRowState: true,
+            autoResetPage: true
         },
         useFilters,
         useGlobalFilter,
@@ -85,6 +99,12 @@ function Table({columns, data, operations}) {
         setId(elementId)
         setUrl(url.replace("{id}", elementId))
         setDeleteClicked(true)
+    }
+
+    function deleteEntity(url, id) {
+        // axios.delete(`${baseUrl}/${url}`).then(result => {
+        data = data.filter(row => row.id !== id)
+        // })
     }
 
     return (
@@ -113,18 +133,17 @@ function Table({columns, data, operations}) {
                             ))}
                         </tr>
                         <tr {...headerGroup.getHeaderGroupProps()} className={"w3-light-grey"}>
-                            {headerGroup.headers.map(column => (
+                            {headerGroup.headers.map(column =>
                                 <th>
-                                    {column.canFilter ? column.render('Filter') : null}
+                                    {column.canFilter && column.id !== 'actions' ? column.render('Filter') : null}
                                 </th>
-                            ))}
+                            )}
                         </tr>
                     </>
                 ))}
                 </thead>
                 <tbody {...getTableBodyProps()}>
                 {page.map((row) => {
-                    console.log(page)
                     prepareRow(row)
                     return (
                         <tr {...row.getRowProps()} className="w3-hover-sand">
@@ -228,6 +247,7 @@ function Table({columns, data, operations}) {
                             onClick={() => {
                                 alert("Deleted " + id + " on path " + url)
                                 setDeleteClicked(false)
+                                deleteEntity(url, id)
                             }
                             }
                         >{"Delete"}</button>
@@ -240,15 +260,67 @@ function Table({columns, data, operations}) {
     )
 }
 
-function deleteRoom(id) {
-    alert("Deleted " + id)
+function DataTableComponent({getDataUrl, displayColumns, operations}) {
+
+    const [data, setData] = useState([])
+    const [isLoaded, setIsLoaded] = useState(false)
+
+    useEffect(() => {
+        axios.get(getDataUrl)
+            .then(result => result.data)
+            .then(data => {
+                console.log(data)
+                setData([...data])
+                setIsLoaded(true)
+            })
+    }, [])
+
+    const columns = React.useMemo(
+        () => [
+            ...displayColumns,
+            {
+                id: 'actions',
+                accessor: 'actions',
+
+                Cell: (row) => (
+                    <span style={{cursor: 'pointer', color: 'blue', textDecoration: 'underline'}}
+                          onClick={() => {
+                              let id = row.row.original.id
+                              let index = data.findIndex(entry => entry.id == id);
+                              data.splice(index, 1)
+                              setData(data.filter(entry => entry.id != id))
+                          }}
+                    >Delete</span>
+                )
+            }
+        ],
+        []
+    )
+
+    if (isLoaded) {
+        return (
+            <Table columns={columns} data={data} operations={operations}/>
+        )
+    } else {
+        return <div className="centered">
+            <Loader
+                type="Oval" //Audio Oval ThreeDots
+                color="#4B0082"
+                height={325}
+                width={325}
+                timeout={10000}
+            />
+        </div>
+    }
 }
 
-function editRoom(id) {
-    alert("Edited " + id)
-}
+// export default withTranslation()(DataTableComponent);
 
-function DataTableComponent() {
+function DataTableUsageExample() {
+
+    const {t} = useTranslation();
+    const dataUrl = `${baseUrl}/placement-owners/placement.owner@gmail.com/placements`
+
     const columns = React.useMemo(
         () => [
             {
@@ -256,107 +328,33 @@ function DataTableComponent() {
                 accessor: 'id',
             },
             {
-                Header: 'First Name',
-                accessor: 'firstName',
+                Header: t("Type"),
+                accessor: 'placementType',
             },
             {
-                Header: 'Last Name',
-                accessor: 'lastName'
+                Header: t("Floor"),
+                accessor: 'floor'
             },
             {
-                Header: 'Age',
-                accessor: 'age'
+                Header: t("WCount"),
+                accessor: 'windowsCount'
             },
             {
-                Header: 'Visits',
-                accessor: 'visits'
+                Header: t("Area"),
+                accessor: 'area'
             },
             {
-                Header: 'Status',
-                accessor: 'status'
-            },
-            {
-                Header: 'Profile Progress',
-                accessor: 'progress'
+                Header: t("Date"),
+                accessor: 'lastCleaning'
             }
         ],
         []
     )
 
-    const data = [
-        {
-            "id": 1,
-            "firstName": "horn-od926",
-            "lastName": "selection-gsykp",
-            "age": 22,
-            "visits": 20,
-            "progress": 39,
-            "status": "single"
-        },
-        {
-            "id": 2,
-            "firstName": "heart-nff6w",
-            "lastName": "information-nyp92",
-            "age": 16,
-            "visits": 98,
-            "progress": 40,
-            "status": "complicated"
-        },
-        {
-            "id": 3,
-            "firstName": "minute-yri12",
-            "lastName": "fairies-iutct",
-            "age": 7,
-            "visits": 77,
-            "progress": 39,
-            "status": "single"
-        },
-        {
-            "id": 4,
-            "firstName": "degree-jx4h0",
-            "lastName": "man-u2y40",
-            "age": 27,
-            "visits": 54,
-            "progress": 92,
-            "status": "relationship"
-        },
-        {
-            "id": 5,
-            "firstName": "horn-od926",
-            "lastName": "selection-gsykp",
-            "age": 22,
-            "visits": 20,
-            "progress": 39,
-            "status": "single"
-        },
-        {
-            "id": 6,
-            "firstName": "heart-nff6w",
-            "lastName": "information-nyp92",
-            "age": 16,
-            "visits": 98,
-            "progress": 40,
-            "status": "complicated"
-        },
-        {
-            "id": 7,
-            "firstName": "minute-yri12",
-            "lastName": "fairies-iutct",
-            "age": 7,
-            "visits": 77,
-            "progress": 39,
-            "status": "single"
-        },
-        {
-            "id": 8,
-            "firstName": "degree-jx4h0",
-            "lastName": "man-u2y40",
-            "age": 27,
-            "visits": 54,
-            "progress": 92,
-            "status": "relationship"
-        }
-    ]
+    function editRoom(id) {
+        localStorage.setItem("roomId", id);
+        window.location.href = "./edit_room";
+    }
 
     const operations = [
         {
@@ -374,8 +372,8 @@ function DataTableComponent() {
     ]
 
     return (
-        <Table columns={columns} data={data} operations={operations}/>
+        <DataTableComponent getDataUrl={dataUrl} displayColumns={columns} operations={operations}/>
     )
 }
 
-export default withTranslation()(DataTableComponent);
+export default withTranslation()(DataTableUsageExample);
