@@ -24,7 +24,7 @@ public abstract class User {
     @Column(name = "is_locked")
     protected Boolean isLocked;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ROLE_ID")
     protected Role role;
 

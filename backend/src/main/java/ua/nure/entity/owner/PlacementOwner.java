@@ -41,11 +41,11 @@ public class PlacementOwner extends User {
     @Column(name = "creation_date")
     private Date creationDate;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
 
-    @OneToMany(mappedBy = "placementOwner", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "placementOwner", fetch = FetchType.LAZY)
     Set<Placement> placements;
 
     @Override

@@ -53,16 +53,16 @@ public class Placement {
     private Date lastCleaning;
 
     @JsonIgnore
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "placement_owner_id")
     protected PlacementOwner placementOwner;
 
-    @OneToOne(mappedBy = "placement", cascade = CascadeType.ALL)
+    @OneToOne(mappedBy = "placement", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     private SmartDevice smartDevice;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "placement", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "placement", fetch = FetchType.LAZY)
     Set<Contract> contracts;
 
 }
