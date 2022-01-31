@@ -3,13 +3,13 @@ import {withTranslation} from 'react-i18next';
 
 import jwt_decode from "jwt-decode"
 import PlacementsTable from './placement/PlacementsTable';
+import * as Constants from "../util/Constants";
 
+const url = Constants.SERVER_URL;
 if (localStorage.getItem("Token") != null) {
     var token = localStorage.getItem("Token")
     var decoded = jwt_decode(token)
 }
-
-var url = "http://localhost:8080"
 
 class Profile extends React.Component {
 

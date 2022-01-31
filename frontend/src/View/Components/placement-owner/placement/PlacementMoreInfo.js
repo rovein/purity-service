@@ -5,8 +5,9 @@ import Loader from "react-loader-spinner";
 import Button from "../../ui/Button";
 import Moment from "moment";
 import localization from 'moment/locale/uk';
+import * as Constants from "../../util/Constants";
 
-var url = "http://localhost:8080"
+const url = Constants.SERVER_URL;
 
 class Info extends React.Component {
 

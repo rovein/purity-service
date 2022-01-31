@@ -1,16 +1,16 @@
 import React from 'react'
-import Button from '../ui/Button'
 import { withTranslation } from 'react-i18next';
 
 import jwt_decode from "jwt-decode"
 import ServiceCard from './service/ServicesTable';
+import * as Constants from "../util/Constants";
 
 if(localStorage.getItem("Token") != null){
     var token = localStorage.getItem("Token")
     var decoded = jwt_decode(token)
 }
 
-var url = "http://localhost:8080"
+const url = Constants.SERVER_URL;
 
 class Profile extends React.Component{
 

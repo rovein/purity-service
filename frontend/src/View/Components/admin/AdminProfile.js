@@ -3,10 +3,10 @@ import { withTranslation } from 'react-i18next';
 import CleaningCard from './AdminCleaningProvidersTable';
 import AdminCustCart from './AdminPlacementOwnersTable';
 import axios from "axios";
-import Button from "../ui/Button";
 import SweetAlert from "react-bootstrap-sweetalert";
+import * as Constants from "../util/Constants";
 
-var url = "http://localhost:8080";
+const url = Constants.SERVER_URL;
 const FileDownload = require("js-file-download");
 
 class Profile extends React.Component{

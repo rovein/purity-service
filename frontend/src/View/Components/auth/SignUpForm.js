@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next'
 import Loader from "react-loader-spinner";
 import * as Constants from "../util/Constants";
 
-var url = "http://localhost:8080";
+const url = Constants.SERVER_URL;
 
 class SignUpForm extends React.Component{
     constructor(props) {

@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode"
 import * as Constants from "../../util/Constants";
 import Loader from "react-loader-spinner";
 
-var url = "http://localhost:8080";
+const url = Constants.SERVER_URL;
 if(localStorage.getItem("Token") != null){
     var token = localStorage.getItem("Token")
     var decoded = jwt_decode(token)

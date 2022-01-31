@@ -2,8 +2,9 @@ import React from 'react'
 import Button from '../ui/Button'
 import { withTranslation } from 'react-i18next'
 import Loader from "react-loader-spinner";
+import * as Constants from "../util/Constants";
 
-var url = "http://localhost:8080"
+const url = Constants.SERVER_URL;
 
 class Card extends React.Component{
     constructor(props) {

@@ -6,13 +6,13 @@ import Moment from "moment";
 import localization from "moment/locale/uk";
 import Loader from "react-loader-spinner";
 import SweetAlert from "react-bootstrap-sweetalert";
+import * as Constants from "../../util/Constants";
 
+const url = Constants.SERVER_URL;
 if (localStorage.getItem("Token") != null) {
   var token = localStorage.getItem("Token");
   var decoded = jwt_decode(token);
 }
-
-var url = "http://localhost:8080";
 
 class PlacementsTable extends React.Component {
   constructor(props) {
