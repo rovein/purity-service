@@ -142,13 +142,15 @@ function Table({columns, data, operations, searchPlaceholder}) {
                                 </span>
                                 </th>
                             ))}
+                            {operations.length === 0 ? <></> :  <th> </th>}
                         </tr>
                         <tr {...headerGroup.getHeaderGroupProps()} className={"w3-light-grey"}>
                             {headerGroup.headers.map(column =>
-                                <th>
+                                <th className={"w3-border-bottom w3-border-black"}>
                                     {column.canFilter && column.id !== 'actions' ? column.render('Filter') : null}
                                 </th>
                             )}
+                            {operations.length === 0 ? <></> : <th className={"w3-border-bottom w3-border-black"}></th>}
                         </tr>
                     </>
                 ))}
@@ -251,7 +253,7 @@ function Table({columns, data, operations, searchPlaceholder}) {
                         <button
                             className="w3-btn w3-light-grey w3-round-small w3-medium"
                             onClick={() => setDeleteClicked(false)}
-                        >{"Cancel"}</button>
+                        >{t("Cancel")}</button>
                         &nbsp;
                         <button
                             className="w3-btn w3-red w3-round-small w3-medium"
@@ -261,11 +263,11 @@ function Table({columns, data, operations, searchPlaceholder}) {
                                 deleteEntity(deleteUrl, id)
                             }
                             }
-                        >{"Delete"}</button>
+                        >{t("Delete")}</button>
                     </React.Fragment>
                 }
             >
-                {"Cannot recover"}
+                {t("NotRecover")}
             </SweetAlert>}
         </div>
     )
