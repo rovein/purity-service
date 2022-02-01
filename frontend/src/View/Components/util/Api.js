@@ -9,7 +9,6 @@ instance.interceptors.request.use(config => {
     console.log(config)
     if (localStorage.getItem("Token") != null) {
         const token = localStorage.getItem("Token");
-        console.log(token)
         const decoded = jwt_decode(token);
         config.headers.common.Authorization = `Bearer ${token}`;
         config.headers['Accept'] = "application/json";

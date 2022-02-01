@@ -53,7 +53,6 @@ class App extends React.Component{
               <Route path='/sign_contract' component={SignContract}/>
 
               <Route path='/configure-smart-device' component={ConfigureDevice} />
-              <Route path='/data-table' component={DataTableUsageExample} />
             <Redirect from='/' to='/login'/>
           </Switch>
         </BrowserRouter>

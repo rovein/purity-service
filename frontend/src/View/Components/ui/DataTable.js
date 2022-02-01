@@ -6,19 +6,20 @@ import {
     useGlobalFilter,
     useAsyncDebounce,
     usePagination,
-    useSortBy,
-    useRowState
+    useSortBy
 } from 'react-table'
 import Button from "./Button";
 import SweetAlert from "react-bootstrap-sweetalert";
 import {useTranslation, withTranslation} from "react-i18next";
 import axios from '../util/Api';
 import * as Constants from "../util/Constants";
-import Loader from "react-loader-spinner";
+import DefaultLoader from "./Loader";
+import doWithDelay from "../util/Delay";
 
 const baseUrl = Constants.SERVER_URL;
 
 function GlobalFilter({globalFilter, setGlobalFilter}) {
+    const {t} = useTranslation();
     const [value, setValue] = React.useState(globalFilter)
     const onChange = useAsyncDebounce(value => {
         setGlobalFilter(value || undefined)
@@ -26,7 +27,7 @@ function GlobalFilter({globalFilter, setGlobalFilter}) {
 
     return (
         <span>
-            Global search:{' '}
+            {t("Search")}:{' '}
             <input
                 className="form-control"
                 value={value || ""}
@@ -53,9 +54,11 @@ function DefaultColumnFilter({column: {filterValue, setFilter}}) {
 }
 
 function Table({columns, data, operations}) {
-    const [deleteClicked, setDeleteClicked] = React.useState(false)
     const [id, setId] = React.useState(-1)
-    const [url, setUrl] = React.useState("")
+    const [deleteClicked, setDeleteClicked] = React.useState(false)
+    const [deleteUrl, setDeleteUrl] = React.useState("")
+    const [deleteCallback, setDeleteCallback] = React.useState(() => (id) => console.log(id))
+    const [isLoaded, setIsLoaded] = useState(true)
 
     const defaultColumn = React.useMemo(() => ({Filter: DefaultColumnFilter}), [])
 
@@ -95,18 +98,26 @@ function Table({columns, data, operations}) {
         usePagination,
     )
 
-    function handleDeleteOperation(url, elementId) {
+    function handleDeleteOperation(url, elementId, callback) {
         setId(elementId)
-        setUrl(url.replace("{id}", elementId))
+        setDeleteUrl(url.replace("{id}", elementId))
+        setDeleteCallback(() => callback)
         setDeleteClicked(true)
     }
 
     function deleteEntity(url, id) {
-        // axios.delete(`${baseUrl}/${url}`).then(result => {
-        data = data.filter(row => row.id !== id)
-        // })
+        axios.delete(`${baseUrl}/${url}`)
+            .then(result => {
+               doWithDelay(() => {
+                    deleteCallback(id)
+                    setIsLoaded(true)
+                })
+        }).catch(e => {
+            alert(e)
+        })
     }
 
+    if (!isLoaded) return <DefaultLoader/>;
     return (
         <div className={"w3-responsive"}>
             <GlobalFilter
@@ -158,7 +169,7 @@ function Table({columns, data, operations}) {
                                         onClick={() => {
                                             if (operation.name === 'Delete') {
                                                 handleDeleteOperation(operation.url,
-                                                    row.original[operation.onClickPassParameter])
+                                                    row.original[operation.onClickPassParameter], operation.onClick)
                                             } else {
                                                 operation.onClick(row.original[operation.onClickPassParameter])
                                             }
@@ -192,9 +203,9 @@ function Table({columns, data, operations}) {
                     </li>
                     <li className="w3-button w3-bar-item w3-hover-light-grey">
                         <a>
-                            Page{' '}
+                            {t("Page")}{' '}
                             <strong>
-                                {pageIndex + 1} of {pageOptions.length}
+                                {pageIndex + 1} / {pageOptions.length}
                             </strong>{' '}
                         </a>
                     </li>
@@ -221,11 +232,11 @@ function Table({columns, data, operations}) {
                         onChange={e => {
                             setPageSize(Number(e.target.value))
                         }}
-                        style={{width: '120px', height: '38px'}}
+                        style={{width: '180px', height: '38px'}}
                     >
                         {[5, 10, 20, 30, 40, 50].map(pageSize => (
                             <option key={pageSize} value={pageSize}>
-                                Show {pageSize}
+                                {t("Show")} {pageSize}
                             </option>
                         ))}
                     </select>
@@ -245,9 +256,9 @@ function Table({columns, data, operations}) {
                         <button
                             className="w3-btn w3-red w3-round-small w3-medium"
                             onClick={() => {
-                                alert("Deleted " + id + " on path " + url)
                                 setDeleteClicked(false)
-                                deleteEntity(url, id)
+                                setIsLoaded(false)
+                                deleteEntity(deleteUrl, id)
                             }
                             }
                         >{"Delete"}</button>
@@ -260,120 +271,29 @@ function Table({columns, data, operations}) {
     )
 }
 
-function DataTableComponent({getDataUrl, displayColumns, operations}) {
+function DataTableComponent({displayData, displayColumns, operations}) {
 
-    const [data, setData] = useState([])
-    const [isLoaded, setIsLoaded] = useState(false)
+    const [data, setData] = useState(displayData)
+
+    const columns = React.useMemo(() => [...displayColumns], [])
+
+    function deleteEntity(id) {
+        let index = data.findIndex(entry => entry.id == id);
+        data.splice(index, 1)
+        setData(data.filter(entry => entry.id != id))
+    }
 
     useEffect(() => {
-        axios.get(getDataUrl)
-            .then(result => result.data)
-            .then(data => {
-                console.log(data)
-                setData([...data])
-                setIsLoaded(true)
-            })
+        operations.forEach(operation => {
+            if (operation.name === "Delete") {
+                operation.onClick = deleteEntity
+            }
+        })
     }, [])
 
-    const columns = React.useMemo(
-        () => [
-            ...displayColumns,
-            {
-                id: 'actions',
-                accessor: 'actions',
-
-                Cell: (row) => (
-                    <span style={{cursor: 'pointer', color: 'blue', textDecoration: 'underline'}}
-                          onClick={() => {
-                              let id = row.row.original.id
-                              let index = data.findIndex(entry => entry.id == id);
-                              data.splice(index, 1)
-                              setData(data.filter(entry => entry.id != id))
-                          }}
-                    >Delete</span>
-                )
-            }
-        ],
-        []
-    )
-
-    if (isLoaded) {
-        return (
-            <Table columns={columns} data={data} operations={operations}/>
-        )
-    } else {
-        return <div className="centered">
-            <Loader
-                type="Oval" //Audio Oval ThreeDots
-                color="#4B0082"
-                height={325}
-                width={325}
-                timeout={10000}
-            />
-        </div>
-    }
-}
-
-// export default withTranslation()(DataTableComponent);
-
-function DataTableUsageExample() {
-
-    const {t} = useTranslation();
-    const dataUrl = `${baseUrl}/placement-owners/placement.owner@gmail.com/placements`
-
-    const columns = React.useMemo(
-        () => [
-            {
-                Header: 'ID',
-                accessor: 'id',
-            },
-            {
-                Header: t("Type"),
-                accessor: 'placementType',
-            },
-            {
-                Header: t("Floor"),
-                accessor: 'floor'
-            },
-            {
-                Header: t("WCount"),
-                accessor: 'windowsCount'
-            },
-            {
-                Header: t("Area"),
-                accessor: 'area'
-            },
-            {
-                Header: t("Date"),
-                accessor: 'lastCleaning'
-            }
-        ],
-        []
-    )
-
-    function editRoom(id) {
-        localStorage.setItem("roomId", id);
-        window.location.href = "./edit_room";
-    }
-
-    const operations = [
-        {
-            "name": "Delete",
-            "className": "w3-btn w3-red w3-round-small w3-medium",
-            "onClickPassParameter": "id",
-            "url": "placement-owners/placements/{id}",
-        },
-        {
-            "name": "Edit",
-            "onClick": editRoom,
-            "className": "w3-btn w3-khaki w3-round-small w3-medium",
-            "onClickPassParameter": "id"
-        },
-    ]
-
     return (
-        <DataTableComponent getDataUrl={dataUrl} displayColumns={columns} operations={operations}/>
+        <Table columns={columns} data={data} operations={operations}/>
     )
 }
 
-export default withTranslation()(DataTableUsageExample);
+export default withTranslation()(DataTableComponent);

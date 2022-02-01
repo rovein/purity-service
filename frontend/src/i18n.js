@@ -116,6 +116,8 @@ i18n.use(LanguageDetector).init({
         Configure: "Configure",
         AreYouSure: "Are you sure?",
         NotRecover: "You will not be able to restore this without administrator.",
+        Page: "Page",
+        Show: "Show"
       }
     },
     UA: {
@@ -217,7 +219,7 @@ i18n.use(LanguageDetector).init({
         EPPM:"Формат ціни за метр неправильний!",
         NotRecover: "Ви не зможете відновати дані без адміністратора.",
         AreYouSure: "Ви впевнені?",
-        Search:"Пошук надавачів",
+        Search:"Пошук",
         eExist:"Така електронна пошта вже існує в системі!",
         Temp: "Температура",
         dFact: "Рівень забрудненості",
@@ -227,7 +229,9 @@ i18n.use(LanguageDetector).init({
         ServerIp: "Адреса серверу",
         ServerPort: "Порт серверу",
         PlacementId: "Номер приміщення",
-        Configure: "Налаштувати"
+        Configure: "Налаштувати",
+        Page: "Сторінка",
+        Show: "Показати"
       }
     },
   },
