@@ -28,7 +28,7 @@ function GlobalFilter({globalFilter, setGlobalFilter, searchPlaceholder}) {
     return (
         <span>
             <input
-                className={"w3-input w3-border w3-border-black w3-hover-sand"}
+                className={"w3-input w3-border-bottom w3-border-black w3-hover-sand"}
                 placeholder={t(searchPlaceholder)}
                 value={value || ""}
                 onChange={e => {

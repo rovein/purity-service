@@ -69,8 +69,8 @@ class Profile extends React.Component {
             window.location.href = './'
         } else {
             return (
-                <div className="w3-light-grey w3-text-black">
-                    <div className="profile_back">
+                <div>
+                    <div className="w3-light-grey w3-text-black w3-border w3-border-black profile_back">
                         <p id="cName">{this.state.company.name}</p>
                         <p></p>
                         <p>{t("Email")}: {this.state.company.email}</p>
