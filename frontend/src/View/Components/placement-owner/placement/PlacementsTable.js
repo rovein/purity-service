@@ -1,278 +1,106 @@
 import React, {useEffect, useState} from "react";
-import Button from "../../ui/Button";
 import {useTranslation, withTranslation} from "react-i18next";
 import jwt_decode from "jwt-decode";
 import Moment from "moment";
 import localization from "moment/locale/uk";
-import Loader from "react-loader-spinner";
-import SweetAlert from "react-bootstrap-sweetalert";
 import axios from "../../util/Api";
 import DefaultLoader from "../../ui/Loader";
 import DataTableComponent from "../../ui/DataTable";
 import * as Constants from "../../util/Constants";
 
-// class PlacementsTable1 extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       error: null,
-//       isLoaded: false,
-//       rooms: [],
-//       date: "",
-//       deleteButtonClicked: false,
-//       placementId: 0
-//     };
-//   }
-//
-//   render() {
-//     const { t } = this.props;
-//     const { error, isLoaded, rooms } = this.state;
-//     if (error) {
-//       return (
-//         <div className="additional">
-//           {t("Failiture")}: {error.message}
-//         </div>
-//       );
-//     } else if (!isLoaded) {
-//       return <div className="centered">
-//         <Loader
-//           type="Oval" //Audio Oval ThreeDots
-//           color="#4B0082"
-//           height={325}
-//           width={325}
-//           timeout={10000}
-//         />
-//       </div>;
-//     } else {
-//       return (
-//         <div>
-//           <table className="w3-table-all w3-centered w3-hoverable w3-large">
-//             <thead>
-//             <tr className="w3-light-grey">
-//               <th>ID</th>
-//               <th>{t("Type")}</th>
-//               <th> {t("Floor")}</th>
-//               <th> {t("WCount")}</th>
-//               <th>{t("Area")}</th>
-//               <th>{t("Date")}</th>
-//               <th></th>
-//             </tr>
-//             </thead>
-//             <tbody>
-//             {rooms.sort((oneRoom, anotherRoom) => {
-//               return oneRoom.id - anotherRoom.id
-//             }).map(this.renderCard)}
-//             </tbody>
-//           </table>
-//           {this.state.deleteButtonClicked && <SweetAlert
-//             danger
-//             dependencies={[this.state.deleteButtonClicked]}
-//             title={t("AreYouSure")}
-//             customButtons={
-//               <React.Fragment>
-//                 <button
-//                   className="w3-btn w3-light-grey w3-round-small w3-medium"
-//                   onClick={() => this.setState({deleteButtonClicked: false})}
-//                 >{t("Cancel")}</button>
-//                 &nbsp;
-//                 <button
-//                   className="w3-btn w3-red w3-round-small w3-medium"
-//                   onClick={() => this.deleteRoom(this.state.placementId)}
-//                 >{t("Delete")}</button>
-//               </React.Fragment>
-//             }
-//           >
-//             {t("NotRecover")}
-//           </SweetAlert>}
-//         </div>
-//       );
-//     }
-//   }
-//
-//   renderCard = (room) => {
-//     const { t } = this.props;
-//     const columnStyle = {verticalAlign: "middle"};
-//     this.localTime(room.lastCleaning);
-//     return (
-//         <tr className="w3-hover-sand">
-//           <td style={columnStyle}>{room.id}</td>
-//           <td style={columnStyle}>{room.placementType}</td>
-//           <td style={columnStyle}>{room.floor}</td>
-//           <td style={columnStyle}>{room.windowsCount}</td>
-//           <td style={columnStyle}>{room.area}</td>
-//           <td style={columnStyle}>{this.state.date}</td>
-//           <td>
-//             <Button
-//                 className='w3-btn w3-indigo w3-round-small w3-medium'
-//                 text={t("More")}
-//                 onClick={() => {
-//                   localStorage.setItem("Id", room.id);
-//                   window.location.href = "./more";
-//                 }}
-//             /> &nbsp;
-//             <Button
-//                 className='w3-btn w3-khaki w3-round-small w3-medium'
-//                 text={t("Edit")}
-//                 onClick={(e) => {
-//                   localStorage.setItem("roomId", room.id);
-//                   window.location.href = "./edit_room";
-//                 }}
-//             /> &nbsp;
-//             <Button
-//                 className='w3-btn w3-red w3-round-small w3-medium'
-//                 text={t("Delete")} onClick={() => this.setState({placementId: room.id, deleteButtonClicked: true})} />
-//           </td>
-//         </tr>
-//     );
-//   };
-//
-//   componentDidMount() {
-//     fetch(`${url}/placement-owners/${decoded.email}/placements`, {
-//       method: "get",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
-//         Authorization: "Bearer " + localStorage.getItem("Token"),
-//       },
-//     })
-//       .then((res) => res.json())
-//       .then(
-//         (result) => {
-//           this.setState({
-//             isLoaded: true,
-//             rooms: result,
-//           });
-//         },
-//         (error) => {
-//           this.setState({
-//             isLoaded: true,
-//             error,
-//           });
-//         }
-//       );
-//   }
-//
-//   localTime(date) {
-//     if (localStorage.getItem("i18nextLng") === "EN") {
-//       this.state.date = Moment(date).locale("en").format("LLL");
-//     } else if (localStorage.getItem("i18nextLng") === "UA") {
-//       this.state.date = Moment(date).locale("uk", localization).format("LLL");
-//     }
-//   }
-//
-//   deleteRoom(id) {
-//     this.setState({isLoaded: false})
-//     fetch(`${url}/placement-owners/placements/${id}`, {
-//       method: "delete",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
-//         Authorization: "Bearer " + token,
-//       },
-//     }).then(
-//       (result) => {
-//         this.setState({
-//           rooms: this.state.rooms.filter(room => {
-//               return room.id !== id
-//             }
-//           ),
-//           isLoaded: true,
-//           deleteButtonClicked: false
-//         })
-//       },
-//       (error) => {
-//         this.setState({
-//           isLoaded: true,
-//           error,
-//         });
-//       }
-//     );
-//   }
-// }
-
 function PlacementsTable() {
-  const baseUrl = Constants.SERVER_URL;
-  let decoded
-  if (localStorage.getItem("Token") != null) {
-    decoded = jwt_decode(localStorage.getItem("Token"));
-  }
-
-  const {t} = useTranslation();
-  const dataUrl = `${baseUrl}/placement-owners/${decoded.email}/placements`
-  const [data, setData] = useState([])
-  const [isLoaded, setIsLoaded] = useState(false)
-
-  useEffect(() => {
-    axios.get(dataUrl)
-        .then(result =>  {
-          setData([...result.data])
-          setIsLoaded(true)
-        })
-  }, [])
-
-  const columns = React.useMemo(
-      () => [
-        {
-          Header: 'ID',
-          accessor: 'id',
-        },
-        {
-          Header: t("Type"),
-          accessor: 'placementType',
-        },
-        {
-          Header: t("Floor"),
-          accessor: 'floor'
-        },
-        {
-          Header: t("WCount"),
-          accessor: 'windowsCount'
-        },
-        {
-          Header: t("Area"),
-          accessor: 'area'
-        },
-        {
-          Header: t("Date"),
-          accessor: 'lastCleaning'
-        }
-      ],
-      []
-  )
-
-  function editEntity(id) {
-    localStorage.setItem("roomId", id);
-    window.location.href = "./edit_room";
-  }
-
-  function openMore(id) {
-    localStorage.setItem("Id", id);
-    window.location.href = "./more";
-  }
-
-  const operations = [
-    {
-      "name": t("More"),
-      "onClick": openMore,
-      "className": "w3-btn w3-indigo w3-round-small w3-medium",
-      "onClickPassParameter": "id"
-    },
-    {
-      "name": t("Edit"),
-      "onClick": editEntity,
-      "className": "w3-btn w3-khaki w3-round-small w3-medium",
-      "onClickPassParameter": "id"
-    },
-    {
-      "name": t("Delete"),
-      "className": "w3-btn w3-red w3-round-small w3-medium",
-      "onClickPassParameter": "id",
-      "url": "placement-owners/placements/{id}",
+    const baseUrl = Constants.SERVER_URL;
+    let decoded
+    if (localStorage.getItem("Token") != null) {
+        decoded = jwt_decode(localStorage.getItem("Token"));
     }
-  ]
 
-  if (!isLoaded) return <DefaultLoader/>;
-  return <DataTableComponent displayData={data} displayColumns={columns} operations={operations}/>
+    const {t} = useTranslation();
+    const dataUrl = `${baseUrl}/placement-owners/${decoded.email}/placements`
+    const [data, setData] = useState([])
+    const [isLoaded, setIsLoaded] = useState(false)
+
+    useEffect(() => {
+        axios.get(dataUrl)
+            .then(result => {
+                const data = result.data
+                data.forEach(entry => entry.lastCleaning = localTime(entry.lastCleaning))
+                setData(data)
+                setIsLoaded(true)
+            })
+    }, [])
+
+    const columns = React.useMemo(
+        () => [
+            {
+                Header: 'ID',
+                accessor: 'id',
+            },
+            {
+                Header: "Type",
+                accessor: 'placementType',
+            },
+            {
+                Header: "Floor",
+                accessor: 'floor'
+            },
+            {
+                Header: "WCount",
+                accessor: 'windowsCount'
+            },
+            {
+                Header: "Area",
+                accessor: 'area'
+            },
+            {
+                Header: "Date",
+                accessor: 'lastCleaning'
+            }
+        ],
+        []
+    )
+
+    function editEntity(id) {
+        localStorage.setItem("roomId", id);
+        window.location.href = "./edit_room";
+    }
+
+    function openMore(id) {
+        localStorage.setItem("Id", id);
+        window.location.href = "./more";
+    }
+
+    const operations = [
+        {
+            "name": "More",
+            "onClick": openMore,
+            "className": "w3-btn w3-indigo w3-round-small w3-medium",
+            "onClickPassParameter": "id"
+        },
+        {
+            "name": "Edit",
+            "onClick": editEntity,
+            "className": "w3-btn w3-khaki w3-round-small w3-medium",
+            "onClickPassParameter": "id"
+        },
+        {
+            "name": "Delete",
+            "className": "w3-btn w3-red w3-round-small w3-medium",
+            "onClickPassParameter": "id",
+            "url": "placement-owners/placements/{id}",
+        }
+    ]
+
+    if (!isLoaded) return <DefaultLoader/>;
+    return <DataTableComponent displayData={data} displayColumns={columns} operations={operations}/>
+}
+
+function localTime(date) {
+    if (localStorage.getItem("i18nextLng") === "EN") {
+        return Moment(date).locale("en").format("LLL");
+    } else if (localStorage.getItem("i18nextLng") === "UA") {
+        return Moment(date).locale("uk", localization).format("LLL");
+    }
 }
 
 export default withTranslation()(PlacementsTable);

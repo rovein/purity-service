@@ -29,7 +29,7 @@ function GlobalFilter({globalFilter, setGlobalFilter}) {
         <span>
             {t("Search")}:{' '}
             <input
-                className="form-control"
+                className={"w3-input w3-hover-sand"}
                 value={value || ""}
                 onChange={e => {
                     setValue(e.target.value);
@@ -43,7 +43,6 @@ function GlobalFilter({globalFilter, setGlobalFilter}) {
 function DefaultColumnFilter({column: {filterValue, setFilter}}) {
     return (
         <input
-            className="form-control"
             value={filterValue || ''}
             style={{"width": "100px"}}
             onChange={e => {
@@ -133,7 +132,7 @@ function Table({columns, data, operations}) {
                             {headerGroup.headers.map(column => (
                                 <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                                 <span>
-                                    {column.render('Header')}
+                                    {t(column.render('Header'))}
                                     {column.isSorted
                                         ? column.isSortedDesc
                                             ? ' 🔽'
@@ -165,7 +164,7 @@ function Table({columns, data, operations}) {
                                 {operations.map(operation => {
                                     return <><Button
                                         className={operation.className}
-                                        text={operation.name}
+                                        text={t(operation.name)}
                                         onClick={() => {
                                             if (operation.name === 'Delete') {
                                                 handleDeleteOperation(operation.url,

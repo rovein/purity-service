@@ -5,6 +5,7 @@ import { withTranslation } from 'react-i18next'
 import jwt_decode from "jwt-decode"
 import * as Constants from "../../util/Constants";
 import Loader from "react-loader-spinner";
+import {checkArea, checkFloor, checkType, checkWCount} from "../../util/ValidationUtils";
 
 const url = Constants.SERVER_URL;
 if(localStorage.getItem("Token") != null){
@@ -73,53 +74,17 @@ class AddRForm extends React.Component{
         )
       }
 
-    checkType(type) {
-        let rType = new RegExp('^([А-Яа-яё]+)|([a-z]+)$');
-        if(!rType.test(type)){
-            this.setState({flag: 2}); 
-          return false
-        }
-        return true
-    }
-
-    checkFloor(floor) {
-        let rFloor = new RegExp('^([0-9]+)$');
-        if(!rFloor.test(floor)){
-            this.setState({flag: 3}); 
-        return false
-        }
-        return true
-    }
-
-    checkArea(area) {
-        let rArea = new RegExp('^([0-9]+)$');
-        if(!rArea.test(area)){
-            this.setState({flag: 4}); 
-            return false
-        }
-        return true
-    }
-
-    checkWCount(winCount) {
-        let rWCount = new RegExp('^([0-9]+)$');
-        if(!rWCount.test(winCount)){
-            this.setState({flag: 5}); 
-            return false
-        }
-        return true
-    }
-
     checkCred(){
-        if(!this.checkType(this.state.type)){
+        if(!checkType(this.state.type)){
             return
         }
-        if(!this.checkFloor(this.state.floor)){
+        if(!checkFloor(this.state.floor)){
             return
         }
-        if(!this.checkWCount(this.state.winCount)){
+        if(!checkWCount(this.state.winCount)){
             return
         }
-        if(!this.checkArea(this.state.area)){
+        if(!checkArea(this.state.area)){
             return
         }
         this.setState({
@@ -186,7 +151,7 @@ class AddRForm extends React.Component{
           <div
             className="w3-container w3-card-4 w3-light-grey w3-text-indigo w3-margin"
             style={{width: "700px", fontSize: "22px"}}>
-              <h1 className="w3-center">{t('EditP')}</h1>
+              <h1 className="w3-center">{t('EditR')}</h1>
               <div className="sized-font w3-center w3-text-red">
                   {this.state.flag === 2 && <p>{t("EType")}</p>}
                   {this.state.flag === 3 && <p>{t("EFloor")}</p>}
