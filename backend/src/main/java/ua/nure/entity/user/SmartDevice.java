@@ -11,7 +11,6 @@ import ua.nure.entity.owner.Placement;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.MapsId;
@@ -50,7 +49,7 @@ public class SmartDevice {
     @Column(name = "priority")
     private String priority;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @MapsId
     @JsonIgnore
     @JoinColumn(name = "placement_id")

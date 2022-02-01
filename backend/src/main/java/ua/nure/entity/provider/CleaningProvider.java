@@ -45,11 +45,11 @@ public class CleaningProvider extends User {
     @Column(name = "creation_date")
     private Date creationDate;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
 
-    @OneToMany(mappedBy = "cleaningProvider", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "cleaningProvider", fetch = FetchType.EAGER)
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Set<ProviderService> providerServices;
 
