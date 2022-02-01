@@ -163,13 +163,13 @@ button:focus {
 }
 
 .profile_back {
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    27deg,
-    rgb(35 26 107) 0%,
-    rgb(73 73 167) 35%,
-    rgb(146 211 250) 100%
-  );
+  /*background: rgb(2, 0, 36);*/
+  /*background: linear-gradient(*/
+  /*  27deg,*/
+  /*  rgb(35 26 107) 0%,*/
+  /*  rgb(73 73 167) 35%,*/
+  /*  rgb(146 211 250) 100%*/
+  /*);*/
   display: grid;
   grid-template-columns: 60% 40%;
 }
@@ -193,14 +193,14 @@ button:focus {
 
 #cName {
   font-size: 36px;
-  color: #fbfbfb;
+  /*color: #fbfbfb;*/
   font-weight: bold;
 }
 
 .profile_back p {
   font-size: 18px;
   cursor: default;
-  color: #f4f4f4;
+  /*color: #f4f4f4;*/
   margin: 10px 0 10px 20%;
 }
 

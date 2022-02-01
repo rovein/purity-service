@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from "react";
-import {useTranslation, withTranslation} from "react-i18next";
+import {withTranslation} from "react-i18next";
 import jwt_decode from "jwt-decode";
 import Moment from "moment";
 import localization from "moment/locale/uk";
-import axios from "../../util/Api";
+import axios from "../../util/ApiUtil";
 import DefaultLoader from "../../ui/Loader";
 import DataTableComponent from "../../ui/DataTable";
 import * as Constants from "../../util/Constants";
@@ -15,7 +15,6 @@ function PlacementsTable() {
         decoded = jwt_decode(localStorage.getItem("Token"));
     }
 
-    const {t} = useTranslation();
     const dataUrl = `${baseUrl}/placement-owners/${decoded.email}/placements`
     const [data, setData] = useState([])
     const [isLoaded, setIsLoaded] = useState(false)
@@ -92,7 +91,8 @@ function PlacementsTable() {
     ]
 
     if (!isLoaded) return <DefaultLoader/>;
-    return <DataTableComponent displayData={data} displayColumns={columns} operations={operations}/>
+    return <DataTableComponent displayData={data} displayColumns={columns}
+                               operations={operations} searchPlaceholder={"GlobalPlacementsSearch"}/>
 }
 
 function localTime(date) {

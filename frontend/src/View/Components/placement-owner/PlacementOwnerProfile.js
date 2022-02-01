@@ -69,7 +69,7 @@ class Profile extends React.Component {
             window.location.href = './'
         } else {
             return (
-                <div className="profile">
+                <div className="w3-light-grey w3-text-black">
                     <div className="profile_back">
                         <p id="cName">{this.state.company.name}</p>
                         <p></p>
@@ -84,9 +84,9 @@ class Profile extends React.Component {
                             t("House")} {this.state.address.houseNumber}
                         </p>
                     </div>
-                    <div className="rooms_back">
-                        <p>{t("Rooms")}</p>
-                    </div>
+                    {/*<div className="rooms_back">*/}
+                    {/*    <p>{t("Rooms")}</p>*/}
+                    {/*</div>*/}
                     <div id="rooms_container">
                         <PlacementsTable/>
                     </div>

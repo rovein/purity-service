@@ -101,8 +101,8 @@ i18n.use(LanguageDetector).init({
         PPM:"Price per meter",
         BackupWillDownload: "File for data restore will be downloaded after some seconds...",
         Success: "Success!",
-
         Search:"Search",
+        GlobalPlacementsSearch:"Placements search...",
         eExist:"Such email already exist in system!",
         ConfirmPassword: "Confirm password",
         Temp: "Temperature",
@@ -220,6 +220,7 @@ i18n.use(LanguageDetector).init({
         NotRecover: "Ви не зможете відновати дані без адміністратора.",
         AreYouSure: "Ви впевнені?",
         Search:"Пошук",
+        GlobalPlacementsSearch:"Пошук приміщень...",
         eExist:"Така електронна пошта вже існує в системі!",
         Temp: "Температура",
         dFact: "Рівень забрудненості",

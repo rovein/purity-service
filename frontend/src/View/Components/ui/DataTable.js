@@ -11,14 +11,14 @@ import {
 import Button from "./Button";
 import SweetAlert from "react-bootstrap-sweetalert";
 import {useTranslation, withTranslation} from "react-i18next";
-import axios from '../util/Api';
+import axios from '../util/ApiUtil';
 import * as Constants from "../util/Constants";
 import DefaultLoader from "./Loader";
-import doWithDelay from "../util/Delay";
+import doWithDelay from "../util/DelayUtil";
 
 const baseUrl = Constants.SERVER_URL;
 
-function GlobalFilter({globalFilter, setGlobalFilter}) {
+function GlobalFilter({globalFilter, setGlobalFilter, searchPlaceholder}) {
     const {t} = useTranslation();
     const [value, setValue] = React.useState(globalFilter)
     const onChange = useAsyncDebounce(value => {
@@ -27,9 +27,9 @@ function GlobalFilter({globalFilter, setGlobalFilter}) {
 
     return (
         <span>
-            {t("Search")}:{' '}
             <input
-                className={"w3-input w3-hover-sand"}
+                className={"w3-input w3-border w3-border-black w3-hover-sand"}
+                placeholder={t(searchPlaceholder)}
                 value={value || ""}
                 onChange={e => {
                     setValue(e.target.value);
@@ -52,7 +52,7 @@ function DefaultColumnFilter({column: {filterValue, setFilter}}) {
     )
 }
 
-function Table({columns, data, operations}) {
+function Table({columns, data, operations, searchPlaceholder}) {
     const [id, setId] = React.useState(-1)
     const [deleteClicked, setDeleteClicked] = React.useState(false)
     const [deleteUrl, setDeleteUrl] = React.useState("")
@@ -123,6 +123,7 @@ function Table({columns, data, operations}) {
                 preGlobalFilteredRows={preGlobalFilteredRows}
                 globalFilter={state.globalFilter}
                 setGlobalFilter={setGlobalFilter}
+                searchPlaceholder={searchPlaceholder}
             />
             <table className="w3-table-all w3-large w3-centered w3-hoverable" {...getTableProps()}>
                 <thead>
@@ -270,7 +271,7 @@ function Table({columns, data, operations}) {
     )
 }
 
-function DataTableComponent({displayData, displayColumns, operations}) {
+function DataTableComponent({displayData, displayColumns, operations, searchPlaceholder}) {
 
     const [data, setData] = useState(displayData)
 
@@ -291,7 +292,7 @@ function DataTableComponent({displayData, displayColumns, operations}) {
     }, [])
 
     return (
-        <Table columns={columns} data={data} operations={operations}/>
+        <Table columns={columns} data={data} operations={operations} searchPlaceholder={searchPlaceholder}/>
     )
 }
 
