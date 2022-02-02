@@ -1,4 +1,4 @@
-FROM maven:3.6.3-jdk-8-slim AS build
+FROM maven:3.6.3-jdk-11-slim AS build
 
 WORKDIR /usr/src/java-code
 COPY . /usr/src/java-code/
